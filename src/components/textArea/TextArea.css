@@ -1,0 +1,6 @@
+/* src/components/textArea/TextArea.css */
+
+.custom-textarea {
+  line-height: 5; /* 设置行高 */
+  color: red; /* 设置字体颜色 */
+}
