@@ -2,9 +2,9 @@
 
 # Prompts 乐高
 
-![](https://img.shields.io/badge/platform-win--64-lightgrey)
-![](https://img.shields.io/badge/version-v0.0.1-orange)
-[![](https://img.shields.io/badge/waitlist-join-ff69b4)](https://www.copilot-m.top/)
+![](https://img.shields.io/badge/License-MIT-lightgrey)
+![](https://img.shields.io/badge/Version-v0.0.1-orange)
+[![](https://img.shields.io/badge/Waitlist-join-ff69b4)](https://www.copilot-m.top/)
 
 ## 基于语法结构的可视化提示词效率工具
 🙌PROMPTS LEGO 是一款基于语法结构的可视化提示词效率工具，可实现更低的语言组织成本，通过分类语法结构让提示词更易理解，可视化模板，仅需点击关键词即可拼接成可用的提示词，提高使用效率。
