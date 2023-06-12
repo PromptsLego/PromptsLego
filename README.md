@@ -6,8 +6,10 @@
 ![](https://img.shields.io/badge/Version-v0.0.1-orange)
 [![](https://img.shields.io/badge/Waitlist-join-ff69b4)](https://www.copilot-m.top/)
 
+🤗 欢迎访问 https://www.copilot-m.top, 即刻加入后续更新的 Waitlist ! 
+
 ## 基于语法结构的可视化提示词效率工具
-🙌PROMPTS LEGO 是一款基于语法结构的可视化提示词效率工具，可实现更低的语言组织成本，通过分类语法结构让提示词更易理解，可视化模板，仅需点击关键词即可拼接成可用的提示词，提高使用效率。
+🙌 PROMPTS LEGO 是一款基于语法结构的可视化提示词效率工具，可实现更低的语言组织成本，通过分类语法结构让提示词更易理解，可视化模板，仅需点击关键词即可拼接成可用的提示词，提高使用效率。
 
 💫 我们帮助用户更好的管理自己的提示词。提供更高的自由度，支持 Prompt 拼接自由和局部优化，同时提供更有趣的交互体验，模拟积木拼接的方式，使 Prompt 编写变得像搭积木一样简单。
 
@@ -16,7 +18,7 @@
 
 Demo 视频：[‍⁢⁡‬⁤⁡‍⁤⁣⁤⁤‍﻿‬⁢‬⁤‌⁡⁤⁢‌﻿⁣‍⁡⁡﻿⁢⁣⁣﻿⁢‍‬⁣﻿‬⁤‍⁡﻿ 提示词乐高](https://k5ms77k0o1.feishu.cn/wiki/QH3Rwp37diiNwAkhEjbcCF04ndh)
 
-Website：https://www.copilot-m.top/
+Website & Waitlist：https://www.copilot-m.top
 
 Deck：[我们是谁——Prompts 乐高](https://gamma.app/docs/Prompts-9raq6ho76eribbm?mode=doc)
 
