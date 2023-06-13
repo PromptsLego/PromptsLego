@@ -67,3 +67,7 @@ npm run start
 ## 联系方式
 
 ![](./docs/assets/welcome.png)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=PromptsLego/PromptsLego&type=Date)](https://star-history.com/#PromptsLego/PromptsLego&Date)
