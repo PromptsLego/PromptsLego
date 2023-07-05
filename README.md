@@ -52,19 +52,19 @@ Github：https://github.com/PromptsLego/PromptsLego
 
 ## 开发者部署流程
 
-本项目使用[Create React App](https://github.com/facebook/create-react-app).
+本项目使用[Vite](https://github.com/vitejs/vite.git).
 
 使用方法：
 
 ```shell
 yarn install
-yarn start
+yarn dev
 ```
 
 或者
 ```shell
 npm install
-npm run start
+npm run dev
 ```
 
 部署如果需要使用优化的功能，需要在 `src/config.ts` 中填入自己的 [PromptsPerfect](https://promptperfect.jinaai.cn/) 的 Api key
