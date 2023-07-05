@@ -1,35 +1,13 @@
-import { Layout } from "antd";
-import { Footer, Header } from "antd/es/layout/layout";
-import { FC } from "react";
-import CenterContent from "./components/centerContent/CenterContent";
-import LeftSider from "./components/leftSider/LeftSider";
-import RightSider from "./components/rightSider/RightSider";
-import Logo from "./components/logo/Logo";
-import ButtonLogo from "./components/logo/ButtonLogo";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css"
+import { ContentContextProvider } from "./contexts/ContentContext.tsx";
 
-const Main: FC = () => {
-  return (
-    <Layout style={{ height: "100vh" }}>
-      <Header style={{ backgroundColor: "white", height: "10%" }}>
-        <Logo></Logo>
-      </Header>
-      <Layout style={{ height: "85%" }}>
-        <LeftSider />
-        <CenterContent />
-        <RightSider />
-      </Layout>
-      <Footer
-        style={{
-          height: "5%",
-          display: "flex",
-          marginLeft: "auto",
-          backgroundColor: "white",
-        }}
-      >
-        <ButtonLogo></ButtonLogo>
-      </Footer>
-    </Layout>
-  );
-};
-
-export default Main;
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <ContentContextProvider>
+      <App />
+    </ContentContextProvider>
+  </React.StrictMode>
+);
