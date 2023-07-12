@@ -50,8 +50,8 @@ export const LegoFrozenImageUrl = (color: string | undefined) => {
 };
 
 export const LegoStyle = {
-  backgroundPosition: "center center",
-  backgroundSize: "cover",
+  // backgroundPosition: "center center",
+  backgroundSize: "contain",
   backgroundRepeat: "no-repeat",
   height: "50px",
   width: "180px",

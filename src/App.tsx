@@ -22,8 +22,8 @@ const App: FC = () => {
         style={{
           height: "5%",
           display: "flex",
-          marginLeft: "auto",
           backgroundColor: "white",
+          color: "white",
         }}
       >
         <ButtonLogo></ButtonLogo>
