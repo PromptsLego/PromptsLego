@@ -25,7 +25,8 @@ const StatusButton: React.FC = () => {
           mouseStatus === "default"
             ? `url(${NotFrozeImage})`
             : `url(${FrozeImage})`,
-        backgroundSize: "cover",
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
         width: "60px",
         height: "60px",
         border: "none",
