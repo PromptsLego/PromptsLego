@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
-import TextArea from "../textArea/TextArea";
 import Sider from "antd/es/layout/Sider";
-import OptimizedTextArea from "../textArea/OptimizedTextArea";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import ContentContext from "../../contexts/ContentContext";
 import copyImage from "../../assets/copyImage.svg";
 import optimizeImage from "../../assets/optimizeImage.svg";
@@ -10,6 +8,8 @@ import collectImage from "../../assets/collectImage.svg";
 import dropImage from "../../assets/dropImage.svg";
 import promptperfect from "../textArea/PromptPerfect";
 import { config } from "../../config";
+import optimizeBackground from "../../assets/optimizeBackground.svg";
+import inputBackground from "../../assets/inputBackground.svg";
 
 const YOUR_GENERATED_SECRET = config.jina_key;
 
@@ -110,89 +110,120 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
       style={{
         backgroundColor: "white",
         height: "100%",
+        display: "flex",
+        paddingLeft: "58px",
       }}
       width={"30%"}
     >
+      <Input.TextArea
+        value={details
+          .map((detail) => {
+            if (detail.details.length === 0) return;
+            return "▎" + detail.category + ": " + detail.details.join("\n");
+          })
+          .join("\n")}
+        readOnly
+        placeholder="promptLego"
+        style={{
+          lineHeight: "2",
+          fontSize: "16px",
+          backgroundImage: `url(${inputBackground})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          border: "none",
+
+          minHeight: "45%",
+          overflow: "auto",
+          resize: "none",
+          padding: "10px 20px",
+        }}
+      />
+      <Input.TextArea
+        value={optimizedTextAreaValue}
+        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+          SetOptimizedTextAreaValue(event.target.value)
+        }
+        style={{
+          lineHeight: "2",
+          fontSize: "16px",
+          backgroundImage: `url(${optimizeBackground})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          border: "none",
+          padding: "10px 20px",
+
+          minHeight: "45%",
+          overflow: "auto",
+          resize: "none",
+        }}
+        readOnly
+        placeholder="promptLego"
+      />
       <div
         style={{
-          marginLeft: "20px",
-          marginRight: "20px",
-          height: "110%",
+          display: "flex",
+          justifyContent: "flex-end",
           width: "100%",
+          height: "10%",
         }}
       >
-        <TextArea
-          value={details
-            .map((detail) => {
-              if (detail.details.length === 0) return;
-              return "▎" + detail.category + ": " + detail.details.join("\n");
-            })
-            .join("\n")}
-        />
-        <OptimizedTextArea
-          value={optimizedTextAreaValue}
-          onChange={SetOptimizedTextAreaValue}
-        />
-        <div
+        <Button
           style={{
-            height: "10%",
-            width: "87%",
-            display: "flex",
-            // justifyContent: "space-between",
-            marginTop: "10px",
-            // marginRight: "20px",
-          }}
-        >
-          <Button
-            style={{
-              marginLeft: "120px",
-              backgroundImage: `url(${copyImage})`,
-              width: "25%",
-              height: "58% ",
-              borderColor: "transparent",
-              border: "none",
-              backgroundSize: "cover",
-            }}
-            onClick={handleCopy}
-          ></Button>
-          <Button
-            style={{
-              backgroundImage: `url(${optimizeImage})`,
-              marginLeft: "20px",
-              width: "13%",
-              height: "60%",
-              border: "none",
-              borderColor: "transparent",
-              backgroundSize: "cover",
-            }}
-            onClick={handleOptimize}
-          ></Button>
-          <Button
-            style={{
-              backgroundImage: `url(${collectImage})`,
-              marginLeft: "20px",
-              width: "13%",
-              height: "60%",
-              border: "none",
-              borderColor: "transparent",
-              backgroundSize: "cover",
-            }}
-            onClick={handleFavorite}
-          ></Button>
+            backgroundImage: `url(${copyImage})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
 
-          <Button
-            style={{
-              backgroundImage: `url(${dropImage})`,
-              marginLeft: "20px",
-              width: "13%",
-              height: "60%",
-              border: "none",
-              borderColor: "transparent",
-              backgroundSize: "cover",
-            }}
-            onClick={handleDrop}
-          ></Button>
-        </div>
+            marginLeft: "15px",
+            width: "88px",
+            height: "42px",
+            borderColor: "transparent",
+            border: "none",
+          }}
+          onClick={handleCopy}
+        ></Button>
+        <Button
+          style={{
+            backgroundImage: `url(${optimizeImage})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+
+            marginLeft: "15px",
+            width: "42px",
+            height: "42px",
+            border: "none",
+            borderColor: "transparent",
+          }}
+          onClick={handleOptimize}
+        ></Button>
+        <Button
+          style={{
+            backgroundImage: `url(${collectImage})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+
+            marginLeft: "15px",
+            width: "42px",
+            height: "42px",
+            border: "none",
+            borderColor: "transparent",
+          }}
+          onClick={handleFavorite}
+        ></Button>
+
+        <Button
+          style={{
+            backgroundImage: `url(${dropImage})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+
+            marginLeft: "15px",
+            width: "42px",
+            height: "42px",
+            border: "none",
+            borderColor: "transparent",
+          }}
+          onClick={handleDrop}
+        ></Button>
       </div>
     </Sider>
   );

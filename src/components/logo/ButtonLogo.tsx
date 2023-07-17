@@ -9,6 +9,7 @@ const ButtonLogo: React.FC<ButtonLogoProps> = () => {
         backgroundColor: 'white',
         height: "13px",
         width: "220px",
+        marginLeft: "auto",
       }}
     ></div>
   );

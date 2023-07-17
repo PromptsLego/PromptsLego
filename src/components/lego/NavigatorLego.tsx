@@ -22,6 +22,7 @@ const NavigatorLego: React.FC<LegoProps> = ({
     <button
       style={{
         backgroundImage: `url(${imageUrl})`,
+        backgroundColor: "transparent",
         ...NavigatorLegoStyle,
       }}
       onClick={clickHandler}

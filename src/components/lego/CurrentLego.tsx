@@ -169,6 +169,7 @@ const CurrentLego: React.FC<LegoProps> = ({
     <button
       style={{
         backgroundImage: `url(${imageUrl})`,
+        backgroundColor: "transparent",
         ...LegoStyle,
       }}
       onClick={clickMouseLeftHandler}
