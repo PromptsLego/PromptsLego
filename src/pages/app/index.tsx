@@ -1,11 +1,11 @@
 import { Layout } from "antd";
 import { Footer, Header } from "antd/es/layout/layout";
 import { FC } from "react";
-import CenterContent from "./components/centerContent/CenterContent";
-import LeftSider from "./components/leftSider/LeftSider";
-import RightSider from "./components/rightSider/RightSider";
-import Logo from "./components/logo/Logo";
-import ButtonLogo from "./components/logo/ButtonLogo";
+import CenterContent from "../../components/centerContent/CenterContent";
+import LeftSider from "../../components/leftSider/LeftSider";
+import RightSider from "../../components/rightSider/RightSider";
+import Logo from "../../components/logo/Logo";
+import ButtonLogo from "../../components/logo/ButtonLogo";
 
 const App: FC = () => {
   return (

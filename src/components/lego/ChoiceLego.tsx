@@ -30,8 +30,8 @@ const ChoiceLego: React.FC<LegoProps> = ({
   const [categoriesLeft, setCategoriesLeft] = useState<string[]>(categories);
 
   const clickHandler = () => {
-    let newCurrent = [...current];
-    let newCurrentItem = newCurrent.find((item) => item.category === select);
+    const newCurrent = [...current];
+    const newCurrentItem = newCurrent.find((item) => item.category === select);
     if (newCurrentItem === undefined) {
       newCurrent.push({
         category: select,
@@ -47,8 +47,8 @@ const ChoiceLego: React.FC<LegoProps> = ({
     });
     SetCurrent(newCurrent);
 
-    let newDetails = [...details];
-    let targetDetail = newDetails.find((item) => item.category === select);
+    const newDetails = [...details];
+    const targetDetail = newDetails.find((item) => item.category === select);
     if (targetDetail === undefined) {
       newDetails.push({
         category: select,

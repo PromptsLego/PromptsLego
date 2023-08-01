@@ -102,8 +102,8 @@ const CurrentLego: React.FC<LegoProps> = ({
     SetCurrent([...current]);
 
     // 从details中移除当前的detail
-    let newDetails = [...details];
-    let targetDetail = newDetails.find((item) => item.category === select);
+    const newDetails = [...details];
+    const targetDetail = newDetails.find((item) => item.category === select);
     if (targetDetail === undefined) return;
     targetIndex = targetDetail.details.findIndex(
       (item) => item === detailState
