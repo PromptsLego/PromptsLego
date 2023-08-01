@@ -79,7 +79,7 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
   };
   const handleFavorite = () => {
     const favorites = globalData.tables![0]!.minorCategories!;
-    let favoriteLegos: {
+    const favoriteLegos: {
       keyWord?: string;
       detail?: string;
       useTime?: number;

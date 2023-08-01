@@ -96,9 +96,9 @@ export const UpdateCurrentDetail = (
   targetLego.detail = updateDetail;
   SetCurrent([...current]);
 
-  let newDetails = [...details];
-  let targetDetail = newDetails.find((item) => item.category === category);
-  let index = targetDetail?.details?.findIndex((item) => item === lego.detail);
+  const newDetails = [...details];
+  const targetDetail = newDetails.find((item) => item.category === category);
+  const index = targetDetail?.details?.findIndex((item) => item === lego.detail);
   if (index === undefined || index === -1) return;
   targetDetail?.details?.splice(index, 1, updateDetail);
   console.log(newDetails);
