@@ -33,7 +33,7 @@ export const data: DataType = {
               detail: "我在{文本}大学读大学，专业是{文本}",
               useTime: 22,
               color: "yellow",
-              varNum: 1,
+              varNum: 2,
             },
             {
               keyWord: "我现在在做什么事情",
@@ -69,22 +69,22 @@ export const data: DataType = {
             {
               keyWord: "精通",
               detail: "把你想象成一个精通{文本}的专家",
-              useTime: 22,
+              useTime: 32,
               color: "green",
               varNum: 1,
             },
             {
               keyWord: "世界一流",
               detail: "假设你是一个世界一流的{文本}",
-              useTime: 22,
+              useTime: 23,
               color: "green",
               varNum: 1,
             },
           ],
         },
         {
-          name: "身份",
-          number: 6,
+          name: "角色",
+          number: 9,
           legos: [
             {
               keyWord: "程序员",
@@ -98,7 +98,7 @@ export const data: DataType = {
                 "You are now a professor at UC Berkeley. You are an expert in the field of {文本}. Next, you will play the role of my writing mentor and help me polish the following articles into professional academic and logical expressions in the field of {文本}, output as latex format. My article is {文本}",
               useTime: 22,
               color: "green",
-              varNum: 1,
+              varNum: 3,
             },
             {
               keyWord: "写作助手",
@@ -131,6 +131,30 @@ export const data: DataType = {
               color: "green",
               varNum: 1,
             },
+            {
+              keyWord: "周报生成器",
+              detail:
+                "Using the provided text below as the basis for a weekly report in Chinese, generate a concise summary that highlights the most important points. The report should be written in markdown format and should be easily readable and understandable for a general audience. In particular, focus on providing insights and analysis that would be useful to stakeholders and decision-makers. You may also use any additional information or sources as necessary. Please begin by editing the following text: {工作内容}",
+              useTime: 22,
+              color: "green",
+              varNum: 1,
+            },
+
+            {
+              keyWord: "标题生成器",
+              detail:
+                "I want you to act as a title generator for written pieces. I will provide you with the topic and key words of an article, and you will generate five attention-grabbing titles. Please keep the title concise and under 20 words, and ensure that the meaning is maintained. Replies will utilize the language type of the topic. My first topic is {文章内容}",
+              useTime: 22,
+              color: "green",
+              varNum: 1,
+            },
+            {
+              keyWord: "提示词创建",
+              detail:
+                "I want you to become my Expert Prompt Creator. Your goal is to help me craft the best possible prompt for my needs. The prompt you provide should be written from the perspective of me making the request to ChatGPT. Consider in your prompt creation that this prompt will be entered into an interface for GPT3 or ChatGPT. The process is as follows: 1. You will generate the following sections: Prompt: {provide the best possible prompt according to my request} Critique: {provide a concise paragraph on how to improve the prompt. Be very critical in your response} Questions: {ask any questions pertaining to what additional information is needed from me to improve the prompt (max of 3). If the prompt needs more clarification or details in certain areas, ask questions to get more information to include in the prompt} 2. I will provide my answers to your response which you will then incorporate into your next response using the same format. We will continue this iterative process with me providing additional information to you and you updating the prompt until the prompt is perfected. Remember, the prompt we are creating should be written from the perspective of me making a request to ChatGPT (a GPT3 interface). Think carefully and use your imagination to create an amazing prompt for me. Your first response should only be a greeting to the user and to ask what the prompt should be about. All output shall be in Chinese.",
+              useTime: 22,
+              color: "green",
+            },
           ],
         },
         {
@@ -159,64 +183,15 @@ export const data: DataType = {
       category: "行动任务",
       minorCategories: [
         {
-          name: "互动方式",
-          number: 2,
+          name: "请在这里输入你想让AI聊天机器人做的事情",
+          number: 1,
           legos: [
             {
-              keyWord: "采访",
-              detail:
-                "不要一次写出所有的问题。我希望你只对我进行采访。问我问题，等待我的回答。不要写解释。",
-              useTime: 22,
+              keyWord: "行动任务",
+              detail: "{文本}",
+              useTime: 33,
               color: "cyan",
-            },
-            {
-              keyWord: "对话",
-              detail:
-                "我会输入我的回答与你交流，不要一次性问所有问题，你问一个问题，我回答一个，你再问下一个。",
-              useTime: 22,
-              color: "cyan",
-            },
-          ],
-        },
-        {
-          name: "任务",
-          number: 6,
-          legos: [
-            {
-              keyWord: "语法检查",
-              detail:
-                "Could you point out how you improve my answer on grammar, cohesion, coherence and vocabulary, and explain the main problems of this sentence, and suggest improvements?",
-              useTime: 22,
-              color: "cyan",
-            },
-            {
-              keyWord: "提示词创建",
-              detail:
-                "I want you to become my Expert Prompt Creator. Your goal is to help me craft the best possible prompt for my needs. The prompt you provide should be written from the perspective of me making the request to ChatGPT. Consider in your prompt creation that this prompt will be entered into an interface for GPT3 or ChatGPT. The process is as follows: 1. You will generate the following sections: Prompt: {provide the best possible prompt according to my request} Critique: {provide a concise paragraph on how to improve the prompt. Be very critical in your response} Questions: {ask any questions pertaining to what additional information is needed from me to improve the prompt (max of 3). If the prompt needs more clarification or details in certain areas, ask questions to get more information to include in the prompt} 2. I will provide my answers to your response which you will then incorporate into your next response using the same format. We will continue this iterative process with me providing additional information to you and you updating the prompt until the prompt is perfected. Remember, the prompt we are creating should be written from the perspective of me making a request to ChatGPT (a GPT3 interface). Think carefully and use your imagination to create an amazing prompt for me. Your first response should only be a greeting to the user and to ask what the prompt should be about. All output shall be in Chinese.",
-              useTime: 22,
-              color: "cyan",
-            },
-            {
-              keyWord: "类比/比喻解释复杂问题",
-              detail: "Explain complex ideas using analogies or comparisons.",
-              useTime: 22,
-              color: "cyan",
-            },
-
-            {
-              keyWord: "周报生成器",
-              detail:
-                "Using the provided text below as the basis for a weekly report in Chinese, generate a concise summary that highlights the most important points. The report should be written in markdown format and should be easily readable and understandable for a general audience. In particular, focus on providing insights and analysis that would be useful to stakeholders and decision-makers. You may also use any additional information or sources as necessary. Please begin by editing the following text: {工作内容}",
-              useTime: 22,
-              color: "cyan",
-            },
-
-            {
-              keyWord: "标题生成器",
-              detail:
-                "I want you to act as a title generator for written pieces. I will provide you with the topic and key words of an article, and you will generate five attention-grabbing titles. Please keep the title concise and under 20 words, and ensure that the meaning is maintained. Replies will utilize the language type of the topic. My first topic is {文章内容}",
-              useTime: 22,
-              color: "cyan",
+              varNum: 1,
             },
           ],
         },
@@ -232,7 +207,7 @@ export const data: DataType = {
             {
               keyWord: "100字以下",
               detail: "请你把输出字数限制在100字以下",
-              useTime: 22,
+              useTime: 24,
               color: "blue",
             },
 
@@ -248,12 +223,6 @@ export const data: DataType = {
               useTime: 22,
               color: "blue",
             },
-            {
-              keyWord: "500字左右",
-              detail: "请你把输出字数限制在500字左右",
-              useTime: 22,
-              color: "blue",
-            },
           ],
         },
         {
@@ -262,17 +231,18 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "格式模仿",
-              detail: "请你模仿我给出的例子来输出正确的恢复{例子1:…… 例子2:……}",
+              detail:
+                "请你模仿我给出的例子来输出正确的恢复。例子1:{文本}例子2:{文本}",
               useTime: 22,
               color: "blue",
-              varNum: 1,
+              varNum: 2,
             },
             {
               keyWord: "小样本提示",
-              detail: "参考以下格式，但不要照抄。{例子1:  例子2:  }",
+              detail: "参考以下格式，但不要照抄。例子1:{文本}例子2:{文本}。",
               useTime: 22,
               color: "blue",
-              varNum: 1,
+              varNum: 2,
             },
             {
               keyWord: "点状",
@@ -303,7 +273,7 @@ export const data: DataType = {
         },
         {
           name: "效果",
-          number: 10,
+          number: 11,
           legos: [
             {
               keyWord: "比喻",
@@ -340,8 +310,7 @@ export const data: DataType = {
             },
             {
               keyWord: "输出成故事",
-              detail:
-                "请润色并改进输出，确保语言流畅，观点表达清晰，整体质量得到提升。",
+              detail: "Please transform output into compelling stories",
               useTime: 22,
               color: "blue",
             },
@@ -373,13 +342,15 @@ export const data: DataType = {
               color: "blue",
               varNum: 1,
             },
+            {
+              keyWord: "语法检查",
+              detail:
+                "Could you point out how you improve my answer on grammar, cohesion, coherence and vocabulary, and explain the main problems of this sentence, and suggest improvements?",
+              useTime: 22,
+              color: "blue",
+            },
           ],
         },
-      ],
-    },
-    {
-      category: "其他要求",
-      minorCategories: [
         {
           name: "批量",
           number: 4,
@@ -388,7 +359,7 @@ export const data: DataType = {
               keyWord: "_个例子",
               detail: "请你给我{文本}个不同的例子",
               useTime: 22,
-              color: "purple",
+              color: "blue",
               varNum: 1,
             },
 
@@ -396,14 +367,14 @@ export const data: DataType = {
               keyWord: "_个答案",
               detail: "请你给我{文本}个不同的答案",
               useTime: 22,
-              color: "purple",
+              color: "blue",
               varNum: 1,
             },
             {
               keyWord: "_个现实案例",
-              detail: "Give a real-world case study.",
+              detail: "请你给我{文本}个不同的现实案例",
               useTime: 22,
-              color: "purple",
+              color: "blue",
               varNum: 1,
             },
             {
@@ -411,20 +382,46 @@ export const data: DataType = {
               detail:
                 "要求给出一个问题的{文本}个解决方案，最后综合考虑几个方案，得出最终的答案",
               useTime: 22,
-              color: "purple",
+              color: "blue",
               varNum: 1,
             },
           ],
         },
+      ],
+    },
+    {
+      category: "其他要求",
+      minorCategories: [
+        {
+          name: "互动方式",
+          number: 2,
+          legos: [
+            {
+              keyWord: "采访",
+              detail:
+                "不要一次写出所有的问题。我希望你只对我进行采访。问我问题，等待我的回答。不要写解释。",
+              useTime: 77,
+              color: "purple",
+            },
+            {
+              keyWord: "对话",
+              detail:
+                "我会输入我的回答与你交流，不要一次性问所有问题，你问一个问题，我回答一个，你再问下一个。",
+              useTime: 342,
+              color: "purple",
+            },
+          ],
+        },
+
         {
           name: "通用",
-          number: 8,
+          number: 9,
           legos: [
             {
               keyWord: "思维链",
               detail:
                 "Let's work this out in a step by step way to be sure we have the right answer.",
-              useTime: 22,
+              useTime: 2289,
               color: "purple",
             },
             {
@@ -437,7 +434,7 @@ export const data: DataType = {
               keyWord: "没有偏见",
               detail:
                 "Please ensure that your answer is unbiased and does not rely on stereotyping.",
-              useTime: 22,
+              useTime: 252,
               color: "purple",
             },
             {
@@ -470,6 +467,12 @@ export const data: DataType = {
             {
               keyWord: "我知道了",
               detail: "如果你听懂了请回复：我知道了。我将给你发送第一段内容。",
+              useTime: 22,
+              color: "purple",
+            },
+            {
+              keyWord: "类比/比喻解释复杂问题",
+              detail: "Explain complex ideas using analogies or comparisons.",
               useTime: 22,
               color: "purple",
             },
