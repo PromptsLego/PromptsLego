@@ -21,6 +21,7 @@ const NavigatorLego: React.FC<LegoProps> = ({
   const LegoButton = (
     <button
       style={{
+        overflow:"hidden",
         backgroundImage: `url(${imageUrl})`,
         backgroundColor: "transparent",
         ...NavigatorLegoStyle,

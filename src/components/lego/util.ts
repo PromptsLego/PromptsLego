@@ -70,8 +70,9 @@ export const NavigatorLegoStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "15px",
+  fontSize: "100%",
   borderColor: "transparent",
+  overflow:"hidden",
 };
 
 export const UpdateCurrentDetail = (
