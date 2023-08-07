@@ -30,53 +30,74 @@ const ChoiceLego: React.FC<LegoProps> = ({
   const [categoriesLeft, setCategoriesLeft] = useState<string[]>(categories);
 
   const clickHandler = () => {
-    const newCurrent = [...current];
-    const newCurrentItem = newCurrent.find((item) => item.category === select);
-    if (newCurrentItem === undefined) {
-      newCurrent.push({
-        category: select,
-        children: [{ keyWord, detail, useTime, color, varNum }],
-      });
-    }
-    newCurrentItem?.children.push({
-      keyWord,
-      detail,
-      useTime,
-      color,
-      varNum,
-    });
-    SetCurrent(newCurrent);
-
-    const newDetails = [...details];
-    const targetDetail = newDetails.find((item) => item.category === select);
-    if (targetDetail === undefined) {
-      newDetails.push({
-        category: select,
-        details: [detail!],
-      });
-    } else {
-      targetDetail.details.push(detail!);
-    }
-    SetDetails(newDetails);
+    SetCurrent((newCurrent) => {
+      var newCurrentItem = newCurrent.find((item) => item.category === select);
+      if (newCurrentItem === undefined) {
+        newCurrent.push({
+          category: select,
+          children: [],
+        });
+        newCurrentItem = newCurrent[newCurrent.length - 1]
+      }
+      
+      if(newCurrentItem){
+        var exist = false
+        console.log(keyWord)
+        newCurrentItem.children.forEach(element => {
+          if(element.keyWord==keyWord){
+            exist = true
+          }
+        });
+        if(!exist){
+          newCurrentItem.children.push({
+            keyWord,
+            detail,
+            useTime,
+            color,
+            varNum,
+          });
+          SetDetails((newDetails) => {
+            const targetDetail = newDetails.find((item) => item.category === select);
+            if (targetDetail === undefined) {
+              newDetails.push({
+                category: select,
+                details: [detail!],
+              });
+            } else {
+              targetDetail.details.push(detail!);
+            }
+          })
+        }
+      }
+    })
   };
 
   const LegoText = (
-    <>
+    <div style={{ margin: "auto" }}>
       <div>{keyWord + " | "}</div>
       <div style={{ color: "white" }}>{useTime}</div>
-    </>
+    </div>
   );
 
   const LegoButton = (
     <button
       style={{
+        position: "relative",
         backgroundImage: `url(${imageUrl})`,
         backgroundColor: "transparent",
         ...LegoStyle,
       }}
       onClick={clickHandler}
     >
-      {LegoText}
+      <div style={{
+        position: "absolute",
+        left: "5%",
+        right: "10%",
+        top: "10%",
+        bottom: "10%",
+        overflow: "hidden",
+        textAlign: "center"
+      }}>{LegoText}</div>
     </button>
   );
 

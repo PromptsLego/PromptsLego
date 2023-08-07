@@ -1,17 +1,17 @@
-import lego_yellow from "../../assets/lego-yellow.svg";
-import lego_gray from "../../assets/lego-gray.svg";
-import lego_blue from "../../assets/lego-blue.svg";
-import lego_cyan from "../../assets/lego-cyan.svg";
-import lego_green from "../../assets/lego-green.svg";
-import lego_purple from "../../assets/lego-purple.svg";
-import lego_pink from "../../assets/lego-pink.svg";
-import lego_white from "../../assets/lego-white.svg";
-import lego_yellow_pin from "../../assets/lego-yellow-pin.svg";
-import lego_blue_pin from "../../assets/lego-blue-pin.svg";
-import lego_cyan_pin from "../../assets/lego-cyan-pin.svg";
-import lego_green_pin from "../../assets/lego-green-pin.svg";
-import lego_purple_pin from "../../assets/lego-purple-pin.svg";
-import lego_white_pin from "../../assets/lego-white-pin.svg";
+import lego_yellow from "../../assets/lego-yellow.png";
+import lego_gray from "../../assets/lego-gray.png";
+import lego_blue from "../../assets/lego-blue.png";
+import lego_cyan from "../../assets/lego-cyan.png";
+import lego_green from "../../assets/lego-green.png";
+import lego_purple from "../../assets/lego-purple.png";
+import lego_pink from "../../assets/lego-pink.png";
+import lego_white from "../../assets/lego-white.png";
+import lego_yellow_pin from "../../assets/lego-yellow-pin.png";
+import lego_blue_pin from "../../assets/lego-blue-pin.png";
+import lego_cyan_pin from "../../assets/lego-cyan-pin.png";
+import lego_green_pin from "../../assets/lego-green-pin.png";
+import lego_purple_pin from "../../assets/lego-purple-pin.png";
+import lego_white_pin from "../../assets/lego-white-pin.png";
 import { ContentContextType } from "../../contexts/ContentContext";
 import { LegoType } from "./LegoType";
 
@@ -51,7 +51,7 @@ export const LegoFrozenImageUrl = (color: string | undefined) => {
 
 export const LegoStyle = {
   // backgroundPosition: "center center",
-  backgroundSize: "contain",
+  backgroundSize: "100% 100%",
   backgroundRepeat: "no-repeat",
   height: "50px",
   width: "180px",
@@ -62,17 +62,13 @@ export const LegoStyle = {
   borderColor: "transparent",
 };
 export const NavigatorLegoStyle = {
-  backgroundPosition: "center center",
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
   height: "30px",
   width: "110px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "100%",
+  fontSize: "15px",
   borderColor: "transparent",
-  overflow:"hidden",
 };
 
 export const UpdateCurrentDetail = (

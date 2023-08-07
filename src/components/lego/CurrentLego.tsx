@@ -168,6 +168,7 @@ const CurrentLego: React.FC<LegoProps> = ({
   const LegoButton = (
     <button
       style={{
+        position:"relative",
         backgroundImage: `url(${imageUrl})`,
         backgroundColor: "transparent",
         ...LegoStyle,
@@ -175,7 +176,22 @@ const CurrentLego: React.FC<LegoProps> = ({
       onClick={clickMouseLeftHandler}
       onDoubleClick={clickMouseRightHandler}
     >
-      {LegoText}
+      <div style={{
+        position:"absolute",
+        left:"5%",
+        right:"10%",
+        top:"10%",
+        bottom:"10%",
+        overflow:"hidden",
+      }}>
+        <div style={{
+          position:"relative",
+          top:"10px"
+        }}>
+          {LegoText}
+        </div>
+      </div>
+      
     </button>
   );
 

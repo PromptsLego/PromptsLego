@@ -29,6 +29,7 @@ const RightSider: React.FC<RightSiderProps> = ({}) => {
         width: "100%",
         height: "100%",
         paddingLeft: "30px",
+        overflow:"hidden",
       }}
       width={"40%"}
     >

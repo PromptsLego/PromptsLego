@@ -4,6 +4,7 @@
     border-color: black;
     border-radius: 5%;
     display: grid;
+    overflow: hidden;
     grid-template-rows: 30px auto;
     grid-template-columns: 30px auto;
     grid-template-areas:

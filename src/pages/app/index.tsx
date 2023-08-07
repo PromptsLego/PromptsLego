@@ -10,7 +10,7 @@ import ButtonLogo from "../../components/logo/ButtonLogo";
 const App: FC = () => {
   return (
     <Layout style={{ height: "100vh" }}>
-      <Header style={{ backgroundColor: "white", height: "10%" }}>
+      <Header style={{ backgroundColor: "white", height: "80px" }}>
         <Logo></Logo>
       </Header>
       <Layout style={{ height: "85%" }}>
