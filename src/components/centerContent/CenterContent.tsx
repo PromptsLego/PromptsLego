@@ -50,6 +50,7 @@ const CenterContent: React.FC<CenterContentProps> = ({ }) => {
                       detail={child.detail}
                       useTime={child.useTime}
                       color={child.color}
+                      category={item.category}
                       legoType="lego"
                       varNum={child.varNum}
                     />

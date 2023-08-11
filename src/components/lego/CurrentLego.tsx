@@ -13,11 +13,6 @@ import { Input, InputRef } from "antd";
 import ContentContext from "../../contexts/ContentContext";
 import { useImmer } from "use-immer";
 
-// normal: 普通状态
-// var: 变量状态
-// edit: 编辑状态
-// fill: 变量填充状态
-// froze: 冻结状态
 type LegoState =
   | "normal"
   | "var"
@@ -33,17 +28,19 @@ const CurrentLego: React.FC<LegoProps> = ({
   useTime,
   color,
   varNum,
+  category,
   ...props
 }) => {
   const inputRef = useRef<InputRef>(null);
+  var detailContent = detail!
+  const contentBegin = detailContent.indexOf("{")
   const [state, SetState] = React.useState<LegoState>(
-    varNum === 0 ? "normal" : "var"
+    contentBegin == undefined || contentBegin == -1 ? "normal" : "var"
   );
   useEffect(() => {
     inputRef.current?.focus();
   }, [state]);
-  var detailContent = detail!
-  const contentBegin = detailContent.indexOf("{")
+  
   if(contentBegin != undefined && contentBegin != -1){
     detailContent = detailContent.substring(contentBegin+1)
     detailContent = detailContent.substring(0,detailContent.lastIndexOf("}"))
@@ -69,7 +66,6 @@ const CurrentLego: React.FC<LegoProps> = ({
   const popContent = <PopContent detail={detailState} />;
 
   const clickMouseLeftHandler = () => {
-    console.log(state)
     if (mouseStatus === "frozen") {
       if (state === "normal") {
         SetState("normal-frozen");
@@ -90,11 +86,10 @@ const CurrentLego: React.FC<LegoProps> = ({
     } else if (state === "fill") {
       SetState("edit");
     }
-    console.log(state)
   };
   const clickMouseRightHandler = () => {
     SetCurrent((curCurrent) => {
-      const current_category = curCurrent.find((item) => item.category === select);
+      const current_category = curCurrent.find((item) => item.category === category);
       let targetIndex = current_category?.children.findIndex((item) => 
           item.keyWord === keyWord &&
           item.color === color &&
@@ -109,7 +104,7 @@ const CurrentLego: React.FC<LegoProps> = ({
       const postfix = detailString.substring(contentEnd + 1)
       current_category?.children.splice(targetIndex, 1);
       SetDetails((curDetail) => {
-        const targetDetail = curDetail.find((item) => item.category === select);
+        const targetDetail = curDetail.find((item) => item.category === category);
         if (targetDetail === undefined) return;
         if (contentBegin==undefined || contentBegin==-1){
           let targetIndex = targetDetail.details.findIndex(
@@ -127,8 +122,9 @@ const CurrentLego: React.FC<LegoProps> = ({
 
   };
   const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    
     SetCurrent((curCurrent) => {
-      const current_category = curCurrent.find((item) => item.category === select)
+      const current_category = curCurrent.find((item) => item.category === category)
       const targetLego = current_category?.children.find(
         (item) =>
           item.keyWord === keyWord &&
@@ -137,6 +133,7 @@ const CurrentLego: React.FC<LegoProps> = ({
           item.varNum === varNum
       );
       if (targetLego === undefined) return;
+      
       const detailString = targetLego.detail!
       const contentBegin = detailString.indexOf("{")
       const contentEnd = detailString.lastIndexOf("}")
@@ -144,7 +141,7 @@ const CurrentLego: React.FC<LegoProps> = ({
       const postfix = detailString.substring(contentEnd + 1)
       targetLego.detail = prefix + "{" + event.target.value + "}" + postfix;
       SetDetails((curDetail) => {
-        const targetDetail = curDetail.find((item) => item.category === select);
+        const targetDetail = curDetail.find((item) => item.category === category);
         const index = targetDetail?.details?.findIndex((item) => item.startsWith(prefix) && item.endsWith(postfix));
         if (index === undefined || index === -1) return;
         targetDetail?.details?.splice(index, 1, prefix + event.target.value + postfix);
