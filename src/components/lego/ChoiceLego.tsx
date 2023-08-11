@@ -42,7 +42,6 @@ const ChoiceLego: React.FC<LegoProps> = ({
       
       if(newCurrentItem){
         var exist = false
-        console.log(keyWord)
         newCurrentItem.children.forEach(element => {
           if(element.keyWord==keyWord){
             exist = true
@@ -57,18 +56,26 @@ const ChoiceLego: React.FC<LegoProps> = ({
             varNum,
           });
           SetDetails((newDetails) => {
+            var detailString = detail!
+            const contentBegin = detailString.indexOf("{")
+            const contentEnd = detailString.lastIndexOf("}")
+            const prefix = detailString.substring(0,contentBegin)
+            const postfix = detailString.substring(contentEnd+1)
+            const content = detailString.substring(contentBegin + 1,contentEnd)
+            detailString = prefix + content + postfix
             const targetDetail = newDetails.find((item) => item.category === select);
             if (targetDetail === undefined) {
               newDetails.push({
                 category: select,
-                details: [detail!],
+                details: [detailString],
               });
             } else {
-              targetDetail.details.push(detail!);
+              targetDetail.details.push(detailString);
             }
           })
         }
       }
+      
     })
   };
 

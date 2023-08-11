@@ -35,14 +35,11 @@ const ContentContext = createContext<ContentContextType>({
 });
 
 const ContentContextProvider: React.FC<PropsWithChildren> = (props) => {
-  const [details, SetDetails] = useImmer<
-    { category: string; details: string[] }[]
-  >([]);
+  const [details, SetDetails] = useImmer<{ category: string; details: string[] }[]>([]);
   const [activeTextArea, SetActiveTextArea] = useImmer("default");
   const [select, SetSelect] = useImmer("");
   const [current, SetCurrent] = useImmer<ContentContextType["current"]>([]);
-  const [mouseStatus, SetMouseStatus] =
-  useImmer<ContentContextType["mouseStatus"]>("default");
+  const [mouseStatus, SetMouseStatus] = useImmer<ContentContextType["mouseStatus"]>("default");
   const [globalData, SetGlobalData] = useImmer<DataType>(data);
 
   return (

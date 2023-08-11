@@ -11,6 +11,7 @@ import {
 } from "./util";
 import { Input, InputRef } from "antd";
 import ContentContext from "../../contexts/ContentContext";
+import { useImmer } from "use-immer";
 
 // normal: 普通状态
 // var: 变量状态
@@ -41,7 +42,13 @@ const CurrentLego: React.FC<LegoProps> = ({
   useEffect(() => {
     inputRef.current?.focus();
   }, [state]);
-  const [detailState, SetDetailState] = React.useState<string>(detail!);
+  var detailContent = detail!
+  const contentBegin = detailContent.indexOf("{")
+  if(contentBegin != undefined && contentBegin != -1){
+    detailContent = detailContent.substring(contentBegin+1)
+    detailContent = detailContent.substring(0,detailContent.lastIndexOf("}"))
+  }
+  const [detailState, SetDetailState] = React.useState<string>(detailContent);
   const {
     current,
     SetCurrent,
@@ -57,11 +64,12 @@ const CurrentLego: React.FC<LegoProps> = ({
       : state === "fill-frozen" ||
         state === "var-frozen" ||
         state === "normal-frozen"
-      ? LegoFrozenImageUrl(color)
-      : LegoImageUrl("white");
+        ? LegoFrozenImageUrl(color)
+        : LegoImageUrl("white");
   const popContent = <PopContent detail={detailState} />;
 
   const clickMouseLeftHandler = () => {
+    console.log(state)
     if (mouseStatus === "frozen") {
       if (state === "normal") {
         SetState("normal-frozen");
@@ -82,35 +90,69 @@ const CurrentLego: React.FC<LegoProps> = ({
     } else if (state === "fill") {
       SetState("edit");
     }
+    console.log(state)
   };
   const clickMouseRightHandler = () => {
-    // 从current中移除当前的lego
-    const current_category = current.find((item) => {
-      return item.category === select;
-    });
-    let targetIndex = current_category?.children.findIndex((item) => {
-      return (
-        item.keyWord === keyWord &&
-        item.detail === detailState &&
-        item.color === color &&
-        item.useTime === useTime &&
-        item.varNum === varNum
+    SetCurrent((curCurrent) => {
+      const current_category = curCurrent.find((item) => item.category === select);
+      let targetIndex = current_category?.children.findIndex((item) => 
+          item.keyWord === keyWord &&
+          item.color === color &&
+          item.useTime === useTime &&
+          item.varNum === varNum
       );
-    });
-    if (targetIndex === undefined) return;
-    current_category?.children.splice(targetIndex, 1);
-    SetCurrent([...current]);
+      if (targetIndex === undefined || targetIndex === -1) return;
+      const detailString = current_category?.children[targetIndex].detail!
+      const contentBegin = detailString.indexOf("{")
+      const contentEnd = detailString.lastIndexOf("}")
+      const prefix = detailString.substring(0, contentBegin)
+      const postfix = detailString.substring(contentEnd + 1)
+      current_category?.children.splice(targetIndex, 1);
+      SetDetails((curDetail) => {
+        const targetDetail = curDetail.find((item) => item.category === select);
+        if (targetDetail === undefined) return;
+        if (contentBegin==undefined || contentBegin==-1){
+          let targetIndex = targetDetail.details.findIndex(
+            (item) => item == detailState
+          );
+          targetDetail.details.splice(targetIndex, 1);
+        }else{
+          let targetIndex = targetDetail.details.findIndex(
+            (item) => item.startsWith(prefix) && item.endsWith(postfix)
+          );
+          targetDetail.details.splice(targetIndex, 1);
+        }
+      })
+    })
 
-    // 从details中移除当前的detail
-    const newDetails = [...details];
-    const targetDetail = newDetails.find((item) => item.category === select);
-    if (targetDetail === undefined) return;
-    targetIndex = targetDetail.details.findIndex(
-      (item) => item === detailState
-    );
-    targetDetail.details.splice(targetIndex, 1);
-    SetDetails(newDetails);
   };
+  const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    SetCurrent((curCurrent) => {
+      const current_category = curCurrent.find((item) => item.category === select)
+      const targetLego = current_category?.children.find(
+        (item) =>
+          item.keyWord === keyWord &&
+          item.useTime === useTime &&
+          item.color === color &&
+          item.varNum === varNum
+      );
+      if (targetLego === undefined) return;
+      const detailString = targetLego.detail!
+      const contentBegin = detailString.indexOf("{")
+      const contentEnd = detailString.lastIndexOf("}")
+      const prefix = detailString.substring(0, contentBegin)
+      const postfix = detailString.substring(contentEnd + 1)
+      targetLego.detail = prefix + "{" + event.target.value + "}" + postfix;
+      SetDetails((curDetail) => {
+        const targetDetail = curDetail.find((item) => item.category === select);
+        const index = targetDetail?.details?.findIndex((item) => item.startsWith(prefix) && item.endsWith(postfix));
+        if (index === undefined || index === -1) return;
+        targetDetail?.details?.splice(index, 1, prefix + event.target.value + postfix);
+        SetDetailState(event.target.value);
+      })
+    })
+
+  }
 
   const LegoText =
     ((state === "normal" || state === "normal-frozen") && (
@@ -120,11 +162,11 @@ const CurrentLego: React.FC<LegoProps> = ({
       state === "fill" ||
       state === "var-frozen" ||
       state === "fill-frozen") && (
-      <>
-        <CaretRightOutlined rotate={90} size={10} />
-        <text>{keyWord}</text>
-      </>
-    )) ||
+        <>
+          <CaretRightOutlined rotate={90} size={10} />
+          <text>{keyWord}</text>
+        </>
+      )) ||
     (state === "edit" && (
       <>
         <CaretRightOutlined rotate={90} size={10} />
@@ -132,24 +174,7 @@ const CurrentLego: React.FC<LegoProps> = ({
           type="text"
           value={detailState}
           ref={inputRef}
-          onChange={(event) => {
-            SetDetailState(event.target.value);
-            UpdateCurrentDetail(
-              details,
-              SetDetails,
-              current,
-              SetCurrent,
-              select,
-              {
-                keyWord: keyWord,
-                detail: detailState,
-                useTime: useTime,
-                color: color,
-                varNum: varNum,
-              },
-              event.target.value
-            );
-          }}
+          onChange={editInputHandler}
           onBlur={() => {
             SetState("fill");
           }}
@@ -168,7 +193,7 @@ const CurrentLego: React.FC<LegoProps> = ({
   const LegoButton = (
     <button
       style={{
-        position:"relative",
+        position: "relative",
         backgroundImage: `url(${imageUrl})`,
         backgroundColor: "transparent",
         ...LegoStyle,
@@ -177,21 +202,21 @@ const CurrentLego: React.FC<LegoProps> = ({
       onDoubleClick={clickMouseRightHandler}
     >
       <div style={{
-        position:"absolute",
-        left:"5%",
-        right:"10%",
-        top:"10%",
-        bottom:"10%",
-        overflow:"hidden",
+        position: "absolute",
+        left: "5%",
+        right: "10%",
+        top: "10%",
+        bottom: "10%",
+        overflow: "hidden",
       }}>
         <div style={{
-          position:"relative",
-          top:"10px"
+          position: "relative",
+          top: "10px"
         }}>
           {LegoText}
         </div>
       </div>
-      
+
     </button>
   );
 

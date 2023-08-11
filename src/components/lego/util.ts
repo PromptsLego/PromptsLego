@@ -91,6 +91,7 @@ export const UpdateCurrentDetail = (
   );
   if (targetLego === undefined) return;
   targetLego.detail = updateDetail;
+  console.log(targetLego.detail)
   SetCurrent([...current]);
 
   const newDetails = [...details];
