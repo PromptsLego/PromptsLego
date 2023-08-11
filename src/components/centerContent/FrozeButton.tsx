@@ -21,6 +21,7 @@ const StatusButton: React.FC = () => {
       //   type="primary"
       onClick={toggleStatus}
       style={{
+        zIndex:"1",
         backgroundImage:
           mouseStatus === "default"
             ? `url(${NotFrozeImage})`

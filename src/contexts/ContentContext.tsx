@@ -2,23 +2,21 @@ import { PropsWithChildren, createContext, useState } from "react";
 import { LegoType } from "../components/lego/LegoType";
 import { data } from "../data/data";
 import { DataType } from "../data/DataType";
+import { Updater, useImmer } from "use-immer";
 
 export type ContentContextType = {
   details: { category: string; details: string[] }[];
-  SetDetails: (details: { category: string; details: string[] }[]) => void;
+  SetDetails: Updater<{ category: string; details: string[] }[]>;
   activeTextArea: string;
-  SetActiveTextArea: (activeTextArea: string) => void;
+  SetActiveTextArea: Updater<string>;
   select: string;
-  SetSelect: (select: string) => void;
-  current: {
-    category: string;
-    children: LegoType[];
-  }[];
-  SetCurrent: (current: ContentContextType["current"]) => void;
+  SetSelect: Updater<string>;
+  current: {category: string;children: LegoType[];}[];
+  SetCurrent: Updater<ContentContextType["current"]>;
   mouseStatus: "default" | "frozen";
-  SetMouseStatus: (mouseStatus: ContentContextType["mouseStatus"]) => void;
+  SetMouseStatus: Updater<ContentContextType["mouseStatus"]>;
   globalData: DataType;
-  SetGlobalData: (data: ContentContextType["globalData"]) => void;
+  SetGlobalData: Updater<ContentContextType["globalData"]>;
 };
 
 const ContentContext = createContext<ContentContextType>({
@@ -37,15 +35,12 @@ const ContentContext = createContext<ContentContextType>({
 });
 
 const ContentContextProvider: React.FC<PropsWithChildren> = (props) => {
-  const [details, SetDetails] = useState<
-    { category: string; details: string[] }[]
-  >([]);
-  const [activeTextArea, SetActiveTextArea] = useState("default");
-  const [select, SetSelect] = useState("");
-  const [current, SetCurrent] = useState<ContentContextType["current"]>([]);
-  const [mouseStatus, SetMouseStatus] =
-    useState<ContentContextType["mouseStatus"]>("default");
-  const [globalData, SetGlobalData] = useState<DataType>(data);
+  const [details, SetDetails] = useImmer<{ category: string; details: string[] }[]>([]);
+  const [activeTextArea, SetActiveTextArea] = useImmer("default");
+  const [select, SetSelect] = useImmer("");
+  const [current, SetCurrent] = useImmer<ContentContextType["current"]>([]);
+  const [mouseStatus, SetMouseStatus] = useImmer<ContentContextType["mouseStatus"]>("default");
+  const [globalData, SetGlobalData] = useImmer<DataType>(data);
 
   return (
     <ContentContext.Provider

@@ -9,6 +9,7 @@ export interface LegoProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   useTime?: number;
   color?: string;
   varNum: number;
+  category: string,
   legoType: "navigator" | "lego" | "choice"; // lego: lego in center content; choice: lego in right sider
 }
 
@@ -19,6 +20,7 @@ const Lego: React.FC<LegoProps> = ({
   color,
   varNum,
   legoType,
+  category,
   ...props
 }) => {
   return (
@@ -30,6 +32,7 @@ const Lego: React.FC<LegoProps> = ({
         color={color}
         varNum={varNum}
         legoType={legoType}
+        category={category}
         {...props}
       />
     )) ||
@@ -41,6 +44,7 @@ const Lego: React.FC<LegoProps> = ({
         color={color}
         varNum={varNum}
         legoType={legoType}
+        category={category}
         {...props}
       />
     )) ||
@@ -52,6 +56,7 @@ const Lego: React.FC<LegoProps> = ({
         color={color}
         varNum={varNum}
         legoType={legoType}
+        category={category}
         {...props}
       />
     )) || <></>

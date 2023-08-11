@@ -6,6 +6,6 @@ import { createBrowserRouter } from "react-router-dom";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: hasToken() ? <App /> : <Waitlist />,
+    element: <App />//hasToken() ? <App /> : <Waitlist />,
   },
 ]);

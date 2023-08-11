@@ -1,0 +1,29 @@
+.textbox_container {
+    border-style: solid;
+    border-width: 5 5 5 5;
+    border-color: black;
+    border-radius: 5%;
+    display: grid;
+    overflow: hidden;
+    grid-template-rows: 30px auto;
+    grid-template-columns: 30px auto;
+    grid-template-areas:
+      "corner horizontal_bar"
+      "vertical_bar textbox";
+}
+
+.textbox_corner {
+    grid-area: corner; 
+}
+
+.textbox_horizontal_bar {
+    grid-area: horizontal_bar; 
+}
+
+.textbox_vertical_bar {
+    grid-area: vertical_bar; 
+}
+
+.textbox_textbox {
+    grid-area: textbox; 
+}

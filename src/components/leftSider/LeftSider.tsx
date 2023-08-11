@@ -10,12 +10,16 @@ import promptperfect from "../textArea/PromptPerfect";
 import { config } from "../../config";
 import optimizeBackground from "../../assets/optimizeBackground.svg";
 import inputBackground from "../../assets/inputBackground.svg";
+import './LeftSider.css'
+import textboxBackgroundCorner from "../../assets/textboxBackgroundCorner.png"
+import textboxBackgroundHorizontal from "../../assets/textboxBackgroundHorizontal.png"
+import textboxBackgroundVertical from "../../assets/textboxBackgroundVertical.png"
 
 const YOUR_GENERATED_SECRET = config.jina_key;
 
-interface LeftSiderProps {}
+interface LeftSiderProps { }
 
-const LeftSider: React.FC<LeftSiderProps> = ({}) => {
+const LeftSider: React.FC<LeftSiderProps> = ({ }) => {
   const [optimizedTextAreaValue, SetOptimizedTextAreaValue] = useState("");
   const { activeTextArea, SetActiveTextArea } = useContext(ContentContext);
   const { current, SetCurrent } = useContext(ContentContext);
@@ -26,10 +30,10 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
     const textToCopy =
       activeTextArea === "default"
         ? details
-            .map((detail) => {
-              return "▎" + detail.category + ": " + detail.details.join("\n");
-            })
-            .join("\n")
+          .map((detail) => {
+            return "▎" + detail.category + ": " + detail.details.join("\n");
+          })
+          .join("\n")
         : optimizedTextAreaValue;
     const textarea = document.createElement("textarea");
     textarea.value = textToCopy;
@@ -38,7 +42,6 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
     document.execCommand("copy");
     document.body.removeChild(textarea);
   };
-
   const handleCopy = () => {
     copyToClipboard();
   };
@@ -108,6 +111,7 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
   return (
     <Sider
       style={{
+        position: "relative",
         backgroundColor: "white",
         height: "100%",
         display: "flex",
@@ -115,56 +119,135 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
       }}
       width={"30%"}
     >
-      <Input.TextArea
-        value={details
-          .map((detail) => {
-            if (detail.details.length === 0) return;
-            return "▎" + detail.category + ": " + detail.details.join("\n");
-          })
-          .join("\n")}
-        readOnly
-        placeholder="promptLego"
+      <div
+        className={"textbox_container"}
         style={{
-          lineHeight: "2",
-          fontSize: "16px",
-          backgroundImage: `url(${inputBackground})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          border: "none",
-
-          minHeight: "45%",
-          overflow: "auto",
-          resize: "none",
-          padding: "10px 20px",
-        }}
-      />
-      <Input.TextArea
-        value={optimizedTextAreaValue}
-        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-          SetOptimizedTextAreaValue(event.target.value)
-        }
+          position: "absolute",
+          height: "40%",
+          left: "10%",
+          right: "0%",
+        }}>
+        <div
+          className="textbox_corner"
+          style={{
+            backgroundImage: `url(${textboxBackgroundCorner})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+        <div
+          className="textbox_horizontal_bar"
+          style={{
+            backgroundImage: `url(${textboxBackgroundHorizontal})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+        <div
+          className="textbox_vertical_bar"
+          style={{
+            backgroundImage: `url(${textboxBackgroundVertical})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+        <div
+          className="textbox_textbox"
+          style={{ position: "relative" }}
+        >
+          <Input.TextArea
+            value={details
+              .map((detail) => {
+                if (detail.details.length === 0) return;
+                return "▎" + detail.category + ": " + detail.details.join("\n");
+              })
+              .join("\n")}
+            readOnly
+            placeholder="promptLego"
+            style={{
+              position: "absolute",
+              lineHeight: "2",
+              fontSize: "16px",
+              overflowY: "auto",
+              resize: "none",
+              width: "95%",
+              top: "0%",
+              bottom: "5%",
+              backgroundColor:"transparent",
+              border:"0"
+            }}
+          />
+        </div>
+      </div>
+      <div
+        className={"textbox_container"}
         style={{
-          lineHeight: "2",
-          fontSize: "16px",
-          backgroundImage: `url(${optimizeBackground})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          border: "none",
-          padding: "10px 20px",
-
-          minHeight: "45%",
-          overflow: "auto",
-          resize: "none",
-        }}
-        readOnly
-        placeholder="promptLego"
-      />
+          position: "absolute",
+          top: "48%",
+          height: "40%",
+          left: "10%",
+          right: "0%",
+          backgroundColor: "#cccccc"
+        }}>
+        <div
+          className="textbox_corner"
+          style={{
+            backgroundImage: `url(${textboxBackgroundCorner})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+        <div
+          className="textbox_horizontal_bar"
+          style={{
+            backgroundImage: `url(${textboxBackgroundHorizontal})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+        <div
+          className="textbox_vertical_bar"
+          style={{
+            backgroundImage: `url(${textboxBackgroundVertical})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+        <div
+          className="textbox_textbox"
+          style={{ position: "relative" }}
+        >
+          <Input.TextArea
+            value={optimizedTextAreaValue}
+            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+              SetOptimizedTextAreaValue(event.target.value)
+            }
+            style={{
+              position: "absolute",
+              lineHeight: "2",
+              fontSize: "16px",
+              overflowY: "auto",
+              resize: "none",
+              width: "95%",
+              top: "0%",
+              bottom: "5%",
+              backgroundColor:"transparent",
+              border:"0"
+            }}
+            readOnly
+            placeholder="promptLego"
+          />
+        </div>
+      </div>
       <div
         style={{
+          position: "absolute",
           display: "flex",
           justifyContent: "flex-end",
-          width: "100%",
+          top: "93%",
           height: "10%",
+          left: "10%",
+          right: "0%",
         }}
       >
         <Button
@@ -172,7 +255,6 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
             backgroundImage: `url(${copyImage})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
-
             marginLeft: "15px",
             width: "88px",
             height: "42px",
@@ -209,7 +291,6 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
           }}
           onClick={handleFavorite}
         ></Button>
-
         <Button
           style={{
             backgroundImage: `url(${dropImage})`,
