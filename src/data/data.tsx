@@ -399,21 +399,6 @@ export const data: DataType = {
           name: "输出格式",
           number: 4,
           legos: [
-            // {
-            //   keyWord: "格式模仿",
-            //   detail:
-            //     "请你模仿我给出的例子来输出正确的恢复。例子1:{文本}例子2:{文本}",
-            //   useTime: 22,
-            //   color: "blue",
-            //   varNum: 2,
-            // },
-            // {
-            //   keyWord: "小样本提示",
-            //   detail: "参考以下格式，但不要照抄。例子1:{文本}例子2:{文本}。",
-            //   useTime: 22,
-            //   color: "blue",
-            //   varNum: 2,
-            // },
             {
               keyWord: "点状",
               detail: "请以bullet points的格式输出。",
@@ -486,26 +471,26 @@ export const data: DataType = {
             },
           ],
         },
-        // {
-        //   name: "文风",
-        //   number: 2,
-        //   legos: [
-        //     {
-        //       keyWord: "文风",
-        //       detail: "在回复的时候，请使用{文本}的写作风格。",
-        //       useTime: 22,
-        //       color: "blue",
-        //       varNum: 1,
-        //     },
-        //     {
-        //       keyWord: "想象力、独特",
-        //       detail:
-        //         "Please output it more imaginative, engaging, and uniaue.",
-        //       useTime: 22,
-        //       color: "blue",
-        //     },
-        //   ],
-        // },
+        {
+          name: "文风",
+          number: 2,
+          legos: [
+            {
+              keyWord: "文风",
+              detail: "在回复的时候，请使用{文本}的写作风格。",
+              useTime: 22,
+              color: "blue",
+              varNum: 1,
+            },
+            {
+              keyWord: "想象力、独特",
+              detail:
+                "Please output it more imaginative, engaging, and uniaue.",
+              useTime: 22,
+              color: "blue",
+            },
+          ],
+        },
         {
           name: "效果",
           number: 12,
@@ -595,37 +580,37 @@ export const data: DataType = {
             },
           ],
         },
-        // {
-        //   name: "关键词",
-        //   number: 1,
-        //   legos: [
-        //     {
-        //       keyWord: "关键词",
-        //       detail: "请你包含以下关键词：{文本}。",
-        //       useTime: 22,
-        //       color: "blue",
-        //       varNum: 1,
-        //     },
-        //   ],
-        // },
-        // {
-        //   name: "语言",
-        //   number: 2,
-        //   legos: [
-        //     {
-        //       keyWord: "中文",
-        //       detail: "请输出中文。",
-        //       useTime: 22,
-        //       color: "blue",
-        //     },
-        //     {
-        //       keyWord: "英文",
-        //       detail: "请输出英文。",
-        //       useTime: 22,
-        //       color: "blue",
-        //     },
-        //   ],
-        // },
+        {
+          name: "关键词",
+          number: 1,
+          legos: [
+            {
+              keyWord: "关键词",
+              detail: "请你包含以下关键词：{文本}。",
+              useTime: 22,
+              color: "blue",
+              varNum: 1,
+            },
+          ],
+        },
+        {
+          name: "语言",
+          number: 2,
+          legos: [
+            {
+              keyWord: "中文",
+              detail: "请输出中文。",
+              useTime: 22,
+              color: "blue",
+            },
+            {
+              keyWord: "英文",
+              detail: "请输出英文。",
+              useTime: 22,
+              color: "blue",
+            },
+          ],
+        },
       ],
     },
     {
