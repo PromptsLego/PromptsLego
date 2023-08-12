@@ -1,8 +1,8 @@
-import textboxBackgroundCorner from "../../assets/textboxBackgroundCorner.png";
-import textboxBackgroundHorizontal from "../../assets/textboxBackgroundHorizontal.png";
-import textboxBackgroundVertical from "../../assets/textboxBackgroundVertical.png";
+import textboxBackgroundCorner from "@/assets/textboxBackgroundCorner.png";
+import textboxBackgroundHorizontal from "@/assets/textboxBackgroundHorizontal.png";
+import textboxBackgroundVertical from "@/assets/textboxBackgroundVertical.png";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, TextareaHTMLAttributes } from "react";
 
 import styled from "styled-components";
 
@@ -46,19 +46,28 @@ const Textbox = styled.div`
   grid-area: textbox;
 `;
 
-type TextAreaContainerProps = {
-  children: ReactNode;
-};
-
-const TextAreaContainer: React.FC<TextAreaContainerProps> = ({ children }) => {
+const TextAreaContent = styled.textarea`
+  font-size: 1.6rem;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 0;
+  resize: none;
+`;
+const TextArea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = ({
+  ...props
+}) => {
   return (
     <Container>
       <Corner />
       <HorizontalBar />
       <VerticalBar />
-      <Textbox>{children}</Textbox>
+      <Textbox>
+        <TextAreaContent {...props} />
+      </Textbox>
     </Container>
   );
 };
 
-export default TextAreaContainer;
+export default TextArea;

@@ -1,10 +1,9 @@
-import { FC } from "react";
-import CenterContent from "../../components/centerContent/CenterContent";
-import LeftSider from "../../components/leftSider/LeftSider";
-import RightSider from "../../components/rightSider/RightSider";
+import CenterContent from "./components/CenterContent";
+import LeftSider from "./components/LeftSider";
+import RightSider from "./components/RightSider";
 import styled from "styled-components";
-import logo from "../../assets/Logo.svg";
-import bottomLogo from "../../assets/button.svg";
+import logo from "@/assets/Logo.svg";
+import bottomLogo from "@/assets/button.svg";
 
 const AppLayout = styled.div`
   display: grid;
@@ -36,7 +35,7 @@ const BottomLogo = styled.img`
   height: 50%;
 `;
 
-const App: FC = () => {
+const App: React.FC = () => {
   return (
     <AppLayout>
       <Header>

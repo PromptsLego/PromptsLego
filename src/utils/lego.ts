@@ -1,19 +1,18 @@
-import lego_yellow from "../../assets/lego-yellow.png";
-import lego_gray from "../../assets/lego-gray.png";
-import lego_blue from "../../assets/lego-blue.png";
-import lego_cyan from "../../assets/lego-cyan.png";
-import lego_green from "../../assets/lego-green.png";
-import lego_purple from "../../assets/lego-purple.png";
-import lego_pink from "../../assets/lego-pink.png";
-import lego_white from "../../assets/lego-white.png";
-import lego_yellow_pin from "../../assets/lego-yellow-pin.png";
-import lego_blue_pin from "../../assets/lego-blue-pin.png";
-import lego_cyan_pin from "../../assets/lego-cyan-pin.png";
-import lego_green_pin from "../../assets/lego-green-pin.png";
-import lego_purple_pin from "../../assets/lego-purple-pin.png";
-import lego_white_pin from "../../assets/lego-white-pin.png";
-import { ContentContextType } from "../../contexts/ContentContext";
-import { LegoType } from "./LegoType";
+import lego_yellow from "@/assets/lego-yellow.png";
+import lego_gray from "@/assets/lego-gray.png";
+import lego_blue from "@/assets/lego-blue.png";
+import lego_cyan from "@/assets/lego-cyan.png";
+import lego_green from "@/assets/lego-green.png";
+import lego_purple from "@/assets/lego-purple.png";
+import lego_pink from "@/assets/lego-pink.png";
+import lego_white from "@/assets/lego-white.png";
+import lego_yellow_pin from "@/assets/lego-yellow-pin.png";
+import lego_blue_pin from "@/assets/lego-blue-pin.png";
+import lego_cyan_pin from "@/assets/lego-cyan-pin.png";
+import lego_green_pin from "@/assets/lego-green-pin.png";
+import lego_purple_pin from "@/assets/lego-purple-pin.png";
+import lego_white_pin from "@/assets/lego-white-pin.png";
+import { ContentContextType, LegoType } from "@/contexts/ContentContext";
 
 export const LegoImageUrl = (color: string | undefined) => {
   return color === "yellow"
@@ -59,7 +58,7 @@ export const LegoStyle = {
   justifyContent: "center",
   alignItems: "center",
   fontSize: "15px",
-  borderColor: "transparent",
+  border: "none",
 };
 export const NavigatorLegoStyle = {
   height: "30px",
@@ -68,7 +67,7 @@ export const NavigatorLegoStyle = {
   justifyContent: "center",
   alignItems: "center",
   fontSize: "15px",
-  borderColor: "transparent",
+  border: "none",
 };
 
 export const UpdateCurrentDetail = (
@@ -78,7 +77,7 @@ export const UpdateCurrentDetail = (
   SetCurrent: ContentContextType["SetCurrent"],
   category: string,
   lego: LegoType,
-  updateDetail: string,
+  updateDetail: string
 ) => {
   const current_category = current.find((item) => item.category === category);
   const targetLego = current_category?.children.find(
@@ -87,7 +86,7 @@ export const UpdateCurrentDetail = (
       item.detail === lego.detail &&
       item.useTime === lego.useTime &&
       item.color === lego.color &&
-      item.varNum === lego.varNum,
+      item.varNum === lego.varNum
   );
   if (targetLego === undefined) return;
   targetLego.detail = updateDetail;
@@ -97,7 +96,7 @@ export const UpdateCurrentDetail = (
   const newDetails = [...details];
   const targetDetail = newDetails.find((item) => item.category === category);
   const index = targetDetail?.details?.findIndex(
-    (item) => item === lego.detail,
+    (item) => item === lego.detail
   );
   if (index === undefined || index === -1) return;
   targetDetail?.details?.splice(index, 1, updateDetail);

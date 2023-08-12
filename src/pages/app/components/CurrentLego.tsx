@@ -1,17 +1,10 @@
 import React, { useContext, useRef, useEffect } from "react";
-import { LegoProps } from "./Lego";
-import { Popover, message } from "antd";
+import { Popover } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
-import PopContent from "./PopContent";
-import {
-  LegoFrozenImageUrl,
-  LegoImageUrl,
-  LegoStyle,
-  UpdateCurrentDetail,
-} from "./util";
+import { LegoFrozenImageUrl, LegoImageUrl } from "@/utils/lego";
 import { Input, InputRef } from "antd";
-import ContentContext from "../../contexts/ContentContext";
-import { useImmer } from "use-immer";
+import ContentContext from "@/contexts/ContentContext";
+import Lego from "@/ui/Lego";
 
 type LegoState =
   | "normal"
@@ -22,7 +15,16 @@ type LegoState =
   | "var-frozen"
   | "fill-frozen";
 
-const CurrentLego: React.FC<LegoProps> = ({
+interface CurrentLegoProps {
+  keyWord: string;
+  detail: string;
+  useTime: number;
+  color: string;
+  varNum: number;
+  category: string;
+}
+
+const CurrentLego: React.FC<CurrentLegoProps> = ({
   keyWord,
   detail,
   useTime,
@@ -31,11 +33,12 @@ const CurrentLego: React.FC<LegoProps> = ({
   category,
   ...props
 }) => {
-  const inputRef = useRef<InputRef>(null);
+  // const inputRef = useRef<InputRef>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   var detailContent = detail!;
   const contentBegin = detailContent.indexOf("{");
   const [state, SetState] = React.useState<LegoState>(
-    contentBegin == undefined || contentBegin == -1 ? "normal" : "var",
+    contentBegin == undefined || contentBegin == -1 ? "normal" : "var"
   );
   useEffect(() => {
     inputRef.current?.focus();
@@ -63,7 +66,7 @@ const CurrentLego: React.FC<LegoProps> = ({
         state === "normal-frozen"
       ? LegoFrozenImageUrl(color)
       : LegoImageUrl("white");
-  const popContent = <PopContent detail={detailState} />;
+  const popContent = <p>{detailState}</p>;
 
   const clickMouseLeftHandler = () => {
     if (mouseStatus === "frozen") {
@@ -90,14 +93,14 @@ const CurrentLego: React.FC<LegoProps> = ({
   const clickMouseRightHandler = () => {
     SetCurrent((curCurrent) => {
       const current_category = curCurrent.find(
-        (item) => item.category === category,
+        (item) => item.category === category
       );
       let targetIndex = current_category?.children.findIndex(
         (item) =>
           item.keyWord === keyWord &&
           item.color === color &&
           item.useTime === useTime &&
-          item.varNum === varNum,
+          item.varNum === varNum
       );
       if (targetIndex === undefined || targetIndex === -1) return;
       const detailString = current_category?.children[targetIndex].detail!;
@@ -108,17 +111,17 @@ const CurrentLego: React.FC<LegoProps> = ({
       current_category?.children.splice(targetIndex, 1);
       SetDetails((curDetail) => {
         const targetDetail = curDetail.find(
-          (item) => item.category === category,
+          (item) => item.category === category
         );
         if (targetDetail === undefined) return;
         if (contentBegin == undefined || contentBegin == -1) {
           let targetIndex = targetDetail.details.findIndex(
-            (item) => item == detailState,
+            (item) => item == detailState
           );
           targetDetail.details.splice(targetIndex, 1);
         } else {
           let targetIndex = targetDetail.details.findIndex(
-            (item) => item.startsWith(prefix) && item.endsWith(postfix),
+            (item) => item.startsWith(prefix) && item.endsWith(postfix)
           );
           targetDetail.details.splice(targetIndex, 1);
         }
@@ -128,14 +131,14 @@ const CurrentLego: React.FC<LegoProps> = ({
   const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     SetCurrent((curCurrent) => {
       const current_category = curCurrent.find(
-        (item) => item.category === category,
+        (item) => item.category === category
       );
       const targetLego = current_category?.children.find(
         (item) =>
           item.keyWord === keyWord &&
           item.useTime === useTime &&
           item.color === color &&
-          item.varNum === varNum,
+          item.varNum === varNum
       );
       if (targetLego === undefined) return;
 
@@ -147,16 +150,16 @@ const CurrentLego: React.FC<LegoProps> = ({
       targetLego.detail = prefix + "{" + event.target.value + "}" + postfix;
       SetDetails((curDetail) => {
         const targetDetail = curDetail.find(
-          (item) => item.category === category,
+          (item) => item.category === category
         );
         const index = targetDetail?.details?.findIndex(
-          (item) => item.startsWith(prefix) && item.endsWith(postfix),
+          (item) => item.startsWith(prefix) && item.endsWith(postfix)
         );
         if (index === undefined || index === -1) return;
         targetDetail?.details?.splice(
           index,
           1,
-          prefix + event.target.value + postfix,
+          prefix + event.target.value + postfix
         );
         SetDetailState(event.target.value);
       });
@@ -179,7 +182,7 @@ const CurrentLego: React.FC<LegoProps> = ({
     (state === "edit" && (
       <>
         <CaretRightOutlined rotate={90} size={10} />
-        <Input
+        <input
           type="text"
           value={detailState}
           ref={inputRef}
@@ -192,47 +195,21 @@ const CurrentLego: React.FC<LegoProps> = ({
             border: "none",
             borderColor: "transparent",
           }}
-          onPressEnter={() => {
-            SetState("fill");
-          }}
         />
       </>
     ));
 
-  const LegoButton = (
-    <button
-      style={{
-        position: "relative",
-        backgroundImage: `url(${imageUrl})`,
-        backgroundColor: "transparent",
-        ...LegoStyle,
-      }}
-      onClick={clickMouseLeftHandler}
-      onDoubleClick={clickMouseRightHandler}
-    >
-      <div
-        style={{
-          position: "absolute",
-          left: "5%",
-          right: "10%",
-          top: "10%",
-          bottom: "10%",
-          overflow: "hidden",
-        }}
+  return (
+    <Popover content={popContent}>
+      <Lego
+        color={color}
+        onClick={clickMouseLeftHandler}
+        onDoubleClick={clickMouseRightHandler}
       >
-        <div
-          style={{
-            position: "relative",
-            top: "10px",
-          }}
-        >
-          {LegoText}
-        </div>
-      </div>
-    </button>
+        {LegoText}
+      </Lego>
+    </Popover>
   );
-
-  return <Popover content={popContent}>{LegoButton}</Popover>;
 };
 
 export default CurrentLego;

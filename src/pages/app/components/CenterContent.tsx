@@ -1,9 +1,8 @@
-import Lego from "../lego/Lego";
-import Label from "./Label";
 import { useContext } from "react";
-import ContentContext from "../../contexts/ContentContext";
+import ContentContext from "@/contexts/ContentContext";
 import styled from "styled-components";
 import React from "react";
+import CurrentLego from "./CurrentLego";
 
 const Container = styled.div`
   position: relative;
@@ -17,6 +16,12 @@ const Container = styled.div`
 const LegoContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
+`;
+
+const Label = styled.p`
+  font-size: 2rem;
+  margin: 1rem;
 `;
 
 interface CenterContentProps {}
@@ -30,18 +35,17 @@ const CenterContent: React.FC<CenterContentProps> = ({}) => {
         return (
           <React.Fragment key={index}>
             {item.children.length === 0 ? null : (
-              <Label text={item.category} key={"label:" + index} />
+              <Label key={"label:" + index}>{item.category}</Label>
             )}
             <LegoContainer key={"container:" + index}>
               {item.children.map((child, lego_index) => {
                 return (
-                  <Lego
+                  <CurrentLego
                     keyWord={child.keyWord}
                     detail={child.detail}
                     useTime={child.useTime}
                     color={child.color}
                     category={item.category}
-                    legoType="lego"
                     varNum={child.varNum}
                     key={index + ":" + lego_index}
                   />

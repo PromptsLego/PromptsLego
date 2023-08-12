@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
-import ContentContext from "../../contexts/ContentContext";
-import { LegoProps } from "./Lego";
+import ContentContext from "@/contexts/ContentContext";
+import Lego from "@/ui/Lego";
 import { Popover } from "antd";
-import PopContent from "./PopContent";
-import { LegoImageUrl, LegoStyle } from "./util";
+import { LegoImageUrl } from "@/utils/lego";
 
 const categories = [
   "收藏",
@@ -14,17 +13,24 @@ const categories = [
   "其他要求",
 ];
 
-const ChoiceLego: React.FC<LegoProps> = ({
+interface ChoiceLegoProps {
+  keyWord: string;
+  detail: string;
+  useTime: number;
+  color: string;
+  varNum: number;
+}
+
+const ChoiceLego: React.FC<ChoiceLegoProps> = ({
   keyWord,
   detail,
   useTime,
   color,
   varNum,
-  ...props
 }) => {
   const { details, SetDetails, select, SetSelect, current, SetCurrent } =
     useContext(ContentContext);
-  const popContent = <PopContent detail={detail} />;
+  const popContent = <p>detail</p>;
   const imageUrl = LegoImageUrl(color);
 
   const [categoriesLeft, setCategoriesLeft] = useState<string[]>(categories);
@@ -63,11 +69,11 @@ const ChoiceLego: React.FC<LegoProps> = ({
             const postfix = detailString.substring(contentEnd + 1);
             const content = detailString.substring(
               contentBegin + 1,
-              contentEnd,
+              contentEnd
             );
             detailString = prefix + content + postfix;
             const targetDetail = newDetails.find(
-              (item) => item.category === select,
+              (item) => item.category === select
             );
             if (targetDetail === undefined) {
               newDetails.push({
@@ -83,40 +89,14 @@ const ChoiceLego: React.FC<LegoProps> = ({
     });
   };
 
-  const LegoText = (
-    <div style={{ margin: "auto" }}>
-      <div>{keyWord + " | "}</div>
-      <div style={{ color: "white" }}>{useTime}</div>
-    </div>
+  return (
+    <Popover content={popContent}>
+      <Lego color={color} onClick={clickHandler}>
+        <span>{keyWord + " | "}</span>
+        <span style={{ color: "white" }}>{useTime}</span>
+      </Lego>
+    </Popover>
   );
-
-  const LegoButton = (
-    <button
-      style={{
-        position: "relative",
-        backgroundImage: `url(${imageUrl})`,
-        backgroundColor: "transparent",
-        ...LegoStyle,
-      }}
-      onClick={clickHandler}
-    >
-      <div
-        style={{
-          position: "absolute",
-          left: "5%",
-          right: "10%",
-          top: "10%",
-          bottom: "10%",
-          overflow: "hidden",
-          textAlign: "center",
-        }}
-      >
-        {LegoText}
-      </div>
-    </button>
-  );
-
-  return <Popover content={popContent}>{LegoButton}</Popover>;
 };
 
 export default ChoiceLego;

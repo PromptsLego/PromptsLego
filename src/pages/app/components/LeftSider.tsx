@@ -1,14 +1,13 @@
 import { useContext, useState } from "react";
-// import { Button, Input } from "antd";
-import ContentContext from "../../contexts/ContentContext";
-import copyImage from "../../assets/copyImage.svg";
-import optimizeImage from "../../assets/optimizeImage.svg";
-import collectImage from "../../assets/collectImage.svg";
-import dropImage from "../../assets/dropImage.svg";
-import promptperfect from "../textArea/PromptPerfect";
-import { config } from "../../config";
+import ContentContext from "@/contexts/ContentContext";
+import copyImage from "@/assets/copyImage.svg";
+import optimizeImage from "@/assets/optimizeImage.svg";
+import collectImage from "@/assets/collectImage.svg";
+import dropImage from "@/assets/dropImage.svg";
+import promptperfect from "@/services/PromptPerfect";
+import { config } from "@/config";
 import styled from "styled-components";
-import TextAreaContainer from "./TextAreaContainer";
+import TextArea from "@/ui/TextArea";
 
 const YOUR_GENERATED_SECRET = config.jina_key;
 
@@ -22,38 +21,43 @@ const Container = styled.div`
   gap: 1rem;
 `;
 
-const TextArea = styled.textarea`
-  font-size: 1.6rem;
-  overflow-y: auto;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  border: 0;
-  resize: none;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
 
-interface ButtonProps {
-  $image: string;
-  $width: string;
-  $height: string;
-}
-
-const Button = styled.button<ButtonProps>`
-  background-image: url(${(props) => props.$image});
+const Button = styled.button`
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  width: ${(props) => props.$width};
-  height: ${(props) => props.$height};
   border: none;
 
   &:not(:last-child) {
     margin-right: 1.5rem;
   }
+`;
+
+const CopyButton = styled(Button)`
+  background-image: url(${copyImage});
+  width: 8.8rem;
+  height: 4.2rem;
+`;
+
+const OptimizeButton = styled(Button)`
+  background-image: url(${optimizeImage});
+  width: 4.2rem;
+  height: 4.2rem;
+`;
+
+const FavoriteButton = styled(Button)`
+  background-image: url(${collectImage});
+  width: 4.2rem;
+  height: 4.2rem;
+`;
+
+const DropButton = styled(Button)`
+  background-image: url(${dropImage});
+  width: 4.2rem;
+  height: 4.2rem;
 `;
 
 const LeftSider: React.FC<LeftSiderProps> = ({}) => {
@@ -125,13 +129,13 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
     }
   };
   const handleFavorite = () => {
-    const favorites = globalData.tables![0]!.minorCategories!;
+    const favorites = globalData.tables[0].minorCategories!;
     const favoriteLegos: {
-      keyWord?: string;
-      detail?: string;
-      useTime?: number;
-      color?: string;
-      varNum?: number;
+      keyWord: string;
+      detail: string;
+      useTime: number;
+      color: string;
+      varNum: number;
     }[] = [];
     current.map((item) => {
       item.children.map((child) => {
@@ -155,41 +159,17 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
 
   return (
     <Container>
-      <TextAreaContainer>
-        <TextArea value={output} readOnly placeholder="promptLego" />
-      </TextAreaContainer>
-      <TextAreaContainer>
-        <TextArea
-          value={optimizedTextAreaValue}
-          readOnly
-          placeholder="promptLego"
-        />
-      </TextAreaContainer>
+      <TextArea value={output} readOnly placeholder="promptLego" />
+      <TextArea
+        value={optimizedTextAreaValue}
+        readOnly
+        placeholder="promptLego"
+      />
       <ButtonContainer>
-        <Button
-          $image={copyImage}
-          $width={"8.8rem"}
-          $height={"4.2rem"}
-          onClick={handleCopy}
-        ></Button>
-        <Button
-          $image={optimizeImage}
-          $width={"4.2rem"}
-          $height={"4.2rem"}
-          onClick={handleOptimize}
-        ></Button>
-        <Button
-          $image={collectImage}
-          $width={"4.2rem"}
-          $height={"4.2rem"}
-          onClick={handleFavorite}
-        ></Button>
-        <Button
-          $image={dropImage}
-          $width={"4.2rem"}
-          $height={"4.2rem"}
-          onClick={handleDrop}
-        ></Button>
+        <CopyButton onClick={handleCopy}></CopyButton>
+        <OptimizeButton onClick={handleOptimize}></OptimizeButton>
+        <FavoriteButton onClick={handleFavorite}></FavoriteButton>
+        <DropButton onClick={handleDrop}></DropButton>
       </ButtonContainer>
     </Container>
   );

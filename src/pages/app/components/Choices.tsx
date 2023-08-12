@@ -1,9 +1,16 @@
 import type { CollapseProps } from "antd";
 import { Collapse } from "antd";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { CaretRightOutlined } from "@ant-design/icons";
-import Lego from "../lego/Lego";
-import ContentContext from "../../contexts/ContentContext";
+import ContentContext from "@/contexts/ContentContext";
+import ChoiceLego from "./ChoiceLego";
+import { styled } from "styled-components";
+
+const ChoiceContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
 
 interface ChoicesProp {}
 const Choices: React.FC<ChoicesProp> = ({}) => {
@@ -20,23 +27,20 @@ const Choices: React.FC<ChoicesProp> = ({}) => {
           </div>
         ),
         children: (
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <ChoiceContainer>
             {minorCategory.legos?.map((lego, lego_index) => {
               return (
-                <Lego
+                <ChoiceLego
                   keyWord={lego.keyWord!}
                   detail={lego.detail}
                   useTime={lego.useTime!}
                   color={lego.color}
-                  style={{ margin: "5px" }}
-                  legoType="choice"
                   varNum={lego.varNum === undefined ? 0 : lego.varNum}
-                  category=""
                   key={index + ":" + lego_index}
                 />
               );
             })}
-          </div>
+          </ChoiceContainer>
         ),
       };
     }

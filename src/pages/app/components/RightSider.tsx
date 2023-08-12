@@ -1,10 +1,7 @@
-import Sider from "antd/es/layout/Sider";
 import Navigator from "./Navigator";
 import Choices from "./Choices";
-import RightBox from "../../assets/RightBox.svg";
-import Cancel from "../../assets/cancel.svg";
-import { useEffect, useRef, useState } from "react";
-import { useImmer } from "use-immer";
+import RightBox from "@/assets/RightBox.svg";
+import Cancel from "@/assets/cancel.svg";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -37,11 +34,6 @@ const ChoiceDiv = styled.div`
 `;
 
 interface RightSiderProps {}
-
-interface ScrollState {
-  speed: number;
-  top: number;
-}
 
 const RightSider: React.FC<RightSiderProps> = ({}) => {
   return (
