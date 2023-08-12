@@ -32,18 +32,18 @@ const CurrentLego: React.FC<LegoProps> = ({
   ...props
 }) => {
   const inputRef = useRef<InputRef>(null);
-  var detailContent = detail!
-  const contentBegin = detailContent.indexOf("{")
+  var detailContent = detail!;
+  const contentBegin = detailContent.indexOf("{");
   const [state, SetState] = React.useState<LegoState>(
-    contentBegin == undefined || contentBegin == -1 ? "normal" : "var"
+    contentBegin == undefined || contentBegin == -1 ? "normal" : "var",
   );
   useEffect(() => {
     inputRef.current?.focus();
   }, [state]);
-  
-  if(contentBegin != undefined && contentBegin != -1){
-    detailContent = detailContent.substring(contentBegin+1)
-    detailContent = detailContent.substring(0,detailContent.lastIndexOf("}"))
+
+  if (contentBegin != undefined && contentBegin != -1) {
+    detailContent = detailContent.substring(contentBegin + 1);
+    detailContent = detailContent.substring(0, detailContent.lastIndexOf("}"));
   }
   const [detailState, SetDetailState] = React.useState<string>(detailContent);
   const {
@@ -61,8 +61,8 @@ const CurrentLego: React.FC<LegoProps> = ({
       : state === "fill-frozen" ||
         state === "var-frozen" ||
         state === "normal-frozen"
-        ? LegoFrozenImageUrl(color)
-        : LegoImageUrl("white");
+      ? LegoFrozenImageUrl(color)
+      : LegoImageUrl("white");
   const popContent = <PopContent detail={detailState} />;
 
   const clickMouseLeftHandler = () => {
@@ -89,67 +89,79 @@ const CurrentLego: React.FC<LegoProps> = ({
   };
   const clickMouseRightHandler = () => {
     SetCurrent((curCurrent) => {
-      const current_category = curCurrent.find((item) => item.category === category);
-      let targetIndex = current_category?.children.findIndex((item) => 
+      const current_category = curCurrent.find(
+        (item) => item.category === category,
+      );
+      let targetIndex = current_category?.children.findIndex(
+        (item) =>
           item.keyWord === keyWord &&
           item.color === color &&
           item.useTime === useTime &&
-          item.varNum === varNum
+          item.varNum === varNum,
       );
       if (targetIndex === undefined || targetIndex === -1) return;
-      const detailString = current_category?.children[targetIndex].detail!
-      const contentBegin = detailString.indexOf("{")
-      const contentEnd = detailString.lastIndexOf("}")
-      const prefix = detailString.substring(0, contentBegin)
-      const postfix = detailString.substring(contentEnd + 1)
+      const detailString = current_category?.children[targetIndex].detail!;
+      const contentBegin = detailString.indexOf("{");
+      const contentEnd = detailString.lastIndexOf("}");
+      const prefix = detailString.substring(0, contentBegin);
+      const postfix = detailString.substring(contentEnd + 1);
       current_category?.children.splice(targetIndex, 1);
       SetDetails((curDetail) => {
-        const targetDetail = curDetail.find((item) => item.category === category);
+        const targetDetail = curDetail.find(
+          (item) => item.category === category,
+        );
         if (targetDetail === undefined) return;
-        if (contentBegin==undefined || contentBegin==-1){
+        if (contentBegin == undefined || contentBegin == -1) {
           let targetIndex = targetDetail.details.findIndex(
-            (item) => item == detailState
+            (item) => item == detailState,
           );
           targetDetail.details.splice(targetIndex, 1);
-        }else{
+        } else {
           let targetIndex = targetDetail.details.findIndex(
-            (item) => item.startsWith(prefix) && item.endsWith(postfix)
+            (item) => item.startsWith(prefix) && item.endsWith(postfix),
           );
           targetDetail.details.splice(targetIndex, 1);
         }
-      })
-    })
-
+      });
+    });
   };
   const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    
     SetCurrent((curCurrent) => {
-      const current_category = curCurrent.find((item) => item.category === category)
+      const current_category = curCurrent.find(
+        (item) => item.category === category,
+      );
       const targetLego = current_category?.children.find(
         (item) =>
           item.keyWord === keyWord &&
           item.useTime === useTime &&
           item.color === color &&
-          item.varNum === varNum
+          item.varNum === varNum,
       );
       if (targetLego === undefined) return;
-      
-      const detailString = targetLego.detail!
-      const contentBegin = detailString.indexOf("{")
-      const contentEnd = detailString.lastIndexOf("}")
-      const prefix = detailString.substring(0, contentBegin)
-      const postfix = detailString.substring(contentEnd + 1)
+
+      const detailString = targetLego.detail!;
+      const contentBegin = detailString.indexOf("{");
+      const contentEnd = detailString.lastIndexOf("}");
+      const prefix = detailString.substring(0, contentBegin);
+      const postfix = detailString.substring(contentEnd + 1);
       targetLego.detail = prefix + "{" + event.target.value + "}" + postfix;
       SetDetails((curDetail) => {
-        const targetDetail = curDetail.find((item) => item.category === category);
-        const index = targetDetail?.details?.findIndex((item) => item.startsWith(prefix) && item.endsWith(postfix));
+        const targetDetail = curDetail.find(
+          (item) => item.category === category,
+        );
+        const index = targetDetail?.details?.findIndex(
+          (item) => item.startsWith(prefix) && item.endsWith(postfix),
+        );
         if (index === undefined || index === -1) return;
-        targetDetail?.details?.splice(index, 1, prefix + event.target.value + postfix);
+        targetDetail?.details?.splice(
+          index,
+          1,
+          prefix + event.target.value + postfix,
+        );
         SetDetailState(event.target.value);
-      })
-    })
-
-  }
+      });
+    });
+  };
 
   const LegoText =
     ((state === "normal" || state === "normal-frozen") && (
@@ -159,11 +171,11 @@ const CurrentLego: React.FC<LegoProps> = ({
       state === "fill" ||
       state === "var-frozen" ||
       state === "fill-frozen") && (
-        <>
-          <CaretRightOutlined rotate={90} size={10} />
-          <text>{keyWord}</text>
-        </>
-      )) ||
+      <>
+        <CaretRightOutlined rotate={90} size={10} />
+        <span>{keyWord}</span>
+      </>
+    )) ||
     (state === "edit" && (
       <>
         <CaretRightOutlined rotate={90} size={10} />
@@ -198,22 +210,25 @@ const CurrentLego: React.FC<LegoProps> = ({
       onClick={clickMouseLeftHandler}
       onDoubleClick={clickMouseRightHandler}
     >
-      <div style={{
-        position: "absolute",
-        left: "5%",
-        right: "10%",
-        top: "10%",
-        bottom: "10%",
-        overflow: "hidden",
-      }}>
-        <div style={{
-          position: "relative",
-          top: "10px"
-        }}>
+      <div
+        style={{
+          position: "absolute",
+          left: "5%",
+          right: "10%",
+          top: "10%",
+          bottom: "10%",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            top: "10px",
+          }}
+        >
           {LegoText}
         </div>
       </div>
-
     </button>
   );
 

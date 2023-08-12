@@ -9,7 +9,7 @@ interface RequestBody {
 async function promptperfect(
   prompt: string,
   targetModel: string,
-  apiKey: string
+  apiKey: string,
 ): Promise<Response> {
   const requestBody: RequestBody = {
     data: {
@@ -27,7 +27,7 @@ async function promptperfect(
       },
       body: JSON.stringify(requestBody),
       method: "POST",
-    }
+    },
   );
 
   return response;

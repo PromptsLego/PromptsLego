@@ -1,68 +1,57 @@
-import { Content } from "antd/es/layout/layout";
 import Lego from "../lego/Lego";
 import Label from "./Label";
 import { useContext } from "react";
 import ContentContext from "../../contexts/ContentContext";
-import FrozeButton from "./FrozeButton";
+import styled from "styled-components";
+import React from "react";
 
-interface CenterContentProps { }
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0rem 3rem;
+  overflow-y: auto;
+`;
 
-const CenterContent: React.FC<CenterContentProps> = ({ }) => {
+const LegoContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+interface CenterContentProps {}
+
+const CenterContent: React.FC<CenterContentProps> = ({}) => {
   const { current, SetCurrent } = useContext(ContentContext);
 
   return (
-    <Content
-      style={{
-        position: "relative",
-        backgroundColor: "white",
-        display: "flex",
-        flexDirection: "column",
-        flexWrap: "wrap",
-        paddingLeft: "50px",
-        paddingRight: "50px",
-        // justifyContent: "space-between",
-      }}
-    >
-      <div style={{ alignSelf: "flex-end", marginRight: "10px" }}>
-        <FrozeButton></FrozeButton>
-      </div>
-      <div style={{
-        position: "absolute",
-        left:"10%",
-        right:"10%",
-        top:"0",
-        bottom:"10%",
-        overflowY:"auto"
-      }}>
-        {current.map((item) => {
-          return (
-            <>
-              {item.children.length === 0 ? (
-                <></>
-              ) : (
-                <Label text={item.category} />
-              )}
-              <div style={{ display: "flex", flexWrap: "wrap" }}>
-                {item.children.map((child) => {
-                  return (
-                    <Lego
-                      keyWord={child.keyWord}
-                      detail={child.detail}
-                      useTime={child.useTime}
-                      color={child.color}
-                      category={item.category}
-                      legoType="lego"
-                      varNum={child.varNum}
-                    />
-                  );
-                })}
-              </div>
-            </>
-          );
-        })}
-      </div>
-
-    </Content>
+    <Container>
+      {current.map((item, index) => {
+        return (
+          <React.Fragment key={index}>
+            {item.children.length === 0 ? null : (
+              <Label text={item.category} key={"label:" + index} />
+            )}
+            <LegoContainer key={"container:" + index}>
+              {item.children.map((child, lego_index) => {
+                return (
+                  <Lego
+                    keyWord={child.keyWord}
+                    detail={child.detail}
+                    useTime={child.useTime}
+                    color={child.color}
+                    category={item.category}
+                    legoType="lego"
+                    varNum={child.varNum}
+                    key={index + ":" + lego_index}
+                  />
+                );
+              })}
+            </LegoContainer>
+          </React.Fragment>
+        );
+      })}
+    </Container>
   );
 };
 

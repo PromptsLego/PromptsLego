@@ -11,7 +11,7 @@ export type ContentContextType = {
   SetActiveTextArea: Updater<string>;
   select: string;
   SetSelect: Updater<string>;
-  current: {category: string;children: LegoType[];}[];
+  current: { category: string; children: LegoType[] }[];
   SetCurrent: Updater<ContentContextType["current"]>;
   mouseStatus: "default" | "frozen";
   SetMouseStatus: Updater<ContentContextType["mouseStatus"]>;
@@ -35,11 +35,14 @@ const ContentContext = createContext<ContentContextType>({
 });
 
 const ContentContextProvider: React.FC<PropsWithChildren> = (props) => {
-  const [details, SetDetails] = useImmer<{ category: string; details: string[] }[]>([]);
+  const [details, SetDetails] = useImmer<
+    { category: string; details: string[] }[]
+  >([]);
   const [activeTextArea, SetActiveTextArea] = useImmer("default");
   const [select, SetSelect] = useImmer("");
   const [current, SetCurrent] = useImmer<ContentContextType["current"]>([]);
-  const [mouseStatus, SetMouseStatus] = useImmer<ContentContextType["mouseStatus"]>("default");
+  const [mouseStatus, SetMouseStatus] =
+    useImmer<ContentContextType["mouseStatus"]>("default");
   const [globalData, SetGlobalData] = useImmer<DataType>(data);
 
   return (

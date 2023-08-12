@@ -16,11 +16,13 @@
     "bcryptjs": "^2.4.3",
     "crypto-js": "^4.1.1",
     "immer": "^10.0.2",
+    "prettier": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.1",
     "redux": "^4.2.1",
+    "styled-components": "^6.0.7",
     "use-immer": "^0.9.0"
   },
   "devDependencies": {
@@ -28,6 +30,7 @@
     "@types/crypto-js": "^4.1.1",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react": "^4.0.0",

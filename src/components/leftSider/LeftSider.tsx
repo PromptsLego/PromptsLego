@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
-import Sider from "antd/es/layout/Sider";
-import { Button, Input } from "antd";
+// import { Button, Input } from "antd";
 import ContentContext from "../../contexts/ContentContext";
 import copyImage from "../../assets/copyImage.svg";
 import optimizeImage from "../../assets/optimizeImage.svg";
@@ -8,32 +7,77 @@ import collectImage from "../../assets/collectImage.svg";
 import dropImage from "../../assets/dropImage.svg";
 import promptperfect from "../textArea/PromptPerfect";
 import { config } from "../../config";
-import optimizeBackground from "../../assets/optimizeBackground.svg";
-import inputBackground from "../../assets/inputBackground.svg";
-import './LeftSider.css'
-import textboxBackgroundCorner from "../../assets/textboxBackgroundCorner.png"
-import textboxBackgroundHorizontal from "../../assets/textboxBackgroundHorizontal.png"
-import textboxBackgroundVertical from "../../assets/textboxBackgroundVertical.png"
+import styled from "styled-components";
+import TextAreaContainer from "./TextAreaContainer";
 
 const YOUR_GENERATED_SECRET = config.jina_key;
 
-interface LeftSiderProps { }
+interface LeftSiderProps {}
 
-const LeftSider: React.FC<LeftSiderProps> = ({ }) => {
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-left: 3rem;
+  gap: 1rem;
+`;
+
+const TextArea = styled.textarea`
+  font-size: 1.6rem;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 0;
+  resize: none;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+interface ButtonProps {
+  $image: string;
+  $width: string;
+  $height: string;
+}
+
+const Button = styled.button<ButtonProps>`
+  background-image: url(${(props) => props.$image});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: ${(props) => props.$width};
+  height: ${(props) => props.$height};
+  border: none;
+
+  &:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+`;
+
+const LeftSider: React.FC<LeftSiderProps> = ({}) => {
   const [optimizedTextAreaValue, SetOptimizedTextAreaValue] = useState("");
   const { activeTextArea, SetActiveTextArea } = useContext(ContentContext);
   const { current, SetCurrent } = useContext(ContentContext);
   const { details, SetDetails } = useContext(ContentContext);
   const { globalData, SetGlobalData } = useContext(ContentContext);
 
+  const output = details
+    .map((detail) => {
+      if (detail.details.length === 0) return;
+      return "▎" + detail.category + ": " + detail.details.join("\n");
+    })
+    .join("\n");
+
   const copyToClipboard = () => {
     const textToCopy =
       activeTextArea === "default"
         ? details
-          .map((detail) => {
-            return "▎" + detail.category + ": " + detail.details.join("\n");
-          })
-          .join("\n")
+            .map((detail) => {
+              return "▎" + detail.category + ": " + detail.details.join("\n");
+            })
+            .join("\n")
         : optimizedTextAreaValue;
     const textarea = document.createElement("textarea");
     textarea.value = textToCopy;
@@ -108,205 +152,46 @@ const LeftSider: React.FC<LeftSiderProps> = ({ }) => {
     });
     SetGlobalData({ ...globalData });
   };
+
   return (
-    <Sider
-      style={{
-        position: "relative",
-        backgroundColor: "white",
-        height: "100%",
-        display: "flex",
-        paddingLeft: "58px",
-      }}
-      width={"30%"}
-    >
-      <div
-        className={"textbox_container"}
-        style={{
-          position: "absolute",
-          height: "40%",
-          left: "10%",
-          right: "0%",
-        }}>
-        <div
-          className="textbox_corner"
-          style={{
-            backgroundImage: `url(${textboxBackgroundCorner})`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></div>
-        <div
-          className="textbox_horizontal_bar"
-          style={{
-            backgroundImage: `url(${textboxBackgroundHorizontal})`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></div>
-        <div
-          className="textbox_vertical_bar"
-          style={{
-            backgroundImage: `url(${textboxBackgroundVertical})`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></div>
-        <div
-          className="textbox_textbox"
-          style={{ position: "relative" }}
-        >
-          <Input.TextArea
-            value={details
-              .map((detail) => {
-                if (detail.details.length === 0) return;
-                return "▎" + detail.category + ": " + detail.details.join("\n");
-              })
-              .join("\n")}
-            readOnly
-            placeholder="promptLego"
-            style={{
-              position: "absolute",
-              lineHeight: "2",
-              fontSize: "16px",
-              overflowY: "auto",
-              resize: "none",
-              width: "95%",
-              top: "0%",
-              bottom: "5%",
-              backgroundColor:"transparent",
-              border:"0"
-            }}
-          />
-        </div>
-      </div>
-      <div
-        className={"textbox_container"}
-        style={{
-          position: "absolute",
-          top: "48%",
-          height: "40%",
-          left: "10%",
-          right: "0%",
-          backgroundColor: "#cccccc"
-        }}>
-        <div
-          className="textbox_corner"
-          style={{
-            backgroundImage: `url(${textboxBackgroundCorner})`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></div>
-        <div
-          className="textbox_horizontal_bar"
-          style={{
-            backgroundImage: `url(${textboxBackgroundHorizontal})`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></div>
-        <div
-          className="textbox_vertical_bar"
-          style={{
-            backgroundImage: `url(${textboxBackgroundVertical})`,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></div>
-        <div
-          className="textbox_textbox"
-          style={{ position: "relative" }}
-        >
-          <Input.TextArea
-            value={optimizedTextAreaValue}
-            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-              SetOptimizedTextAreaValue(event.target.value)
-            }
-            style={{
-              position: "absolute",
-              lineHeight: "2",
-              fontSize: "16px",
-              overflowY: "auto",
-              resize: "none",
-              width: "95%",
-              top: "0%",
-              bottom: "5%",
-              backgroundColor:"transparent",
-              border:"0"
-            }}
-            readOnly
-            placeholder="promptLego"
-          />
-        </div>
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          display: "flex",
-          justifyContent: "flex-end",
-          top: "93%",
-          height: "10%",
-          left: "10%",
-          right: "0%",
-        }}
-      >
+    <Container>
+      <TextAreaContainer>
+        <TextArea value={output} readOnly placeholder="promptLego" />
+      </TextAreaContainer>
+      <TextAreaContainer>
+        <TextArea
+          value={optimizedTextAreaValue}
+          readOnly
+          placeholder="promptLego"
+        />
+      </TextAreaContainer>
+      <ButtonContainer>
         <Button
-          style={{
-            backgroundImage: `url(${copyImage})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            marginLeft: "15px",
-            width: "88px",
-            height: "42px",
-            borderColor: "transparent",
-            border: "none",
-          }}
+          $image={copyImage}
+          $width={"8.8rem"}
+          $height={"4.2rem"}
           onClick={handleCopy}
         ></Button>
         <Button
-          style={{
-            backgroundImage: `url(${optimizeImage})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-
-            marginLeft: "15px",
-            width: "42px",
-            height: "42px",
-            border: "none",
-            borderColor: "transparent",
-          }}
+          $image={optimizeImage}
+          $width={"4.2rem"}
+          $height={"4.2rem"}
           onClick={handleOptimize}
         ></Button>
         <Button
-          style={{
-            backgroundImage: `url(${collectImage})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-
-            marginLeft: "15px",
-            width: "42px",
-            height: "42px",
-            border: "none",
-            borderColor: "transparent",
-          }}
+          $image={collectImage}
+          $width={"4.2rem"}
+          $height={"4.2rem"}
           onClick={handleFavorite}
         ></Button>
         <Button
-          style={{
-            backgroundImage: `url(${dropImage})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-
-            marginLeft: "15px",
-            width: "42px",
-            height: "42px",
-            border: "none",
-            borderColor: "transparent",
-          }}
+          $image={dropImage}
+          $width={"4.2rem"}
+          $height={"4.2rem"}
           onClick={handleDrop}
         ></Button>
-      </div>
-    </Sider>
+      </ButtonContainer>
+    </Container>
   );
 };
 

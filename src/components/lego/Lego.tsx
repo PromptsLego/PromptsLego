@@ -9,7 +9,7 @@ export interface LegoProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   useTime?: number;
   color?: string;
   varNum: number;
-  category: string,
+  category: string;
   legoType: "navigator" | "lego" | "choice"; // lego: lego in center content; choice: lego in right sider
 }
 
