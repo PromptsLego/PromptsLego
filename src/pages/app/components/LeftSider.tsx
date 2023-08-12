@@ -109,7 +109,7 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
     const apiKey = YOUR_GENERATED_SECRET; // 将此处替换为你的实际API密钥
     if (apiKey === undefined) {
       console.log(
-        "ChatGPT API key not found. Please set the YOUR_GENERATED_SECRET variable."
+        "ChatGPT API key not found. Please set the YOUR_GENERATED_SECRET variable.",
       );
     } else {
       try {

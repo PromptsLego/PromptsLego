@@ -11,7 +11,6 @@ export type LegoType = {
   varNum: number;
 };
 
-
 export type ContentContextType = {
   details: { category: string; details: string[] }[];
   SetDetails: Updater<{ category: string; details: string[] }[]>;

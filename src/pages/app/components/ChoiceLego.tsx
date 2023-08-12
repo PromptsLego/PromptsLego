@@ -69,11 +69,11 @@ const ChoiceLego: React.FC<ChoiceLegoProps> = ({
             const postfix = detailString.substring(contentEnd + 1);
             const content = detailString.substring(
               contentBegin + 1,
-              contentEnd
+              contentEnd,
             );
             detailString = prefix + content + postfix;
             const targetDetail = newDetails.find(
-              (item) => item.category === select
+              (item) => item.category === select,
             );
             if (targetDetail === undefined) {
               newDetails.push({

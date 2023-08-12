@@ -38,7 +38,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   var detailContent = detail!;
   const contentBegin = detailContent.indexOf("{");
   const [state, SetState] = React.useState<LegoState>(
-    contentBegin == undefined || contentBegin == -1 ? "normal" : "var"
+    contentBegin == undefined || contentBegin == -1 ? "normal" : "var",
   );
   useEffect(() => {
     inputRef.current?.focus();
@@ -93,14 +93,14 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   const clickMouseRightHandler = () => {
     SetCurrent((curCurrent) => {
       const current_category = curCurrent.find(
-        (item) => item.category === category
+        (item) => item.category === category,
       );
       let targetIndex = current_category?.children.findIndex(
         (item) =>
           item.keyWord === keyWord &&
           item.color === color &&
           item.useTime === useTime &&
-          item.varNum === varNum
+          item.varNum === varNum,
       );
       if (targetIndex === undefined || targetIndex === -1) return;
       const detailString = current_category?.children[targetIndex].detail!;
@@ -111,17 +111,17 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
       current_category?.children.splice(targetIndex, 1);
       SetDetails((curDetail) => {
         const targetDetail = curDetail.find(
-          (item) => item.category === category
+          (item) => item.category === category,
         );
         if (targetDetail === undefined) return;
         if (contentBegin == undefined || contentBegin == -1) {
           let targetIndex = targetDetail.details.findIndex(
-            (item) => item == detailState
+            (item) => item == detailState,
           );
           targetDetail.details.splice(targetIndex, 1);
         } else {
           let targetIndex = targetDetail.details.findIndex(
-            (item) => item.startsWith(prefix) && item.endsWith(postfix)
+            (item) => item.startsWith(prefix) && item.endsWith(postfix),
           );
           targetDetail.details.splice(targetIndex, 1);
         }
@@ -131,14 +131,14 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     SetCurrent((curCurrent) => {
       const current_category = curCurrent.find(
-        (item) => item.category === category
+        (item) => item.category === category,
       );
       const targetLego = current_category?.children.find(
         (item) =>
           item.keyWord === keyWord &&
           item.useTime === useTime &&
           item.color === color &&
-          item.varNum === varNum
+          item.varNum === varNum,
       );
       if (targetLego === undefined) return;
 
@@ -150,16 +150,16 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
       targetLego.detail = prefix + "{" + event.target.value + "}" + postfix;
       SetDetails((curDetail) => {
         const targetDetail = curDetail.find(
-          (item) => item.category === category
+          (item) => item.category === category,
         );
         const index = targetDetail?.details?.findIndex(
-          (item) => item.startsWith(prefix) && item.endsWith(postfix)
+          (item) => item.startsWith(prefix) && item.endsWith(postfix),
         );
         if (index === undefined || index === -1) return;
         targetDetail?.details?.splice(
           index,
           1,
-          prefix + event.target.value + postfix
+          prefix + event.target.value + postfix,
         );
         SetDetailState(event.target.value);
       });

@@ -43,7 +43,7 @@ const Choices: React.FC<ChoicesProp> = ({}) => {
           </ChoiceContainer>
         ),
       };
-    }
+    },
   );
   return (
     <Collapse

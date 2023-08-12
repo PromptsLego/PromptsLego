@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { LegoImageUrl } from "@/utils/lego";
-import LegoLeft from "@/assets/legoLeft.png";
-import LegoRight from "@/assets/legoRight.png";
-import LegoMiddle from "@/assets/legoMiddle.png";
 
 interface LegoProps {
   color: string;
