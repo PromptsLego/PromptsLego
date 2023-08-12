@@ -37,17 +37,17 @@ const ChoiceLego: React.FC<LegoProps> = ({
           category: select,
           children: [],
         });
-        newCurrentItem = newCurrent[newCurrent.length - 1]
+        newCurrentItem = newCurrent[newCurrent.length - 1];
       }
-      
-      if(newCurrentItem){
-        var exist = false
-        newCurrentItem.children.forEach(element => {
-          if(element.keyWord==keyWord){
-            exist = true
+
+      if (newCurrentItem) {
+        var exist = false;
+        newCurrentItem.children.forEach((element) => {
+          if (element.keyWord == keyWord) {
+            exist = true;
           }
         });
-        if(!exist){
+        if (!exist) {
           newCurrentItem.children.push({
             keyWord,
             detail,
@@ -56,14 +56,19 @@ const ChoiceLego: React.FC<LegoProps> = ({
             varNum,
           });
           SetDetails((newDetails) => {
-            var detailString = detail!
-            const contentBegin = detailString.indexOf("{")
-            const contentEnd = detailString.lastIndexOf("}")
-            const prefix = detailString.substring(0,contentBegin)
-            const postfix = detailString.substring(contentEnd+1)
-            const content = detailString.substring(contentBegin + 1,contentEnd)
-            detailString = prefix + content + postfix
-            const targetDetail = newDetails.find((item) => item.category === select);
+            var detailString = detail!;
+            const contentBegin = detailString.indexOf("{");
+            const contentEnd = detailString.lastIndexOf("}");
+            const prefix = detailString.substring(0, contentBegin);
+            const postfix = detailString.substring(contentEnd + 1);
+            const content = detailString.substring(
+              contentBegin + 1,
+              contentEnd,
+            );
+            detailString = prefix + content + postfix;
+            const targetDetail = newDetails.find(
+              (item) => item.category === select,
+            );
             if (targetDetail === undefined) {
               newDetails.push({
                 category: select,
@@ -72,11 +77,10 @@ const ChoiceLego: React.FC<LegoProps> = ({
             } else {
               targetDetail.details.push(detailString);
             }
-          })
+          });
         }
       }
-      
-    })
+    });
   };
 
   const LegoText = (
@@ -96,15 +100,19 @@ const ChoiceLego: React.FC<LegoProps> = ({
       }}
       onClick={clickHandler}
     >
-      <div style={{
-        position: "absolute",
-        left: "5%",
-        right: "10%",
-        top: "10%",
-        bottom: "10%",
-        overflow: "hidden",
-        textAlign: "center"
-      }}>{LegoText}</div>
+      <div
+        style={{
+          position: "absolute",
+          left: "5%",
+          right: "10%",
+          top: "10%",
+          bottom: "10%",
+          overflow: "hidden",
+          textAlign: "center",
+        }}
+      >
+        {LegoText}
+      </div>
     </button>
   );
 

@@ -37,7 +37,7 @@ const EmailForm = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(values),
-          }
+          },
         );
         const response = await res.json();
         console.log(response);
@@ -85,7 +85,7 @@ const EmailForm = () => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
-              }
+              },
             );
             const response = await res.json();
             if (response.success) {
@@ -103,13 +103,16 @@ const EmailForm = () => {
             }
             values.password = CryptoJS.SHA256(values.password).toString();
             console.log(values.password);
-            const res = await fetch("https://www.copilot-m.top/auth/email/login", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
+            const res = await fetch(
+              "https://www.copilot-m.top/auth/email/login",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
               },
-              body: JSON.stringify(values),
-            });
+            );
             const response = await res.json();
             console.log(response);
             if (response.success) {

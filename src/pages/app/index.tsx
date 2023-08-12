@@ -1,34 +1,54 @@
-import { Layout } from "antd";
-import { Footer, Header } from "antd/es/layout/layout";
 import { FC } from "react";
 import CenterContent from "../../components/centerContent/CenterContent";
 import LeftSider from "../../components/leftSider/LeftSider";
 import RightSider from "../../components/rightSider/RightSider";
-import Logo from "../../components/logo/Logo";
-import ButtonLogo from "../../components/logo/ButtonLogo";
+import styled from "styled-components";
+import logo from "../../assets/Logo.svg";
+import bottomLogo from "../../assets/button.svg";
+
+const AppLayout = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 5rem auto 3rem;
+  height: 100vh;
+`;
+
+const Header = styled.header`
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+`;
+const Footer = styled.footer`
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 1rem;
+`;
+
+const Logo = styled.img`
+  height: 50%;
+`;
+
+const BottomLogo = styled.img`
+  height: 50%;
+`;
 
 const App: FC = () => {
   return (
-    <Layout style={{ height: "100vh" }}>
-      <Header style={{ backgroundColor: "white", height: "80px" }}>
-        <Logo></Logo>
+    <AppLayout>
+      <Header>
+        <Logo src={logo} />
       </Header>
-      <Layout style={{ height: "85%" }}>
-        <LeftSider />
-        <CenterContent />
-        <RightSider />
-      </Layout>
-      <Footer
-        style={{
-          height: "5%",
-          display: "flex",
-          backgroundColor: "white",
-          color: "white",
-        }}
-      >
-        <ButtonLogo></ButtonLogo>
+      <LeftSider />
+      <CenterContent />
+      <RightSider />
+      <Footer>
+        <BottomLogo src={bottomLogo} />
       </Footer>
-    </Layout>
+    </AppLayout>
   );
 };
 

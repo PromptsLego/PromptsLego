@@ -78,7 +78,7 @@ export const UpdateCurrentDetail = (
   SetCurrent: ContentContextType["SetCurrent"],
   category: string,
   lego: LegoType,
-  updateDetail: string
+  updateDetail: string,
 ) => {
   const current_category = current.find((item) => item.category === category);
   const targetLego = current_category?.children.find(
@@ -87,16 +87,18 @@ export const UpdateCurrentDetail = (
       item.detail === lego.detail &&
       item.useTime === lego.useTime &&
       item.color === lego.color &&
-      item.varNum === lego.varNum
+      item.varNum === lego.varNum,
   );
   if (targetLego === undefined) return;
   targetLego.detail = updateDetail;
-  console.log(targetLego.detail)
+  console.log(targetLego.detail);
   SetCurrent([...current]);
 
   const newDetails = [...details];
   const targetDetail = newDetails.find((item) => item.category === category);
-  const index = targetDetail?.details?.findIndex((item) => item === lego.detail);
+  const index = targetDetail?.details?.findIndex(
+    (item) => item === lego.detail,
+  );
   if (index === undefined || index === -1) return;
   targetDetail?.details?.splice(index, 1, updateDetail);
   console.log(newDetails);

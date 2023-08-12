@@ -5,66 +5,56 @@ import RightBox from "../../assets/RightBox.svg";
 import Cancel from "../../assets/cancel.svg";
 import { useEffect, useRef, useState } from "react";
 import { useImmer } from "use-immer";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--color-grey-900);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem 3rem 0;
+  overflow: hidden;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+`;
+
+const Logo = styled.img`
+  width: 13.5rem;
+  height: 2.8rem;
+`;
+
+const CancelButton = styled.img`
+  width: 5rem;
+  height: 2rem;
+`;
+
+const ChoiceDiv = styled.div`
+  overflow-y: auto;
+`;
 
 interface RightSiderProps {}
 
-interface ScrollState{
-  speed:number,
-  top:number
+interface ScrollState {
+  speed: number;
+  top: number;
 }
 
 const RightSider: React.FC<RightSiderProps> = ({}) => {
-  
   return (
-    // <div style={{ backgroundColor: "white", height: "100%", width: "100%" }}>
-    <Sider
-      style={{
-        position: "relative",
-        backgroundColor: "white",
-        borderColor: "black",
-        borderStyle: "solid",
-        borderRadius: "10px",
-        paddingTop: "20px",
-        paddingBottom: "20px",
-        width: "100%",
-        height: "100%",
-        paddingLeft: "30px",
-        overflow:"hidden",
-      }}
-      width={"40%"}
-    >
-      <div style={{ display: "flex", marginBottom: "20px" }}>
-        <img
-          src={RightBox}
-          style={{
-            width: "135px",
-            height: "28px",
-          }}
-        />
-        <img
-          src={Cancel}
-          style={{
-            marginLeft: "auto",
-            width: "50px",
-            height: "20px",
-          }}
-        />
-      </div>
+    <Container>
+      <Header>
+        <Logo src={RightBox} />
+        <CancelButton src={Cancel} />
+      </Header>
       <Navigator />
-      <div
-      style = 
-      {{
-        position:"absolute",
-        top: "120px", 
-        right: "20px", 
-        bottom: "20px", 
-        left: "20px",
-        overflowY:"scroll"
-      }}>
+      <ChoiceDiv>
         <Choices />
-      </div>
-    </Sider>
-    // </div>
+      </ChoiceDiv>
+    </Container>
   );
 };
 

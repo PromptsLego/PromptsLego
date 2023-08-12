@@ -21,7 +21,7 @@ const Choices: React.FC<ChoicesProp> = ({}) => {
         ),
         children: (
           <div style={{ display: "flex", flexWrap: "wrap" }}>
-            {minorCategory.legos?.map((lego) => {
+            {minorCategory.legos?.map((lego, lego_index) => {
               return (
                 <Lego
                   keyWord={lego.keyWord!}
@@ -31,6 +31,8 @@ const Choices: React.FC<ChoicesProp> = ({}) => {
                   style={{ margin: "5px" }}
                   legoType="choice"
                   varNum={lego.varNum === undefined ? 0 : lego.varNum}
+                  category=""
+                  key={index + ":" + lego_index}
                 />
               );
             })}

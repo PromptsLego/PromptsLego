@@ -1,9 +1,16 @@
-// import PingFang from "../../assets/PingFangSC.ttf";
+import { styled } from "styled-components";
+
+const StyledLabel = styled.p`
+  font-size: 2rem;
+  margin: 1rem;
+`;
+
 interface LabelProps {
   text: string;
 }
+
 const Label: React.FC<LabelProps> = ({ text }) => {
-  return <div style={{ fontSize: "20px", margin: "10px" }}>{"▍" + text}</div>;
+  return <StyledLabel>{"▍" + text}</StyledLabel>;
 };
 
 export default Label;
