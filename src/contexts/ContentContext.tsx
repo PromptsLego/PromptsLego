@@ -1,8 +1,15 @@
 import { PropsWithChildren, createContext, useState } from "react";
-import { LegoType } from "../components/lego/LegoType";
 import { data } from "../data/data";
 import { DataType } from "../data/DataType";
 import { Updater, useImmer } from "use-immer";
+
+export type LegoType = {
+  keyWord: string;
+  detail: string;
+  useTime: number;
+  color: string;
+  varNum: number;
+};
 
 export type ContentContextType = {
   details: { category: string; details: string[] }[];
@@ -30,7 +37,10 @@ const ContentContext = createContext<ContentContextType>({
   SetCurrent: () => {},
   mouseStatus: "default",
   SetMouseStatus: () => {},
-  globalData: {},
+  globalData: {
+    categories: [],
+    tables: [],
+  },
   SetGlobalData: () => {},
 });
 

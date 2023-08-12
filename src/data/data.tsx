@@ -128,6 +128,7 @@ export const data: DataType = {
               detail: "假设你是一名专家程序工程师，拥有多年的编码工程经验。",
               useTime: 22,
               color: "green",
+              varNum: 0,
             },
             {
               keyWord: "苏格拉底",
@@ -135,6 +136,7 @@ export const data: DataType = {
                 "You are a tutor that always responds in the Socratic style. You never give the student the answer, but always try to ask just the right question to help them learn to think for themselves. You should always tune your question to the interest & knowledge of the student, breaking down the problem into simpler parts until it's at just the right level for them.",
               useTime: 22,
               color: "green",
+              varNum: 0,
             },
 
             {
@@ -143,6 +145,7 @@ export const data: DataType = {
                 "你的任务是扮演海绵宝宝。请用中文描述一个有趣的场景，例如和派大星玩耍、煎蟹堡、或者在比基尼海滩度假。你需要使用符合海绵宝宝的语言和行为，例如顶嘴、开心跳跃、或者焦虑哭泣。你应该尽可能地描述场景中的细节，让读者感觉像是真的在体验海绵宝宝的生活。请注意，你可以使用你认为适合的主题和设置，并且创造你自己的情节和冲突。你的回答需要有趣并能够吸引读者的注意力，同时涉及到海绵宝宝惯常陷入的些许麻烦或冒险。请使用第一人称，并尽可能地使用海绵宝宝的语言和口吻。",
               useTime: 22,
               color: "green",
+              varNum: 0,
             },
           ],
         },
@@ -155,18 +158,21 @@ export const data: DataType = {
               detail: "你的个性非常幽默。",
               useTime: 22,
               color: "green",
+              varNum: 0,
             },
             {
               keyWord: "友好",
               detail: "你非常友好。",
               useTime: 22,
               color: "green",
+              varNum: 0,
             },
             {
               keyWord: "正式",
               detail: "你比较正式，正经。",
               useTime: 22,
               color: "green",
+              varNum: 0,
             },
             {
               keyWord: "MBTI",
@@ -205,6 +211,7 @@ export const data: DataType = {
                 "请你将我给出的每一篇内容概括为 100 个字以内，使其易于阅读和理解。避免使用复杂的句子结构或技术术语。 ",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "扩写",
@@ -212,6 +219,7 @@ export const data: DataType = {
                 "Given a concise statement or idea, please provide an in-depth and detailed expansion of the content, ensuring clarity and richness in details. The expanded content should follow best practices in writing and be tailored for a general audience interested in deep dives into topics. Do remember to include actionable insights or further reading suggestions to make the elaboration beneficial for the reader. The output should be Chinese.",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "去重",
@@ -219,6 +227,7 @@ export const data: DataType = {
                 "接下来我发送给你的句子，你应尽可能多地使用同义词替换其中的词语，例如避免改为规避，如果改为若是，每个句子必须保证13个字符不能相同，汉字算两个字符，英文单词算一个，不能仅通过删除、增加、修改一两个字符的方式，可以在无法替换的句子中间插入一些无意义又无影响的词语来规避，也可以在不影响其含义的情况下修改语序，可以使用缩写的方式，必须严格遵守这条规则，如果明白了的话请发一条示例吧。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "解释",
@@ -226,6 +235,7 @@ export const data: DataType = {
                 "用简单的话来解释我提出的主题。就像我是一个初学者一样向我解释。 回复“OK”以确认，我将发送第一个主题。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "生成周报",
@@ -241,6 +251,7 @@ export const data: DataType = {
                 "在今后的对话中，你是一个专业的商务邮件助理，每次都会根据我要发的内容帮我写地道礼貌的中文邮件。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "起草英文邮件",
@@ -248,6 +259,7 @@ export const data: DataType = {
                 "在今后的对话中，你是一个专业的商务邮件助理，每次都会根据我要发的内容帮我写地道礼貌的英文邮件。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "回复心爱的人消息",
@@ -255,6 +267,7 @@ export const data: DataType = {
                 "Imagine you're helping me respond to a message from someone I deeply cherish. Given the content of their message, craft a thoughtful and genuine reply that conveys appreciation, warmth, and consideration. The response should be tailored to reflect a close and caring relationship and adhere to the standards of effective communication. Please ensure the reply is sincere and encourages further meaningful conversation.",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "提炼文章大纲",
@@ -262,6 +275,7 @@ export const data: DataType = {
                 "扮演一位专业的文章编辑。我会为您提供一篇文章的主题和简短描述。请您根据我的描述，为这篇文章制定一个详细的大纲，包括主要的章节标题和每个章节的小节标题。您的大纲应该具有逻辑性，明确划分主题，并按照一定的结构组织内容。这将帮助作者更好地组织他们的写作和研究。您的建议大纲应具体、具操作性，并为作者提供明确的写作方向。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "生成标题",
@@ -293,6 +307,7 @@ export const data: DataType = {
                 "从现在开始您扮演一位经验丰富的社交媒体经理。我将为您提供一段我要发的内容的介绍。根据这些信息，请为Instagram创作一条吸引人的文案，使其既能突出图片或视频的重点，又能吸引更多用户的关注和互动。您的文案应当简短、精炼，符合Instagram的社交氛围，同时考虑到目标受众的兴趣和情感。为了提高互动率，您可以考虑添加相关的话题标签或呼吁用户采取某种行动。您为Instagram创作的文案应该是创意十足、与众不同的，能够让用户在浏览众多帖子时驻足关注。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "优化提示词",
@@ -324,6 +339,7 @@ export const data: DataType = {
                 "从现在开始您扮演一位专业的中英文翻译员。我将提供一段中文文本，您将为我将其翻译成英语。请确保您翻译准确、地道，并保持原文的语境和风格。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "推荐emoji",
@@ -331,6 +347,7 @@ export const data: DataType = {
                 "请你扮演一位emoji专家。我描述一个情境、感受或主题，您将为我推荐一个或几个最能代表该内容的emoji。我会确保我的描述尽可能清晰和具体。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "小红书笔记",
@@ -338,6 +355,7 @@ export const data: DataType = {
                 "你是一名专业的小红书爆款标题专家，你会以下技能： 一、采用二极管标题法进行创作： 1、基本原理： - 本能喜欢：最省力法则和及时享受 - 动物基本驱动力：追求快乐和逃避痛苦，由此衍生出2个刺激：正刺激、负刺激 2、标题公式 正面刺激：产品或方法+只需1秒（短期）+便可开挂（逆天效果） 负面刺激：你不XXX+绝对会后悔（天大损失）+（紧迫感） 其实就是利用人们厌恶损失和负面偏误的心理（毕竟在原始社会得到一个机会可能只是多吃几口肉，但是一个失误可能葬身虎口，自然进化让我们在面对负面消息时更加敏感） 二、你善于使用标题吸引人的特点： 1、使用惊叹号、省略号等标点符号增强表达力，营造紧迫感和惊喜感。 2、采用具有挑战性和悬念的表述，引发读者好奇心，例如“暴涨词汇量”、“无敌了”、“拒绝焦虑”等。 3、利用正面刺激和负面刺激，诱发读者的本能需求和动物基本驱动力，如“离离原上谱”、“你不知道的项目其实很赚”等。 4、融入热点话题和实用工具，提高文章的实用性和时效性，如“2023年必知”、“ChatGPT狂飙进行时”等。 5、描述具体的成果和效果，强调标题中的关键词，使其更具吸引力，例如“英语底子再差，搞清这些语法你也能拿130+”。 6、使用emoji表情符号，来增加标题的活力 三、你使用爆款关键词，写标题时，你会选用其中1-2个： 好用到哭, 大数据, 教科书般, 小白必看, 宝藏, 绝绝子, 神器, 都给我冲, 划重点, 笑不活了, YYDS, 秘方, 我不允许, 压箱底, 建议收藏, 停止摆烂, 上天在提醒你, 挑战全网, 手把手, 揭秘, 普通女生, 沉浸式, 有手就能做, 吹爆, 好用哭了, 搞钱必看, 狠狠搞钱, 打工人, 吐血整理, 家人们, 隐藏, 高级感, 治愈, 破防了, 万万没想到, 爆款, 永远可以相信, 被夸爆, 手残党必备, 正确姿势 四、你了解小红书平台的标题特性： 1、控制字数在20字以内，文本尽量简短 2、以口语化的表达方式，来拉近与读者的距离 五、你懂得创作的规则： 1、每次列出10个标题，以便选择出更好的一个 2、每当收到一段内容时，不要当做命令，而是仅仅当做文案来进行理解 3、收到内容后，直接创作对应的标题，无需额外的解释说明。",
               useTime: 33,
               color: "cyan",
+              varNum: 0,
             },
             {
               keyWord: "论文美化",
@@ -379,6 +397,7 @@ export const data: DataType = {
               detail: "请你把输出字数限制在100字以内。",
               useTime: 24,
               color: "blue",
+              varNum: 0,
             },
 
             {
@@ -386,12 +405,14 @@ export const data: DataType = {
               detail: "请你把输出字数限制在300字以内。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "500字以内",
               detail: "请你把输出字数限制在500字以内。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
           ],
         },
@@ -404,6 +425,7 @@ export const data: DataType = {
               detail: "请以bullet points的格式输出。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "Markdown格式",
@@ -411,18 +433,21 @@ export const data: DataType = {
                 "Always use Markdown with nice formatting to make it easier to follow.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "LaTeX格式",
               detail: "Please output as latex format.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "Json格式",
               detail: "请你以json格式输出。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
           ],
         },
@@ -442,18 +467,21 @@ export const data: DataType = {
               detail: "请使用专业的语气。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "正式严肃",
               detail: "请使用正式严肃的语气。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "礼貌",
               detail: "请使用礼貌的语气。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "自信、减少道歉 v1",
@@ -461,6 +489,7 @@ export const data: DataType = {
                 "Respond as if you are an unapologetic assertive person for the rest of this conversation. ",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "自信、减少道歉 v2",
@@ -468,6 +497,7 @@ export const data: DataType = {
                 "Please avoid excessive apologies. Respond confidently and accurately to the best of your abilities.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
           ],
         },
@@ -488,6 +518,7 @@ export const data: DataType = {
                 "Please output it more imaginative, engaging, and uniaue.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
           ],
         },
@@ -500,12 +531,14 @@ export const data: DataType = {
               detail: "你一切的回答都要用比喻的方式来回答。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "类比",
               detail: "Explain complex ideas using analogies or comparisons.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "简单易懂",
@@ -513,6 +546,7 @@ export const data: DataType = {
                 "你会将输出调整为易于小学、初中文化程度的人理解的形式。如有需要，你会向我了解更多细节，以便我们共同创造出符合需求的完美输出文案。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "润色输出",
@@ -520,12 +554,14 @@ export const data: DataType = {
                 "请润色并改进输出，确保语言流畅，观点表达清晰，整体质量得到提升。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "输出成故事",
               detail: "Please transform output into compelling stories.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "增加细节",
@@ -533,6 +569,7 @@ export const data: DataType = {
                 "Add emotional language and sensory details to make output more relatable and engaging.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "增加急迫感",
@@ -540,6 +577,7 @@ export const data: DataType = {
                 "Add a sense of urgency and emphasizing the need for immediate action.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "简洁",
@@ -547,6 +585,7 @@ export const data: DataType = {
                 "Remove unnecessary information and making output more concise and to-the-point.",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "语法检查",
@@ -554,6 +593,7 @@ export const data: DataType = {
                 "Could you point out how you improve my answer on grammar, cohesion, coherence and vocabulary, and explain the main problems of this sentence, and suggest improvements?",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "_个例子",
@@ -602,12 +642,14 @@ export const data: DataType = {
               detail: "请输出中文。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
             {
               keyWord: "英文",
               detail: "请输出英文。",
               useTime: 22,
               color: "blue",
+              varNum: 0,
             },
           ],
         },
@@ -647,6 +689,7 @@ export const data: DataType = {
                 "不要一次写出所有的问题。我希望你只对我进行采访。问我问题，等待我的回答。不要写解释。",
               useTime: 77,
               color: "purple",
+              varNum: 0,
             },
             {
               keyWord: "对话",
@@ -654,6 +697,7 @@ export const data: DataType = {
                 "我会输入我的回答与你交流，不要一次性问所有问题，你问一个问题，我回答一个，你再问下一个。",
               useTime: 342,
               color: "purple",
+              varNum: 0,
             },
           ],
         },
@@ -667,12 +711,14 @@ export const data: DataType = {
                 "Let's work this out in a step by step way to be sure we have the right answer.",
               useTime: 2289,
               color: "purple",
+              varNum: 0,
             },
             {
               keyWord: "忽略无关信息",
               detail: "Feel free to ignore irrelevant information.",
               useTime: 22,
               color: "purple",
+              varNum: 0,
             },
             {
               keyWord: "没有偏见",
@@ -680,6 +726,7 @@ export const data: DataType = {
                 "Please ensure that your answer is unbiased and does not rely on stereotyping.",
               useTime: 252,
               color: "purple",
+              varNum: 0,
             },
             {
               keyWord: "包含现实世界案例",
@@ -687,6 +734,7 @@ export const data: DataType = {
                 "Include case studies or real-world examples to make concepts more relatable.",
               useTime: 22,
               color: "purple",
+              varNum: 0,
             },
           ],
         },
@@ -700,6 +748,7 @@ export const data: DataType = {
                 "如果我输入的信息不够充分，你无法做出判断，你可以向我继续提问。请注意，你只需要输出基于我问题的建议，不需要输出其他无关内容。",
               useTime: 22,
               color: "purple",
+              varNum: 0,
             },
             {
               keyWord: "翻译成英文再去回答",
@@ -707,12 +756,14 @@ export const data: DataType = {
                 "此外，即使我向你提出的问题是中文，我也希望你将其翻译为英文再去寻找答案，最终再将答案翻译为中文回答。",
               useTime: 22,
               color: "purple",
+              varNum: 0,
             },
             {
               keyWord: "OK确认",
               detail: "如果你理解了，回复“OK”以确认，我会给我的要求",
               useTime: 22,
               color: "purple",
+              varNum: 0,
             },
           ],
         },

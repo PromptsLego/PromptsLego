@@ -1,19 +1,18 @@
-import lego_yellow from "../../assets/lego-yellow.png";
-import lego_gray from "../../assets/lego-gray.png";
-import lego_blue from "../../assets/lego-blue.png";
-import lego_cyan from "../../assets/lego-cyan.png";
-import lego_green from "../../assets/lego-green.png";
-import lego_purple from "../../assets/lego-purple.png";
-import lego_pink from "../../assets/lego-pink.png";
-import lego_white from "../../assets/lego-white.png";
-import lego_yellow_pin from "../../assets/lego-yellow-pin.png";
-import lego_blue_pin from "../../assets/lego-blue-pin.png";
-import lego_cyan_pin from "../../assets/lego-cyan-pin.png";
-import lego_green_pin from "../../assets/lego-green-pin.png";
-import lego_purple_pin from "../../assets/lego-purple-pin.png";
-import lego_white_pin from "../../assets/lego-white-pin.png";
-import { ContentContextType } from "../../contexts/ContentContext";
-import { LegoType } from "./LegoType";
+import lego_yellow from "@/assets/lego-yellow.png";
+import lego_gray from "@/assets/lego-gray.png";
+import lego_blue from "@/assets/lego-blue.png";
+import lego_cyan from "@/assets/lego-cyan.png";
+import lego_green from "@/assets/lego-green.png";
+import lego_purple from "@/assets/lego-purple.png";
+import lego_pink from "@/assets/lego-pink.png";
+import lego_white from "@/assets/lego-white.png";
+import lego_yellow_pin from "@/assets/lego-yellow-pin.png";
+import lego_blue_pin from "@/assets/lego-blue-pin.png";
+import lego_cyan_pin from "@/assets/lego-cyan-pin.png";
+import lego_green_pin from "@/assets/lego-green-pin.png";
+import lego_purple_pin from "@/assets/lego-purple-pin.png";
+import lego_white_pin from "@/assets/lego-white-pin.png";
+import { ContentContextType, LegoType } from "@/contexts/ContentContext";
 
 export const LegoImageUrl = (color: string | undefined) => {
   return color === "yellow"
@@ -59,7 +58,7 @@ export const LegoStyle = {
   justifyContent: "center",
   alignItems: "center",
   fontSize: "15px",
-  borderColor: "transparent",
+  border: "none",
 };
 export const NavigatorLegoStyle = {
   height: "30px",
@@ -68,7 +67,7 @@ export const NavigatorLegoStyle = {
   justifyContent: "center",
   alignItems: "center",
   fontSize: "15px",
-  borderColor: "transparent",
+  border: "none",
 };
 
 export const UpdateCurrentDetail = (
