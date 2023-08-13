@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import ContentContext from "@/contexts/ContentContext";
 import styled from "styled-components";
 import React from "react";
 import CurrentLego from "./CurrentLego";
+import { useAppSelector } from "@/contexts/hooks";
 
 const Container = styled.div`
   position: relative;
@@ -27,7 +26,7 @@ const Label = styled.p`
 interface CenterContentProps {}
 
 const CenterContent: React.FC<CenterContentProps> = ({}) => {
-  const { current, SetCurrent } = useContext(ContentContext);
+  const { current } = useAppSelector((state) => state.content);
 
   return (
     <Container>

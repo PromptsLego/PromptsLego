@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
-import ContentContext from "@/contexts/ContentContext";
+import React, {  } from "react";
 import Lego from "@/ui/Lego";
 import { Popover } from "antd";
-import { LegoImageUrl } from "@/utils/lego";
+import { useAppDispatch } from "@/contexts/hooks";
+import { choose } from "../ContentSlice";
 
 const categories = [
   "收藏",
@@ -28,65 +28,63 @@ const ChoiceLego: React.FC<ChoiceLegoProps> = ({
   color,
   varNum,
 }) => {
-  const { details, SetDetails, select, SetSelect, current, SetCurrent } =
-    useContext(ContentContext);
-  const popContent = <p>detail</p>;
-  const imageUrl = LegoImageUrl(color);
-
-  const [categoriesLeft, setCategoriesLeft] = useState<string[]>(categories);
+  const dispatch = useAppDispatch();
+  const popContent = <p>{detail}</p>;
 
   const clickHandler = () => {
-    SetCurrent((newCurrent) => {
-      var newCurrentItem = newCurrent.find((item) => item.category === select);
-      if (newCurrentItem === undefined) {
-        newCurrent.push({
-          category: select,
-          children: [],
-        });
-        newCurrentItem = newCurrent[newCurrent.length - 1];
-      }
+    dispatch(choose({ keyWord, detail, useTime, color, varNum }));
 
-      if (newCurrentItem) {
-        var exist = false;
-        newCurrentItem.children.forEach((element) => {
-          if (element.keyWord == keyWord) {
-            exist = true;
-          }
-        });
-        if (!exist) {
-          newCurrentItem.children.push({
-            keyWord,
-            detail,
-            useTime,
-            color,
-            varNum,
-          });
-          SetDetails((newDetails) => {
-            var detailString = detail!;
-            const contentBegin = detailString.indexOf("{");
-            const contentEnd = detailString.lastIndexOf("}");
-            const prefix = detailString.substring(0, contentBegin);
-            const postfix = detailString.substring(contentEnd + 1);
-            const content = detailString.substring(
-              contentBegin + 1,
-              contentEnd,
-            );
-            detailString = prefix + content + postfix;
-            const targetDetail = newDetails.find(
-              (item) => item.category === select,
-            );
-            if (targetDetail === undefined) {
-              newDetails.push({
-                category: select,
-                details: [detailString],
-              });
-            } else {
-              targetDetail.details.push(detailString);
-            }
-          });
-        }
-      }
-    });
+    // SetCurrent((newCurrent) => {
+    //   var newCurrentItem = newCurrent.find((item) => item.category === select);
+    //   if (newCurrentItem === undefined) {
+    //     newCurrent.push({
+    //       category: selectCategory,
+    //       children: [],
+    //     });
+    //     newCurrentItem = newCurrent[newCurrent.length - 1];
+    //   }
+
+    //   if (newCurrentItem) {
+    //     var exist = false;
+    //     newCurrentItem.children.forEach((element) => {
+    //       if (element.keyWord == keyWord) {
+    //         exist = true;
+    //       }
+    //     });
+    //     if (!exist) {
+    //       newCurrentItem.children.push({
+    //         keyWord,
+    //         detail,
+    //         useTime,
+    //         color,
+    //         varNum,
+    //       });
+    //       SetDetails((newDetails) => {
+    //         var detailString = detail!;
+    //         const contentBegin = detailString.indexOf("{");
+    //         const contentEnd = detailString.lastIndexOf("}");
+    //         const prefix = detailString.substring(0, contentBegin);
+    //         const postfix = detailString.substring(contentEnd + 1);
+    //         const content = detailString.substring(
+    //           contentBegin + 1,
+    //           contentEnd
+    //         );
+    //         detailString = prefix + content + postfix;
+    //         const targetDetail = newDetails.find(
+    //           (item) => item.category === selectCategory
+    //         );
+    //         if (targetDetail === undefined) {
+    //           newDetails.push({
+    //             category: selectCategory,
+    //             details: [detailString],
+    //           });
+    //         } else {
+    //           targetDetail.details.push(detailString);
+    //         }
+    //       });
+    //     }
+    //   }
+    // });
   };
 
   return (

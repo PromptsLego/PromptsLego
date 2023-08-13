@@ -1,7 +1,6 @@
-import { useContext } from "react";
-import ContentContext from "@/contexts/ContentContext";
 import styled from "styled-components";
 import NavigatorLego from "./NavigatorLego";
+import { useAppSelector } from "@/contexts/hooks";
 
 const Container = styled.div`
   display: flex;
@@ -13,12 +12,14 @@ const Container = styled.div`
 interface NavigatorProps {}
 
 const Navigator: React.FC<NavigatorProps> = ({}) => {
-  const { select, SetSelect, globalData } = useContext(ContentContext);
+  const { selectCategory, globalData } = useAppSelector(
+    (state) => state.content
+  );
 
   return (
     <Container>
-      {globalData.categories?.map((category, index) => {
-        const isSelected = select === category.name;
+      {globalData.categories.map((category, index) => {
+        const isSelected = selectCategory === category.name;
         return (
           <NavigatorLego
             keyWord={category.name!}

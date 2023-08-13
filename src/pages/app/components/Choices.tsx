@@ -1,10 +1,10 @@
 import type { CollapseProps } from "antd";
 import { Collapse } from "antd";
-import React, { useContext } from "react";
+import React from "react";
 import { CaretRightOutlined } from "@ant-design/icons";
-import ContentContext from "@/contexts/ContentContext";
 import ChoiceLego from "./ChoiceLego";
 import { styled } from "styled-components";
+import { useAppSelector } from "@/contexts/hooks";
 
 const ChoiceContainer = styled.div`
   display: flex;
@@ -14,8 +14,8 @@ const ChoiceContainer = styled.div`
 
 interface ChoicesProp {}
 const Choices: React.FC<ChoicesProp> = ({}) => {
-  const { select, globalData } = useContext(ContentContext);
-  const table = globalData?.tables?.find((table) => table.category === select);
+  const { selectCategory, globalData } = useAppSelector((state) => state.content);
+  const table = globalData?.tables?.find((table) => table.category === selectCategory);
   const minorCategories = table?.minorCategories;
   const items: CollapseProps["items"] = minorCategories?.map(
     (minorCategory, index) => {
@@ -43,7 +43,7 @@ const Choices: React.FC<ChoicesProp> = ({}) => {
           </ChoiceContainer>
         ),
       };
-    },
+    }
   );
   return (
     <Collapse

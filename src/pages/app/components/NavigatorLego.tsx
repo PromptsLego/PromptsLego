@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
-import ContentContext from "@/contexts/ContentContext";
-import { LegoImageUrl, LegoStyle, NavigatorLegoStyle } from "@/utils/lego";
-import LegoLeft from "@/assets/legoLeft.png";
-import LegoRight from "@/assets/legoRight.png";
-import LegoMiddle from "@/assets/legoMiddle.png";
+import React from "react";
 import Lego from "@/ui/Lego";
+import { useAppDispatch } from "@/contexts/hooks";
+import { selectCategory } from "../ContentSlice";
 
 interface NaviagatorLegoProps {
   keyWord: string;
@@ -12,14 +9,11 @@ interface NaviagatorLegoProps {
 }
 
 const NavigatorLego: React.FC<NaviagatorLegoProps> = ({ keyWord, color }) => {
-  const { SetSelect } = useContext(ContentContext);
-  const imageUrl = LegoImageUrl(color);
+  const dispatch = useAppDispatch();
 
   const clickHandler = () => {
-    SetSelect(keyWord);
+    dispatch(selectCategory(keyWord));
   };
-
-  const LegoText = <div>{keyWord}</div>;
 
   const LegoButton = (
     <Lego color={color} onClick={clickHandler}>
