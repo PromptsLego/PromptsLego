@@ -73,7 +73,7 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
           return lego.detail;
         })
         .join("");
-      if (detail) return "▎" + category.category + ": " + detail;
+      if (detail) return "# " + category.category + ": \n" + detail;
       else return "";
     })
     .join("\n");
