@@ -63,27 +63,24 @@ const DropButton = styled(Button)`
 const LeftSider: React.FC<LeftSiderProps> = ({}) => {
   const [optimizedTextAreaValue, SetOptimizedTextAreaValue] = useState("");
 
-  const { activeTextArea, current, details, globalData } = useAppSelector(
-    (state) => state.content
-  );
+  const { activeTextArea, current } = useAppSelector((state) => state.content);
   const dispatch = useAppDispatch();
 
-  const output = details
-    .map((detail) => {
-      if (detail.details.length === 0) return;
-      return "▎" + detail.category + ": " + detail.details.join("\n");
+  const output = current
+    .map((category) => {
+      const detail = category.children
+        .map((lego) => {
+          return lego.detail;
+        })
+        .join("");
+      if (detail) return "▎" + category.category + ": " + detail;
+      else return "";
     })
     .join("\n");
 
   const copyToClipboard = () => {
     const textToCopy =
-      activeTextArea === "default"
-        ? details
-            .map((detail) => {
-              return "▎" + detail.category + ": " + detail.details.join("\n");
-            })
-            .join("\n")
-        : optimizedTextAreaValue;
+      activeTextArea === "default" ? output : optimizedTextAreaValue;
     const textarea = document.createElement("textarea");
     textarea.value = textToCopy;
     document.body.appendChild(textarea);

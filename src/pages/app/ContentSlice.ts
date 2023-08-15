@@ -3,7 +3,7 @@ import type { RootState } from "@/contexts/store";
 import { DataType } from "@/data/DataType";
 import { data } from "@/data/data";
 
-type LegoType = {
+export type LegoType = {
   keyWord: string;
   detail: string;
   useTime: number;
@@ -13,7 +13,6 @@ type LegoType = {
 
 // 为 slice state 定义一个类型
 interface ContentState {
-  details: { category: string; details: string[] }[];
   activeTextArea: string;
   selectCategory: string;
   current: { category: string; children: LegoType[] }[];
@@ -22,7 +21,6 @@ interface ContentState {
 
 // 使用该类型定义初始 state
 const initialState: ContentState = {
-  details: [],
   activeTextArea: "default",
   selectCategory: "",
   current: [],
@@ -40,7 +38,6 @@ export const contentSlice = createSlice({
     dropAll: (state) => {
       state.activeTextArea = "default";
       state.current = [];
-      state.details = [];
     },
     favorite: (state) => {
       // 如果当前没有选中任何内容，直接返回
@@ -73,20 +70,6 @@ export const contentSlice = createSlice({
         if (sameLego) return;
         // 如果没有，将当前选中的内容添加到该 category 中
         targetCategory.children.push(action.payload);
-        // 修改拼接后的内容
-        const targetDetail = state.details.find(
-          (item) => item.category === state.selectCategory
-        );
-        if (targetDetail) {
-          // 如果有，将当前选中的内容添加到该 category 中
-          targetDetail.details.push(action.payload.detail);
-        } else {
-          // 如果没有，新建一个 category，将当前选中的内容添加到该 category 中
-          state.details.push({
-            category: state.selectCategory,
-            details: [action.payload.detail],
-          });
-        }
       } else {
         // 如果没有，新建一个 category，将当前选中的内容添加到该 category 中
         state.current.push({
@@ -95,10 +78,27 @@ export const contentSlice = createSlice({
         });
       }
     },
-    
+    drop: (state, action: PayloadAction<LegoType>) => {
+      state.current.map((category) => {
+        category.children = category.children.filter(
+          (lego) => lego.keyWord !== action.payload.keyWord
+        );
+      });
+    },
+    edit: (state, action: PayloadAction<LegoType>) => {
+      state.current.map((category) => {
+        const target_lego = category.children.find(
+          (lego) => lego.keyWord === action.payload.keyWord
+        );
+        if (target_lego) {
+          target_lego.detail = action.payload.detail;
+        }
+      });
+    },
   },
 });
 
-export const { selectCategory, dropAll, favorite, choose } = contentSlice.actions;
+export const { selectCategory, dropAll, favorite, choose, drop, edit } =
+  contentSlice.actions;
 
 export default contentSlice.reducer;

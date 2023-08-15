@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import Lego from "@/ui/Lego";
 import { Popover } from "antd";
 import { useAppDispatch } from "@/contexts/hooks";
@@ -33,58 +33,6 @@ const ChoiceLego: React.FC<ChoiceLegoProps> = ({
 
   const clickHandler = () => {
     dispatch(choose({ keyWord, detail, useTime, color, varNum }));
-
-    // SetCurrent((newCurrent) => {
-    //   var newCurrentItem = newCurrent.find((item) => item.category === select);
-    //   if (newCurrentItem === undefined) {
-    //     newCurrent.push({
-    //       category: selectCategory,
-    //       children: [],
-    //     });
-    //     newCurrentItem = newCurrent[newCurrent.length - 1];
-    //   }
-
-    //   if (newCurrentItem) {
-    //     var exist = false;
-    //     newCurrentItem.children.forEach((element) => {
-    //       if (element.keyWord == keyWord) {
-    //         exist = true;
-    //       }
-    //     });
-    //     if (!exist) {
-    //       newCurrentItem.children.push({
-    //         keyWord,
-    //         detail,
-    //         useTime,
-    //         color,
-    //         varNum,
-    //       });
-    //       SetDetails((newDetails) => {
-    //         var detailString = detail!;
-    //         const contentBegin = detailString.indexOf("{");
-    //         const contentEnd = detailString.lastIndexOf("}");
-    //         const prefix = detailString.substring(0, contentBegin);
-    //         const postfix = detailString.substring(contentEnd + 1);
-    //         const content = detailString.substring(
-    //           contentBegin + 1,
-    //           contentEnd
-    //         );
-    //         detailString = prefix + content + postfix;
-    //         const targetDetail = newDetails.find(
-    //           (item) => item.category === selectCategory
-    //         );
-    //         if (targetDetail === undefined) {
-    //           newDetails.push({
-    //             category: selectCategory,
-    //             details: [detailString],
-    //           });
-    //         } else {
-    //           targetDetail.details.push(detailString);
-    //         }
-    //       });
-    //     }
-    //   }
-    // });
   };
 
   return (

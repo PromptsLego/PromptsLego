@@ -1,7 +1,11 @@
 import React, { useContext, useRef, useEffect } from "react";
-import { Popover } from "antd";
+import { Input, InputRef, Popover } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import Lego from "@/ui/Lego";
+import { useAppDispatch } from "@/contexts/hooks";
+import { drop, edit } from "../ContentSlice";
+import { useClickPreventionOnDoubleClick } from "../hooks/useClickPreventionOnDoubleClick";
+import styled from "styled-components";
 
 type LegoState =
   | "normal"
@@ -21,6 +25,27 @@ interface CurrentLegoProps {
   category: string;
 }
 
+const StyledInput = styled(Input)`
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  outline: none;
+`;
+
+function getVars(str: string) {
+  const regex = /{([^}]+)}/g;
+  const matches = str.match(regex);
+
+  if (matches) {
+    return matches.map((match) => match.slice(1, -1));
+  } else {
+    return [];
+  }
+}
+
 const CurrentLego: React.FC<CurrentLegoProps> = ({
   keyWord,
   detail,
@@ -30,147 +55,70 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   category,
   ...props
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  var detailContent = detail!;
-  const contentBegin = detailContent.indexOf("{");
+  const dispatch = useAppDispatch();
+
+  const inputRef = useRef<InputRef>(null);
+  const vars = useRef<string[]>(getVars(detail));
   const [state, SetState] = React.useState<LegoState>(
-    contentBegin == undefined || contentBegin == -1 ? "normal" : "var"
+    vars.current.length === 0 ? "normal" : "var"
   );
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [state]);
-
-  if (contentBegin != undefined && contentBegin != -1) {
-    detailContent = detailContent.substring(contentBegin + 1);
-    detailContent = detailContent.substring(0, detailContent.lastIndexOf("}"));
-  }
-  const [detailState, SetDetailState] = React.useState<string>(detailContent);
-  const popContent = <p>{detailState}</p>;
-
   const clickHandler = () => {
-    if (state === "normal") {
-    } else if (state === "var") {
-      SetState("edit");
-    } else if (state === "fill") {
-      SetState("edit");
+    if (state === "fill") {
+      SetState("var");
     }
   };
   const doubleClickHandler = () => {
-    // SetCurrent((curCurrent) => {
-    //   const current_category = curCurrent.find(
-    //     (item) => item.category === category
-    //   );
-    //   let targetIndex = current_category?.children.findIndex(
-    //     (item) =>
-    //       item.keyWord === keyWord &&
-    //       item.color === color &&
-    //       item.useTime === useTime &&
-    //       item.varNum === varNum
-    //   );
-    //   if (targetIndex === undefined || targetIndex === -1) return;
-    //   const detailString = current_category?.children[targetIndex].detail!;
-    //   const contentBegin = detailString.indexOf("{");
-    //   const contentEnd = detailString.lastIndexOf("}");
-    //   const prefix = detailString.substring(0, contentBegin);
-    //   const postfix = detailString.substring(contentEnd + 1);
-    //   current_category?.children.splice(targetIndex, 1);
-    //   SetDetails((curDetail) => {
-    //     const targetDetail = curDetail.find(
-    //       (item) => item.category === category
-    //     );
-    //     if (targetDetail === undefined) return;
-    //     if (contentBegin == undefined || contentBegin == -1) {
-    //       let targetIndex = targetDetail.details.findIndex(
-    //         (item) => item == detailState
-    //       );
-    //       targetDetail.details.splice(targetIndex, 1);
-    //     } else {
-    //       let targetIndex = targetDetail.details.findIndex(
-    //         (item) => item.startsWith(prefix) && item.endsWith(postfix)
-    //       );
-    //       targetDetail.details.splice(targetIndex, 1);
-    //     }
-    //   });
-    // });
+    dispatch(drop({ keyWord, detail, useTime, color, varNum }));
   };
+  const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
+    clickHandler,
+    doubleClickHandler
+  );
   const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // SetCurrent((curCurrent) => {
-    //   const current_category = curCurrent.find(
-    //     (item) => item.category === category
-    //   );
-    //   const targetLego = current_category?.children.find(
-    //     (item) =>
-    //       item.keyWord === keyWord &&
-    //       item.useTime === useTime &&
-    //       item.color === color &&
-    //       item.varNum === varNum
-    //   );
-    //   if (targetLego === undefined) return;
-    //   const detailString = targetLego.detail!;
-    //   const contentBegin = detailString.indexOf("{");
-    //   const contentEnd = detailString.lastIndexOf("}");
-    //   const prefix = detailString.substring(0, contentBegin);
-    //   const postfix = detailString.substring(contentEnd + 1);
-    //   targetLego.detail = prefix + "{" + event.target.value + "}" + postfix;
-    //   SetDetails((curDetail) => {
-    //     const targetDetail = curDetail.find(
-    //       (item) => item.category === category
-    //     );
-    //     const index = targetDetail?.details?.findIndex(
-    //       (item) => item.startsWith(prefix) && item.endsWith(postfix)
-    //     );
-    //     if (index === undefined || index === -1) return;
-    //     targetDetail?.details?.splice(
-    //       index,
-    //       1,
-    //       prefix + event.target.value + postfix
-    //     );
-    //     SetDetailState(event.target.value);
-    //   });
-    // });
+    dispatch(
+      edit({ keyWord, detail: event.target.value, useTime, color, varNum })
+    );
   };
+  useEffect(() => {
+    if (state === "var") {
+      inputRef.current?.focus();
+    }
+  }, [state]);
 
-  const LegoText =
-    ((state === "normal" || state === "normal-frozen") && (
-      <div>{keyWord}</div>
-    )) ||
-    ((state === "var" ||
-      state === "fill" ||
-      state === "var-frozen" ||
-      state === "fill-frozen") && (
+  const LegoContent =
+    (state === "normal" && <>{keyWord}</>) ||
+    (state === "fill" && (
       <>
-        <CaretRightOutlined rotate={90} size={10} />
+        <CaretRightOutlined />
         <span>{keyWord}</span>
       </>
     )) ||
-    (state === "edit" && (
+    (state === "var" && (
       <>
-        <CaretRightOutlined rotate={90} size={10} />
-        <input
+        <CaretRightOutlined rotate={90} />
+        <StyledInput
           type="text"
-          value={detailState}
+          value={detail}
           ref={inputRef}
           onChange={editInputHandler}
           onBlur={() => {
             SetState("fill");
           }}
-          style={{
-            backgroundColor: "transparent",
-            border: "none",
-            borderColor: "transparent",
+          onPressEnter={() => {
+            SetState("fill");
           }}
         />
       </>
     ));
 
   return (
-    <Popover content={popContent}>
+    <Popover content={<p>{detail}</p>}>
       <Lego
         color={color}
-        onClick={clickHandler}
-        onDoubleClick={doubleClickHandler}
+        onClick={handleClick}
+        onDoubleClick={handleDoubleClick}
       >
-        {LegoText}
+        {LegoContent}
       </Lego>
     </Popover>
   );
