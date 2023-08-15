@@ -14,8 +14,12 @@ const ChoiceContainer = styled.div`
 
 interface ChoicesProp {}
 const Choices: React.FC<ChoicesProp> = ({}) => {
-  const { selectCategory, globalData } = useAppSelector((state) => state.content);
-  const table = globalData?.tables?.find((table) => table.category === selectCategory);
+  const { selectCategory, globalData } = useAppSelector(
+    (state) => state.content,
+  );
+  const table = globalData?.tables?.find(
+    (table) => table.category === selectCategory,
+  );
   const minorCategories = table?.minorCategories;
   const items: CollapseProps["items"] = minorCategories?.map(
     (minorCategory, index) => {
@@ -43,7 +47,7 @@ const Choices: React.FC<ChoicesProp> = ({}) => {
           </ChoiceContainer>
         ),
       };
-    }
+    },
   );
   return (
     <Collapse

@@ -13,7 +13,7 @@ interface NavigatorProps {}
 
 const Navigator: React.FC<NavigatorProps> = ({}) => {
   const { selectCategory, globalData } = useAppSelector(
-    (state) => state.content
+    (state) => state.content,
   );
 
   return (

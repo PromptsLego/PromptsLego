@@ -653,11 +653,6 @@ export const data: DataType = {
             },
           ],
         },
-      ],
-    },
-    {
-      category: "其他要求",
-      minorCategories: [
         {
           name: "例子",
           number: 2,
@@ -679,6 +674,34 @@ export const data: DataType = {
             },
           ],
         },
+      ],
+    },
+    {
+      category: "其他要求",
+      minorCategories: [
+        {
+          name: "互动方式",
+          number: 2,
+          legos: [
+            {
+              keyWord: "采访",
+              detail:
+                "不要一次写出所有的问题。我希望你只对我进行采访。问我问题，等待我的回答。不要写解释。",
+              useTime: 77,
+              color: "purple",
+              varNum: 0,
+            },
+            {
+              keyWord: "对话",
+              detail:
+                "我会输入我的回答与你交流，不要一次性问所有问题，你问一个问题，我回答一个，你再问下一个。",
+              useTime: 342,
+              color: "purple",
+              varNum: 0,
+            },
+          ],
+        },
+
         {
           name: "工作流",
           number: 2,
@@ -761,6 +784,13 @@ export const data: DataType = {
             {
               keyWord: "OK确认",
               detail: "如果你理解了，回复“OK”以确认，我会给我的要求",
+              useTime: 22,
+              color: "purple",
+              varNum: 0,
+            },
+            {
+              keyWord: "类比/比喻解释复杂问题",
+              detail: "Explain complex ideas using analogies or comparisons.",
               useTime: 22,
               color: "purple",
               varNum: 0,

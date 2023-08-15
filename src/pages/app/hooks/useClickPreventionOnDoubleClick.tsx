@@ -11,7 +11,7 @@ const cancellablePromise = (promise: Promise<any>) => {
   const wrappedPromise = new Promise((resolve, reject) => {
     promise.then(
       (value) => (isCanceled ? reject({ isCanceled, value }) : resolve(value)),
-      (error) => reject({ isCanceled, error })
+      (error) => reject({ isCanceled, error }),
     );
   });
 
@@ -32,7 +32,7 @@ const useCancellablePromises = () => {
 
   const removePendingPromise = (promise: WrappedPromise) =>
     (pendingPromises.current = pendingPromises.current.filter(
-      (p) => p !== promise
+      (p) => p !== promise,
     ));
 
   const clearPendingPromises = () =>
@@ -49,7 +49,7 @@ const useCancellablePromises = () => {
 
 export const useClickPreventionOnDoubleClick = (
   onClick: () => void,
-  onDoubleClick: () => void
+  onDoubleClick: () => void,
 ) => {
   const api = useCancellablePromises();
 

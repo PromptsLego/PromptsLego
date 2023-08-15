@@ -59,13 +59,13 @@ export const contentSlice = createSlice({
     choose: (state, action: PayloadAction<LegoType>) => {
       // 查看目前选中的类型是否有对应的 category
       const targetCategory = state.current.find(
-        (item) => item.category === state.selectCategory
+        (item) => item.category === state.selectCategory,
       );
       if (targetCategory) {
         // 如果有，将当前选中的内容添加到该 category 中
         // 查看该 category 中是否有相同的内容
         const sameLego = targetCategory.children.find(
-          (item) => item.keyWord === action.payload.keyWord
+          (item) => item.keyWord === action.payload.keyWord,
         );
         if (sameLego) return;
         // 如果没有，将当前选中的内容添加到该 category 中
@@ -81,14 +81,14 @@ export const contentSlice = createSlice({
     drop: (state, action: PayloadAction<LegoType>) => {
       state.current.map((category) => {
         category.children = category.children.filter(
-          (lego) => lego.keyWord !== action.payload.keyWord
+          (lego) => lego.keyWord !== action.payload.keyWord,
         );
       });
     },
     edit: (state, action: PayloadAction<LegoType>) => {
       state.current.map((category) => {
         const target_lego = category.children.find(
-          (lego) => lego.keyWord === action.payload.keyWord
+          (lego) => lego.keyWord === action.payload.keyWord,
         );
         if (target_lego) {
           target_lego.detail = action.payload.detail;
