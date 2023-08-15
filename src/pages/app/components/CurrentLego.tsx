@@ -6,6 +6,7 @@ import { useAppDispatch } from "@/contexts/hooks";
 import { drop, edit } from "../ContentSlice";
 import { useClickPreventionOnDoubleClick } from "../hooks/useClickPreventionOnDoubleClick";
 import styled from "styled-components";
+import TextWithInput from "./TextWithInput";
 
 type LegoState =
   | "normal"
@@ -24,20 +25,6 @@ interface CurrentLegoProps {
   varNum: number;
   category: string;
 }
-
-const StyledInput = styled.input`
-  font-size: 1.3rem;
-  line-height: 1;
-  padding: 0;
-  margin: 0;
-  background: none;
-  border: none;
-  outline: none;
-
-  &:focus {
-    outline: 0;
-  }
-`;
 
 function getVars(str: string) {
   const regex = /{([^}]+)}/g;
@@ -65,7 +52,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const vars = useRef<string[]>(getVars(detail));
   const [state, SetState] = React.useState<LegoState>(
-    vars.current.length === 0 ? "normal" : "var",
+    vars.current.length === 0 ? "normal" : "var"
   );
   const clickHandler = () => {
     if (state === "fill") {
@@ -77,11 +64,11 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   };
   const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
     clickHandler,
-    doubleClickHandler,
+    doubleClickHandler
   );
   const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
-      edit({ keyWord, detail: event.target.value, useTime, color, varNum }),
+      edit({ keyWord, detail: event.target.value, useTime, color, varNum })
     );
   };
   useEffect(() => {
@@ -101,7 +88,8 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
     (state === "var" && (
       <>
         <CaretRightOutlined rotate={90} />
-        <StyledInput
+        <TextWithInput str={detail} />
+        {/* <StyledInput
           type="text"
           value={detail}
           ref={inputRef}
@@ -112,7 +100,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
           // onPressEnter={() => {
           //   SetState("fill");
           // }}
-        />
+        /> */}
       </>
     ));
 
