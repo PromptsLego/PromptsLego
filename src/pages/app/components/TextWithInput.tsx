@@ -20,7 +20,6 @@ const StyledInput = styled.input`
   background: none;
   border: none;
   resize: none;
-  
 `;
 
 const StyledSpan = styled.span`

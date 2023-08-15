@@ -52,7 +52,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const vars = useRef<string[]>(getVars(detail));
   const [state, SetState] = React.useState<LegoState>(
-    vars.current.length === 0 ? "normal" : "var"
+    vars.current.length === 0 ? "normal" : "var",
   );
   const clickHandler = () => {
     if (state === "fill") {
@@ -64,11 +64,11 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   };
   const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
     clickHandler,
-    doubleClickHandler
+    doubleClickHandler,
   );
   const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
-      edit({ keyWord, detail: event.target.value, useTime, color, varNum })
+      edit({ keyWord, detail: event.target.value, useTime, color, varNum }),
     );
   };
   useEffect(() => {
