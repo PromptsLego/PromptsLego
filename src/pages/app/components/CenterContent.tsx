@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useRef } from "react";
 import CurrentLego from "./CurrentLego";
 import { useAppSelector } from "@/contexts/hooks";
+import { useImmer } from "use-immer";
 
 const Container = styled.div`
   position: relative;
@@ -23,9 +24,9 @@ const Label = styled.p`
   margin: 1rem;
 `;
 
-interface CenterContentProps {}
+interface CenterContentProps { }
 
-const CenterContent: React.FC<CenterContentProps> = ({}) => {
+const CenterContent: React.FC<CenterContentProps> = ({ }) => {
   const { current } = useAppSelector((state) => state.content);
 
   return (
