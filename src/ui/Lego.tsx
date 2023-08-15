@@ -1,8 +1,5 @@
+import { loadLegoImage } from "@/utils/lego";
 import styled from "styled-components";
-import { LegoImageUrl } from "@/utils/lego";
-import left from "@/assets/legoLeft.png";
-import middle from "@/assets/legoMiddle.png";
-import right from "@/assets/legoRight.png";
 
 interface LegoProps {
   color: string;
@@ -13,8 +10,7 @@ const LegoContainer = styled.div`
 `;
 
 const LegoContent = styled.div<LegoProps>`
-  /* background-image: url(${(props) => LegoImageUrl(props.color)}); */
-  background-image: url(${middle});
+  background-image: url(${(props) => loadLegoImage(props.color, "M")});
   background-size: 100% 100%;
   background-repeat: no-repeat;
   display: flex;
@@ -27,14 +23,15 @@ const LegoContent = styled.div<LegoProps>`
   line-height: 1;
   padding: 0.7rem 1.5rem 0.7rem 1.3rem;
   font-size: 1.3rem;
+  box-sizing: content-box;
 `;
 
 const LegoLeft = styled.img`
-  height: 3rem;
+  max-height: 3rem;
 `;
 
 const LegoRight = styled.img`
-  height: 3rem;
+  max-height: 3rem;
 
   // 为了解决缝隙问题
   margin-left: -0.1rem;
@@ -47,11 +44,11 @@ const Lego: React.FC<React.HTMLAttributes<HTMLDivElement> & LegoProps> = ({
 }) => {
   return (
     <LegoContainer>
-      <LegoLeft src={left} alt="" />
+      <LegoLeft src={loadLegoImage(color, "L")} alt="" />
       <LegoContent color={color} {...props}>
         {children}
       </LegoContent>
-      <LegoRight src={right} alt="" />
+      <LegoRight src={loadLegoImage(color, "R")} alt="" />
     </LegoContainer>
   );
 };

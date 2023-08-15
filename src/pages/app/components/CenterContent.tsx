@@ -20,7 +20,7 @@ const LegoContainer = styled.div`
 `;
 
 const Label = styled.p`
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin: 1rem;
 `;
 
@@ -35,7 +35,7 @@ const CenterContent: React.FC<CenterContentProps> = ({ }) => {
         return (
           <React.Fragment key={index}>
             {item.children.length === 0 ? null : (
-              <Label key={"label:" + index}>{item.category}</Label>
+              <Label key={"label:" + index}>{"▎" + item.category}</Label>
             )}
             <LegoContainer key={"container:" + index}>
               {item.children.map((child, lego_index) => {

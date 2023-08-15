@@ -19,6 +19,7 @@ const Container = styled.div`
   grid-template-areas:
     "corner horizontal_bar"
     "vertical_bar textbox";
+  background-color: #d3d3d3;
 `;
 
 const Corner = styled.div`
@@ -54,6 +55,7 @@ const TextAreaContent = styled.textarea`
   background-color: transparent;
   border: 0;
   resize: none;
+  /* background-color: gray; */
 `;
 const TextArea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = ({
   ...props
