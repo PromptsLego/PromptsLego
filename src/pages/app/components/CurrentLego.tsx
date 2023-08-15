@@ -6,6 +6,7 @@ import { useAppDispatch } from "@/contexts/hooks";
 import { drop, edit } from "../ContentSlice";
 import { useClickPreventionOnDoubleClick } from "../hooks/useClickPreventionOnDoubleClick";
 import styled from "styled-components";
+import TextWithInput from "./TextWithInput";
 
 type LegoState =
   | "normal"
@@ -24,20 +25,6 @@ interface CurrentLegoProps {
   varNum: number;
   category: string;
 }
-
-const StyledInput = styled.input`
-  font-size: 1.3rem;
-  line-height: 1;
-  padding: 0;
-  margin: 0;
-  background: none;
-  border: none;
-  outline: none;
-
-  &:focus {
-    outline: 0;
-  }
-`;
 
 function getVars(str: string) {
   const regex = /{([^}]+)}/g;
@@ -101,7 +88,8 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
     (state === "var" && (
       <>
         <CaretRightOutlined rotate={90} />
-        <StyledInput
+        <TextWithInput str={detail} />
+        {/* <StyledInput
           type="text"
           value={detail}
           ref={inputRef}
@@ -112,7 +100,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
           // onPressEnter={() => {
           //   SetState("fill");
           // }}
-        />
+        /> */}
       </>
     ));
 

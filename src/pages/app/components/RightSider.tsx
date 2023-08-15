@@ -40,7 +40,6 @@ const RightSider: React.FC<RightSiderProps> = ({}) => {
     <Container>
       <Header>
         <Logo src={RightBox} />
-        <CancelButton src={Cancel} />
       </Header>
       <Navigator />
       <ChoiceDiv>

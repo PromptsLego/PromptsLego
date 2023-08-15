@@ -1,105 +1,94 @@
-import lego_yellow from "@/assets/lego-yellow.png";
-import lego_gray from "@/assets/lego-gray.png";
-import lego_blue from "@/assets/lego-blue.png";
-import lego_cyan from "@/assets/lego-cyan.png";
-import lego_green from "@/assets/lego-green.png";
-import lego_purple from "@/assets/lego-purple.png";
-import lego_pink from "@/assets/lego-pink.png";
-import lego_white from "@/assets/lego-white.png";
-// import lego_yellow_pin from "@/assets/lego-yellow-pin.png";
-// import lego_blue_pin from "@/assets/lego-blue-pin.png";
-// import lego_cyan_pin from "@/assets/lego-cyan-pin.png";
-// import lego_green_pin from "@/assets/lego-green-pin.png";
-// import lego_purple_pin from "@/assets/lego-purple-pin.png";
-// import lego_white_pin from "@/assets/lego-white-pin.png";
-// import { ContentContextType, LegoType } from "@/contexts/ContentContext";
+import yellowL from "@/assets/yellow-L.png";
+import grayL from "@/assets/gray-L.png";
+import blueL from "@/assets/blue-L.png";
+import cyanL from "@/assets/cyan-L.png";
+import greenL from "@/assets/green-L.png";
+import purpleL from "@/assets/purple-L.png";
+import redL from "@/assets/red-L.png";
+import whiteL from "@/assets/white-L.png";
 
-export const LegoImageUrl = (color: string | undefined) => {
-  return color === "yellow"
-    ? lego_yellow
-    : color === "purple"
-    ? lego_purple
-    : color === "blue"
-    ? lego_blue
-    : color === "cyan"
-    ? lego_cyan
-    : color === "green"
-    ? lego_green
-    : color === "pink"
-    ? lego_pink
-    : color === "white"
-    ? lego_white
-    : lego_gray;
-};
+import yellowM from "@/assets/yellow-M.png";
+import grayM from "@/assets/gray-M.png";
+import blueM from "@/assets/blue-M.png";
+import cyanM from "@/assets/cyan-M.png";
+import greenM from "@/assets/green-M.png";
+import purpleM from "@/assets/purple-M.png";
+import redM from "@/assets/red-M.png";
+import whiteM from "@/assets/white-M.png";
 
-// export const LegoFrozenImageUrl = (color: string | undefined) => {
-//   return color === "yellow"
-//     ? lego_yellow_pin
-//     : color === "blue"
-//     ? lego_blue_pin
-//     : color === "cyan"
-//     ? lego_cyan_pin
-//     : color === "green"
-//     ? lego_green_pin
-//     : color === "purple"
-//     ? lego_purple_pin
-//     : color === "white"
-//     ? lego_white_pin
-//     : lego_gray;
-// };
+import yellowR from "@/assets/yellow-R.png";
+import grayR from "@/assets/gray-R.png";
+import blueR from "@/assets/blue-R.png";
+import cyanR from "@/assets/cyan-R.png";
+import greenR from "@/assets/green-R.png";
+import purpleR from "@/assets/purple-R.png";
+import redR from "@/assets/red-R.png";
+import whiteR from "@/assets/white-R.png";
 
-// export const LegoStyle = {
-//   // backgroundPosition: "center center",
-//   backgroundSize: "100% 100%",
-//   backgroundRepeat: "no-repeat",
-//   height: "50px",
-//   width: "180px",
-//   display: "flex",
-//   justifyContent: "center",
-//   alignItems: "center",
-//   fontSize: "15px",
-//   border: "none",
-// };
-// export const NavigatorLegoStyle = {
-//   height: "30px",
-//   width: "110px",
-//   display: "flex",
-//   justifyContent: "center",
-//   alignItems: "center",
-//   fontSize: "15px",
-//   border: "none",
-// };
-
-// export const UpdateCurrentDetail = (
-//   details: ContentContextType["details"],
-//   SetDetails: ContentContextType["SetDetails"],
-//   current: ContentContextType["current"],
-//   SetCurrent: ContentContextType["SetCurrent"],
-//   category: string,
-//   lego: LegoType,
-//   updateDetail: string
-// ) => {
-//   const current_category = current.find((item) => item.category === category);
-//   const targetLego = current_category?.children.find(
-//     (item) =>
-//       item.keyWord === lego.keyWord &&
-//       item.detail === lego.detail &&
-//       item.useTime === lego.useTime &&
-//       item.color === lego.color &&
-//       item.varNum === lego.varNum
-//   );
-//   if (targetLego === undefined) return;
-//   targetLego.detail = updateDetail;
-//   console.log(targetLego.detail);
-//   SetCurrent([...current]);
-
-//   const newDetails = [...details];
-//   const targetDetail = newDetails.find((item) => item.category === category);
-//   const index = targetDetail?.details?.findIndex(
-//     (item) => item === lego.detail
-//   );
-//   if (index === undefined || index === -1) return;
-//   targetDetail?.details?.splice(index, 1, updateDetail);
-//   console.log(newDetails);
-//   SetDetails(newDetails);
-// };
+export function loadLegoImage(color: string, position: string) {
+  switch (position) {
+    case "L":
+      switch (color) {
+        case "yellow":
+          return yellowL;
+        case "gray":
+          return grayL;
+        case "blue":
+          return blueL;
+        case "cyan":
+          return cyanL;
+        case "green":
+          return greenL;
+        case "purple":
+          return purpleL;
+        case "red":
+          return redL;
+        case "white":
+          return whiteL;
+        default:
+          return whiteL;
+      }
+    case "M":
+      switch (color) {
+        case "yellow":
+          return yellowM;
+        case "gray":
+          return grayM;
+        case "blue":
+          return blueM;
+        case "cyan":
+          return cyanM;
+        case "green":
+          return greenM;
+        case "purple":
+          return purpleM;
+        case "red":
+          return redM;
+        case "white":
+          return whiteM;
+        default:
+          return whiteM;
+      }
+    case "R":
+      switch (color) {
+        case "yellow":
+          return yellowR;
+        case "gray":
+          return grayR;
+        case "blue":
+          return blueR;
+        case "cyan":
+          return cyanR;
+        case "green":
+          return greenR;
+        case "purple":
+          return purpleR;
+        case "red":
+          return redR;
+        case "white":
+          return whiteR;
+        default:
+          return whiteR;
+      }
+  }
+}
