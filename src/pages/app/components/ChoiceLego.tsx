@@ -39,7 +39,7 @@ const ChoiceLego: React.FC<ChoiceLegoProps> = ({
     <Popover content={popContent}>
       <Lego color={color} onClick={clickHandler}>
         <span>{keyWord + " | "}</span>
-        <span style={{ color: "white" }}>{useTime}</span>
+        <span style={{ color: "black" }}>{useTime}</span>
       </Lego>
     </Popover>
   );

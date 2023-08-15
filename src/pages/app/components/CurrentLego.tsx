@@ -1,5 +1,5 @@
-import React, { useContext, useRef, useEffect } from "react";
-import { Input, InputRef, Popover } from "antd";
+import React, { useRef, useEffect } from "react";
+import { Popover } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import Lego from "@/ui/Lego";
 import { useAppDispatch } from "@/contexts/hooks";
@@ -25,7 +25,7 @@ interface CurrentLegoProps {
   category: string;
 }
 
-const StyledInput = styled(Input)`
+const StyledInput = styled.input`
   font-size: 1.3rem;
   line-height: 1;
   padding: 0;
@@ -33,6 +33,10 @@ const StyledInput = styled(Input)`
   background: none;
   border: none;
   outline: none;
+
+  &:focus {
+    outline: 0;
+  }
 `;
 
 function getVars(str: string) {
@@ -57,7 +61,8 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const inputRef = useRef<InputRef>(null);
+  // const inputRef = useRef<InputRef>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const vars = useRef<string[]>(getVars(detail));
   const [state, SetState] = React.useState<LegoState>(
     vars.current.length === 0 ? "normal" : "var"
@@ -104,9 +109,9 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
           onBlur={() => {
             SetState("fill");
           }}
-          onPressEnter={() => {
-            SetState("fill");
-          }}
+          // onPressEnter={() => {
+          //   SetState("fill");
+          // }}
         />
       </>
     ));

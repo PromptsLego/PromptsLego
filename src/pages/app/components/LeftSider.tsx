@@ -132,11 +132,11 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
 
   return (
     <Container>
-      <TextArea value={output} readOnly placeholder="promptLego" />
+      <TextArea value={output} readOnly placeholder="PromptsLego" />
       <TextArea
         value={optimizedTextAreaValue}
         readOnly
-        placeholder="promptLego"
+        placeholder="PromptsLego"
       />
       <ButtonContainer>
         <CopyButton onClick={handleCopy}></CopyButton>
