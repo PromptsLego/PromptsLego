@@ -158,7 +158,9 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({keyWord,detail,useTim
     style={{
       resize:"none",
       width:"100%",
-      border:"0"
+      border:"0",
+      height:"100%",
+      fontSize:"1.3rem"
     }}
     value={content}
     onChange={(event)=>onChange(event.target.value)}>
