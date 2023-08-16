@@ -5,16 +5,12 @@ import Lego from "@/ui/Lego";
 import { useAppDispatch } from "@/contexts/hooks";
 import { drop, edit } from "../ContentSlice";
 import { useClickPreventionOnDoubleClick } from "../hooks/useClickPreventionOnDoubleClick";
-import { LegoInputBox } from "@/pages/app/components/LegoInputBox"
+import { LegoInputBox } from "@/pages/app/components/LegoInputBox";
 import styled from "styled-components";
 import TextWithInput from "./TextWithInput";
 import { useImmer } from "use-immer";
 
-type LegoState =
-  | "normal"
-  | "var"
-  | "edit"
-  | "fill";
+type LegoState = "normal" | "var" | "edit" | "fill";
 
 interface CurrentLegoProps {
   keyWord: string;
@@ -45,10 +41,10 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
       case "fill":
       case "var":
         SetState("edit");
-        break
+        break;
       case "edit":
         SetState("fill");
-        break
+        break;
     }
   };
   const doubleClickHandler = () => {
@@ -64,17 +60,19 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
     }
   }, [state]);
 
-  const LegoContent =
+  const LegoContent = (
     <>
       <CaretRightOutlined />
       <span>{keyWord}</span>
     </>
+  );
 
   return (
     <>
-      <Popover
-        content={<p>{detail}</p>}>
-        <div style={{width:state === "edit" ?"100%":"auto",display:"flex"}}>
+      <Popover content={<p>{detail}</p>}>
+        <div
+          style={{ width: state === "edit" ? "100%" : "auto", display: "flex" }}
+        >
           <Lego
             color={color}
             onClick={handleClick}
@@ -84,15 +82,17 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
           </Lego>
         </div>
       </Popover>
-      {state === "edit" ?
+      {state === "edit" ? (
         <LegoInputBox
           keyWord={keyWord}
           detail={detail}
           useTime={useTime}
           color={color}
-          varNum={varNum} />
-        :
-        <></>}
+          varNum={varNum}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

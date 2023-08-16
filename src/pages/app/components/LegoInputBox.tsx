@@ -3,14 +3,14 @@ import React, { useRef } from "react";
 import { useImmer } from "use-immer";
 import { edit } from "../ContentSlice";
 import { useAppDispatch } from "@/contexts/hooks";
-import InputBackgroundLegoLeftUp from "@/assets/inputBackgroungLegoLeftUp.png"
-import InputBackgroundLegoLeftMiddle from "@/assets/inputBackgroungLegoLeftMiddle.png"
-import InputBackgroundLegoLeftDown from "@/assets/inputBackgroungLegoLeftDown.png"
-import InputBackgroundLegoMiddleUp from "@/assets/inputBackgroungLegoMiddleUp.png"
-import InputBackgroundLegoMiddleDown from "@/assets/inputBackgroungLegoMiddleDown.png"
-import InputBackgroundLegoRightUp from "@/assets/inputBackgroungLegoRightUp.png"
-import InputBackgroundLegoRightMiddle from "@/assets/inputBackgroungLegoRightMiddle.png"
-import InputBackgroundLegoRightDown from "@/assets/inputBackgroungLegoRightDown.png"
+import InputBackgroundLegoLeftUp from "@/assets/inputBackgroungLegoLeftUp.png";
+import InputBackgroundLegoLeftMiddle from "@/assets/inputBackgroungLegoLeftMiddle.png";
+import InputBackgroundLegoLeftDown from "@/assets/inputBackgroungLegoLeftDown.png";
+import InputBackgroundLegoMiddleUp from "@/assets/inputBackgroungLegoMiddleUp.png";
+import InputBackgroundLegoMiddleDown from "@/assets/inputBackgroungLegoMiddleDown.png";
+import InputBackgroundLegoRightUp from "@/assets/inputBackgroungLegoRightUp.png";
+import InputBackgroundLegoRightMiddle from "@/assets/inputBackgroungLegoRightMiddle.png";
+import InputBackgroundLegoRightDown from "@/assets/inputBackgroungLegoRightDown.png";
 
 const LegoInputContainer = styled.div`
   position: relative;
@@ -19,7 +19,7 @@ const LegoInputContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  top:-1.9rem;
+  top: -1.9rem;
 `;
 const LegoInputBackgroundLeft = styled.div`
   width: 0.8rem;
@@ -35,7 +35,7 @@ const LegoInputBackgroundLeftUp = styled.div`
   background-repeat: no-repeat;
 `;
 const LegoInputBackgroundLeftMiddle = styled.div`
-  flex-grow:1;
+  flex-grow: 1;
   width: 100%;
   min-height: 1rem;
   background-image: url(${InputBackgroundLegoLeftMiddle});
@@ -50,7 +50,7 @@ const LegoInputBackgroundLeftDown = styled.div`
   background-repeat: no-repeat;
 `;
 const LegoInputBackgroundMiddle = styled.div`
-  flex-grow:1;
+  flex-grow: 1;
   min-width: 1rem;
   display: flex;
   justify-content: space-between;
@@ -64,7 +64,7 @@ const LegoInputBackgroundMiddleUp = styled.div`
   background-repeat: no-repeat;
 `;
 const LegoInputBackgroundMiddleMiddle = styled.div`
-  flex-grow:1;
+  flex-grow: 1;
   width: 100%;
   min-height: 1rem;
 `;
@@ -89,7 +89,7 @@ const LegoInputBackgroundRightUp = styled.div`
   background-repeat: no-repeat;
 `;
 const LegoInputBackgroundRightMiddle = styled.div`
-  flex-grow:1;
+  flex-grow: 1;
   width: 100%;
   min-height: 1rem;
   background-image: url(${InputBackgroundLegoRightMiddle});
@@ -112,59 +112,67 @@ interface LegoInputBoxProps {
   varNum: number;
 }
 
-export const LegoInputBox: React.FC<LegoInputBoxProps> = ({keyWord,detail,useTime,color,varNum}) => {
-  const verifyDetail = (oriDetail:string,newDetail:string)=>{
-    while(true){
-      var oriStart = oriDetail.indexOf("{")
-      var newStart = newDetail.indexOf("{")
-      var oriEnd = oriDetail.indexOf("}")
-      var newEnd = newDetail.indexOf("}")
-      if(oriStart == -1 && newStart == -1){
-        var oriPostfix = oriDetail.substring(oriEnd)
-        var newPostfix = newDetail.substring(newEnd)
-        return oriPostfix == newPostfix
-      }else if(oriStart == newStart && oriEnd!=-1 && newEnd!=-1){
-        var oriPrefix = oriDetail.substring(0,oriStart)
-        var newPrefix = newDetail.substring(0,newStart)
-        if(oriPrefix!=newPrefix){
-          return false
+export const LegoInputBox: React.FC<LegoInputBoxProps> = ({
+  keyWord,
+  detail,
+  useTime,
+  color,
+  varNum,
+}) => {
+  const verifyDetail = (oriDetail: string, newDetail: string) => {
+    while (true) {
+      var oriStart = oriDetail.indexOf("{");
+      var newStart = newDetail.indexOf("{");
+      var oriEnd = oriDetail.indexOf("}");
+      var newEnd = newDetail.indexOf("}");
+      if (oriStart == -1 && newStart == -1) {
+        var oriPostfix = oriDetail.substring(oriEnd);
+        var newPostfix = newDetail.substring(newEnd);
+        return oriPostfix == newPostfix;
+      } else if (oriStart == newStart && oriEnd != -1 && newEnd != -1) {
+        var oriPrefix = oriDetail.substring(0, oriStart);
+        var newPrefix = newDetail.substring(0, newStart);
+        if (oriPrefix != newPrefix) {
+          return false;
         }
-      }else{
-        return false
+      } else {
+        return false;
       }
-      oriDetail = oriDetail.substring(oriEnd + 1)
-      newDetail = newDetail.substring(newEnd + 1)
+      oriDetail = oriDetail.substring(oriEnd + 1);
+      newDetail = newDetail.substring(newEnd + 1);
     }
-  }
-  const dispatch = useAppDispatch()
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const [content,setContent] = useImmer(detail)
-  const onChange = (text:string)=>{
-    if(verifyDetail(text,content)){
-      setContent(text)
-      dispatch(edit({ 
-        keyWord:keyWord, 
-        detail:text, 
-        useTime:useTime, 
-        color:color, 
-        varNum:varNum 
-      }));
+  };
+  const dispatch = useAppDispatch();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [content, setContent] = useImmer(detail);
+  const onChange = (text: string) => {
+    if (verifyDetail(text, content)) {
+      setContent(text);
+      dispatch(
+        edit({
+          keyWord: keyWord,
+          detail: text,
+          useTime: useTime,
+          color: color,
+          varNum: varNum,
+        }),
+      );
     }
-  }
+  };
 
   const detailTextarea = (
     <textarea
-    style={{
-      resize:"none",
-      width:"100%",
-      border:"0",
-      height:"100%",
-      fontSize:"1.3rem"
-    }}
-    value={content}
-    onChange={(event)=>onChange(event.target.value)}>
-    </textarea>
-  )
+      style={{
+        resize: "none",
+        width: "100%",
+        border: "0",
+        height: "100%",
+        fontSize: "1.3rem",
+      }}
+      value={content}
+      onChange={(event) => onChange(event.target.value)}
+    ></textarea>
+  );
   return (
     <LegoInputContainer>
       <LegoInputBackgroundLeft>
@@ -174,7 +182,9 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({keyWord,detail,useTim
       </LegoInputBackgroundLeft>
       <LegoInputBackgroundMiddle>
         <LegoInputBackgroundMiddleUp></LegoInputBackgroundMiddleUp>
-        <LegoInputBackgroundMiddleMiddle>{detailTextarea}</LegoInputBackgroundMiddleMiddle>
+        <LegoInputBackgroundMiddleMiddle>
+          {detailTextarea}
+        </LegoInputBackgroundMiddleMiddle>
         <LegoInputBackgroundMiddleDown></LegoInputBackgroundMiddleDown>
       </LegoInputBackgroundMiddle>
       <LegoInputBackgroundRight>
@@ -183,5 +193,5 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({keyWord,detail,useTim
         <LegoInputBackgroundRightDown></LegoInputBackgroundRightDown>
       </LegoInputBackgroundRight>
     </LegoInputContainer>
-  )
-}
+  );
+};
