@@ -42,7 +42,7 @@ const LegoInputBackgroundLeft = styled.div`
   background-image: url(${InputBackgroundLegoLeft});
   background-size: 100% 100%;
   background-repeat: no-repeat;
-`;  
+`;
 const LegoInputBackgroundMiddle = styled.div`
   height: 100%;
   flex-grow:1;
@@ -50,7 +50,7 @@ const LegoInputBackgroundMiddle = styled.div`
   background-image: url(${(props) => InputBackgroundLegoMiddle});
   background-size: 100% 100%;
   background-repeat: no-repeat;
-`;  
+`;
 const LegoInputBackgroundRight = styled.div`
   height: 100%;
   width: 1.4rem;
@@ -59,8 +59,14 @@ const LegoInputBackgroundRight = styled.div`
   background-repeat: no-repeat;
 `;
 
-const LegoInputInputBox = ()=>{
-  
+const LegoInputInputBox = () => {
+  return (
+    <LegoInputContainer>
+      <LegoInputBackgroundLeft></LegoInputBackgroundLeft>
+      <LegoInputBackgroundMiddle></LegoInputBackgroundMiddle>
+      <LegoInputBackgroundRight></LegoInputBackgroundRight>
+    </LegoInputContainer>
+  )
 }
 
 interface CenterContentProps { }
@@ -70,11 +76,6 @@ const CenterContent: React.FC<CenterContentProps> = ({ }) => {
 
   return (
     <Container>
-      <LegoInputContainer>
-        <LegoInputBackgroundLeft></LegoInputBackgroundLeft>
-        <LegoInputBackgroundMiddle></LegoInputBackgroundMiddle>
-        <LegoInputBackgroundRight></LegoInputBackgroundRight>
-      </LegoInputContainer>
       {current.map((item, index) => {
         return (
           <React.Fragment key={index}>
