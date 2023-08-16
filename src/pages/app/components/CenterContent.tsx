@@ -57,7 +57,11 @@ const LegoInputBackgroundRight = styled.div`
   background-image: url(${(props) => InputBackgroundLegoRight});
   background-size: 100% 100%;
   background-repeat: no-repeat;
-`;  
+`;
+
+const LegoInputInputBox = ()=>{
+  
+}
 
 interface CenterContentProps { }
 

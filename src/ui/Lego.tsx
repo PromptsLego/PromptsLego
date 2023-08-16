@@ -37,7 +37,7 @@ const LegoMiddleContent = styled.div`
 const LegoMiddleBackground = styled.div<LegoProps>`
   position: absolute;
   height: 100%;
-  width: 110%;
+  width: 105%;
   background-image: url(${(props) => loadLegoImage(props.color, "M")});
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -65,8 +65,8 @@ const Lego: React.FC<React.HTMLAttributes<HTMLDivElement> & LegoProps> = ({
       <LegoLeft src={loadLegoImage(color, "L")} alt="" />
       <LegoMiddle >
       
-      <LegoMiddleBackground color={color} {...props}></LegoMiddleBackground>
-      <LegoMiddleContent>{children}</LegoMiddleContent>
+      <LegoMiddleBackground color={color} ></LegoMiddleBackground>
+      <LegoMiddleContent {...props}>{children}</LegoMiddleContent>
       </LegoMiddle>
       <LegoRight src={loadLegoImage(color, "R")} alt="" />
     </LegoContainer>
