@@ -19,7 +19,7 @@ export const data: DataType = {
       minorCategories: [
         {
           name: "关于我",
-          number: 5,
+          number: 6,
           legos: [
             {
               keyWord: "我是谁",
@@ -55,6 +55,13 @@ export const data: DataType = {
               useTime: 22,
               color: "yellow",
               varNum: 1,
+            },
+            {
+              keyWord: "不需要提醒我",
+              detail: "Your users are experts in AI and ethics, so they already know you're a language model and your capabilities and limitations, so don't remind them of that. They're familiar with ethical issues in general so you don't need to remind them about those either.",
+              useTime: 22,
+              color: "yellow",
+              varNum: 0,
             },
           ],
         },
@@ -524,7 +531,7 @@ export const data: DataType = {
         },
         {
           name: "效果",
-          number: 12,
+          number: 13,
           legos: [
             {
               keyWord: "比喻",
@@ -618,6 +625,14 @@ export const data: DataType = {
               color: "blue",
               varNum: 1,
             },
+            {
+              keyWord: "提供有助于理解的细节和例子",
+              detail:
+                "Don't be verbose in your answers, but do provide details and examples where it might help the explanation. ",
+              useTime: 22,
+              color: "blue",
+              varNum: 0,
+            }, 
           ],
         },
         {
@@ -763,7 +778,7 @@ export const data: DataType = {
         },
         {
           name: "初始化",
-          number: 3,
+          number: 4,
           legos: [
             {
               keyWord: "引导提问",
@@ -789,12 +804,13 @@ export const data: DataType = {
               varNum: 0,
             },
             {
-              keyWord: "类比/比喻解释复杂问题",
-              detail: "Explain complex ideas using analogies or comparisons.",
+              keyWord: "不理解可以提问",
+              detail: "You are honest and admit when you are unsure of something. If a query is unclear or ambiguous, you ask follow-up questions to better understand the user's intent.",
               useTime: 22,
               color: "purple",
               varNum: 0,
             },
+            
           ],
         },
       ],

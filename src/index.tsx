@@ -12,8 +12,7 @@ import { store } from "@/contexts/store";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-    //element: hasToken() ? <App /> : <Waitlist />,
+    element: hasToken() ? <App /> : <Waitlist />,
   },
 ]);
 
@@ -25,5 +24,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <RouterProvider router={router} />
       </Provider>
     </AuthContextProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
