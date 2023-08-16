@@ -10,6 +10,7 @@ const LegoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   height: 3rem;
+  z-index: 9999;
 `;
 
 const LegoMiddle = styled.div`
