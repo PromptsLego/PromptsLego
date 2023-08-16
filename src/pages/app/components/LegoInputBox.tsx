@@ -117,13 +117,13 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({keyWord,detail,useTim
     while(true){
       var oriStart = oriDetail.indexOf("{")
       var newStart = newDetail.indexOf("{")
+      var oriEnd = oriDetail.indexOf("}")
+      var newEnd = newDetail.indexOf("}")
       if(oriStart == -1 && newStart == -1){
-        var oriEnd = oriDetail.indexOf("}")
-        var newEnd = newDetail.indexOf("}")
         var oriPostfix = oriDetail.substring(oriEnd)
         var newPostfix = newDetail.substring(newEnd)
         return oriPostfix == newPostfix
-      }else if(oriStart == newStart){
+      }else if(oriStart == newStart && oriEnd!=-1 && newEnd!=-1){
         var oriPrefix = oriDetail.substring(0,oriStart)
         var newPrefix = newDetail.substring(0,newStart)
         if(oriPrefix!=newPrefix){
@@ -132,10 +132,9 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({keyWord,detail,useTim
       }else{
         return false
       }
-      oriDetail = oriDetail.substring(oriStart + 1)
-      newDetail = newDetail.substring(newStart + 1)
+      oriDetail = oriDetail.substring(oriEnd + 1)
+      newDetail = newDetail.substring(newEnd + 1)
     }
-    return false
   }
   const dispatch = useAppDispatch()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
