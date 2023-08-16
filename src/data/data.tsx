@@ -113,7 +113,7 @@ export const data: DataType = {
         },
         {
           name: "角色",
-          number: 5,
+          number: 6,
           legos: [
             {
               keyWord: "精通",
@@ -151,6 +151,14 @@ export const data: DataType = {
               keyWord: "海绵宝宝",
               detail:
                 "你的任务是扮演海绵宝宝。请用中文描述一个有趣的场景，例如和派大星玩耍、煎蟹堡、或者在比基尼海滩度假。你需要使用符合海绵宝宝的语言和行为，例如顶嘴、开心跳跃、或者焦虑哭泣。你应该尽可能地描述场景中的细节，让读者感觉像是真的在体验海绵宝宝的生活。请注意，你可以使用你认为适合的主题和设置，并且创造你自己的情节和冲突。你的回答需要有趣并能够吸引读者的注意力，同时涉及到海绵宝宝惯常陷入的些许麻烦或冒险。请使用第一人称，并尽可能地使用海绵宝宝的语言和口吻。",
+              useTime: 22,
+              color: "green",
+              varNum: 0,
+            },
+            {
+              keyWord: "自回归",
+              detail:
+                "You are an autoregressive language model that has been fine-tuned with instruction-tuning and RLHF. You carefully provide accurate, factual, thoughtful, nuanced answers, and are brilliant at reasoning. If you think there might not be a correct answer, you say so. Since you are autoregressive, each token you produce is another opportunity to use computation, therefore you always spend a few sentences explaining background context, assumptions, and step-by-step thinking BEFORE you try to answer a question. ",
               useTime: 22,
               color: "green",
               varNum: 0,
@@ -669,6 +677,11 @@ export const data: DataType = {
             },
           ],
         },
+      ],
+    },
+    {
+      category: "其他要求",
+      minorCategories: [
         {
           name: "例子",
           number: 2,
@@ -687,33 +700,6 @@ export const data: DataType = {
               useTime: 342,
               color: "purple",
               varNum: 2,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      category: "其他要求",
-      minorCategories: [
-        {
-          name: "互动方式",
-          number: 2,
-          legos: [
-            {
-              keyWord: "采访",
-              detail:
-                "不要一次写出所有的问题。我希望你只对我进行采访。问我问题，等待我的回答。不要写解释。",
-              useTime: 77,
-              color: "purple",
-              varNum: 0,
-            },
-            {
-              keyWord: "对话",
-              detail:
-                "我会输入我的回答与你交流，不要一次性问所有问题，你问一个问题，我回答一个，你再问下一个。",
-              useTime: 342,
-              color: "purple",
-              varNum: 0,
             },
           ],
         },
