@@ -61,28 +61,36 @@ const DropButton = styled(Button)`
 `;
 
 const LeftSider: React.FC<LeftSiderProps> = ({}) => {
-  const [optimizedTextAreaValue, SetOptimizedTextAreaValue] = useState("");
-
-  const { activeTextArea, current } = useAppSelector((state) => state.content);
+  const { current, inputContent } = useAppSelector((state) => state.content);
   const dispatch = useAppDispatch();
 
-  const output = current
-    .map((category) => {
-      const detail = category.children
-        .map((lego) => {
-          return lego.detail;
-        })
-        .join("");
-      if (detail) return "# " + category.category + ": \n" + detail;
-      else return "";
-    })
-    .join("\n");
+  function getOuptut() {
+    let output = current
+      .map((category) => {
+        let detail = category.children
+          .map((lego) => {
+            return lego.detail;
+          })
+          .join("");
+        if (category.category === "行动任务") detail += inputContent;
+        if (detail) return "# " + category.category + ": \n" + detail;
+        else return "";
+      })
+      .join("\n");
+    if (
+      !current.find((category) => category.category === "行动任务") &&
+      inputContent
+    ) {
+      return output + "# 行动任务: \n" + inputContent;
+    }
+    return output;
+  }
+
+  const output = getOuptut();
 
   const copyToClipboard = () => {
-    const textToCopy =
-      activeTextArea === "default" ? output : optimizedTextAreaValue;
     const textarea = document.createElement("textarea");
-    textarea.value = textToCopy;
+    textarea.value = output;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand("copy");
@@ -92,42 +100,11 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
     copyToClipboard();
   };
   const handleDrop = () => {
-    // SetOptimizedTextAreaValue("");
-    dispatch(dropAll);
-  };
-
-  const handleOptimize = async () => {
-    // const prompt = details
-    //   .map((detail) => {
-    //     return "▎" + detail.category + ": " + detail.details.join("\n");
-    //   })
-    //   .join("\n");
-    // const targetModel = "chatgpt";
-    // const apiKey = YOUR_GENERATED_SECRET; // 将此处替换为你的实际API密钥
-    // if (apiKey === undefined) {
-    //   console.log(
-    //     "ChatGPT API key not found. Please set the YOUR_GENERATED_SECRET variable."
-    //   );
-    // } else {
-    //   try {
-    //     console.log("Optimizing...");
-    //     const response = await promptperfect(prompt, targetModel, apiKey);
-    //     if (!response.ok) {
-    //       throw new Error(`HTTP error! status: ${response.status}`);
-    //     }
-    //     const responseBody = await response.json(); // 解析返回的JSON响应体
-    //     const optimizedText = responseBody.result.promptOptimized; // 假设响应体中有一个名为"optimizedText"的字段
-    //     console.log("Optimized text:", optimizedText);
-    //     SetOptimizedTextAreaValue(optimizedText);
-    //     SetActiveTextArea("optimized");
-    //   } catch (error) {
-    //     console.error(error); // 如果发生错误，输出到控制台
-    //   }
-    // }
+    dispatch(dropAll());
   };
 
   const handleFavorite = () => {
-    dispatch(favorite);
+    dispatch(favorite());
   };
 
   return (
@@ -135,7 +112,6 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
       <TextArea value={output} readOnly placeholder="PromptsLego" />
       <ButtonContainer>
         <CopyButton onClick={handleCopy}></CopyButton>
-        <OptimizeButton onClick={handleOptimize}></OptimizeButton>
         <FavoriteButton onClick={handleFavorite}></FavoriteButton>
         <DropButton onClick={handleDrop}></DropButton>
       </ButtonContainer>
