@@ -5,17 +5,12 @@ import Lego from "@/ui/Lego";
 import { useAppDispatch } from "@/contexts/hooks";
 import { drop, edit } from "../ContentSlice";
 import { useClickPreventionOnDoubleClick } from "../hooks/useClickPreventionOnDoubleClick";
+import { LegoInputBox } from "@/pages/app/components/LegoInputBox";
 import styled from "styled-components";
 import TextWithInput from "./TextWithInput";
+import { useImmer } from "use-immer";
 
-type LegoState =
-  | "normal"
-  | "var"
-  | "edit"
-  | "fill"
-  | "normal-frozen"
-  | "var-frozen"
-  | "fill-frozen";
+type LegoState = "normal" | "var" | "edit" | "fill";
 
 interface CurrentLegoProps {
   keyWord: string;
@@ -24,17 +19,6 @@ interface CurrentLegoProps {
   color: string;
   varNum: number;
   category: string;
-}
-
-function getVars(str: string) {
-  const regex = /{([^}]+)}/g;
-  const matches = str.match(regex);
-
-  if (matches) {
-    return matches.map((match) => match.slice(1, -1));
-  } else {
-    return [];
-  }
 }
 
 const CurrentLego: React.FC<CurrentLegoProps> = ({
@@ -48,15 +32,19 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  // const inputRef = useRef<InputRef>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const vars = useRef<string[]>(getVars(detail));
-  const [state, SetState] = React.useState<LegoState>(
-    vars.current.length === 0 ? "normal" : "var",
+  const [state, SetState] = useImmer<LegoState>(
+    detail.indexOf("{") == -1 ? "normal" : "var",
   );
   const clickHandler = () => {
-    if (state === "fill") {
-      SetState("var");
+    switch (state) {
+      case "fill":
+      case "var":
+        SetState("edit");
+        break;
+      case "edit":
+        SetState("fill");
+        break;
     }
   };
   const doubleClickHandler = () => {
@@ -66,54 +54,46 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
     clickHandler,
     doubleClickHandler,
   );
-  const editInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      edit({ keyWord, detail: event.target.value, useTime, color, varNum }),
-    );
-  };
   useEffect(() => {
     if (state === "var") {
       inputRef.current?.focus();
     }
   }, [state]);
 
-  const LegoContent =
-    (state === "normal" && <>{keyWord}</>) ||
-    (state === "fill" && (
-      <>
-        <CaretRightOutlined />
-        <span>{keyWord}</span>
-      </>
-    )) ||
-    (state === "var" && (
-      <>
-        <CaretRightOutlined rotate={90} />
-        <TextWithInput str={detail} />
-        {/* <StyledInput
-          type="text"
-          value={detail}
-          ref={inputRef}
-          onChange={editInputHandler}
-          onBlur={() => {
-            SetState("fill");
-          }}
-          // onPressEnter={() => {
-          //   SetState("fill");
-          // }}
-        /> */}
-      </>
-    ));
+  const LegoContent = (
+    <>
+      <CaretRightOutlined />
+      <span>{keyWord}</span>
+    </>
+  );
 
   return (
-    <Popover content={<p>{detail}</p>}>
-      <Lego
-        color={color}
-        onClick={handleClick}
-        onDoubleClick={handleDoubleClick}
-      >
-        {LegoContent}
-      </Lego>
-    </Popover>
+    <>
+      <Popover content={<p>{detail}</p>}>
+        <div
+          style={{ width: state === "edit" ? "100%" : "auto", display: "flex" }}
+        >
+          <Lego
+            color={color}
+            onClick={handleClick}
+            onDoubleClick={handleDoubleClick}
+          >
+            {LegoContent}
+          </Lego>
+        </div>
+      </Popover>
+      {state === "edit" ? (
+        <LegoInputBox
+          keyWord={keyWord}
+          detail={detail}
+          useTime={useTime}
+          color={color}
+          varNum={varNum}
+        />
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 

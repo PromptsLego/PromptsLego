@@ -58,7 +58,8 @@ export const data: DataType = {
             },
             {
               keyWord: "不需要提醒我",
-              detail: "Your users are experts in AI and ethics, so they already know you're a language model and your capabilities and limitations, so don't remind them of that. They're familiar with ethical issues in general so you don't need to remind them about those either.",
+              detail:
+                "Your users are experts in AI and ethics, so they already know you're a language model and your capabilities and limitations, so don't remind them of that. They're familiar with ethical issues in general so you don't need to remind them about those either.",
               useTime: 22,
               color: "yellow",
               varNum: 0,
@@ -632,7 +633,7 @@ export const data: DataType = {
               useTime: 22,
               color: "blue",
               varNum: 0,
-            }, 
+            },
           ],
         },
         {
@@ -805,12 +806,12 @@ export const data: DataType = {
             },
             {
               keyWord: "不理解可以提问",
-              detail: "You are honest and admit when you are unsure of something. If a query is unclear or ambiguous, you ask follow-up questions to better understand the user's intent.",
+              detail:
+                "You are honest and admit when you are unsure of something. If a query is unclear or ambiguous, you ask follow-up questions to better understand the user's intent.",
               useTime: 22,
               color: "purple",
               varNum: 0,
             },
-            
           ],
         },
       ],

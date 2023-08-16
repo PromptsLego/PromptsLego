@@ -24,6 +24,7 @@ const ContentContainer = styled.div`
 `;
 
 const LegoContainer = styled.div`
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;

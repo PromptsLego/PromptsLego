@@ -10,11 +10,12 @@ const LegoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   height: 3rem;
+  z-index: 9999;
 `;
 
 const LegoMiddle = styled.div`
   position: relative;
-  flex-grow:1;
+  flex-grow: 1;
   height: "100%";
   display: flex;
 `;
@@ -63,10 +64,9 @@ const Lego: React.FC<React.HTMLAttributes<HTMLDivElement> & LegoProps> = ({
   return (
     <LegoContainer>
       <LegoLeft src={loadLegoImage(color, "L")} alt="" />
-      <LegoMiddle >
-      
-      <LegoMiddleBackground color={color} ></LegoMiddleBackground>
-      <LegoMiddleContent {...props}>{children}</LegoMiddleContent>
+      <LegoMiddle>
+        <LegoMiddleBackground color={color}></LegoMiddleBackground>
+        <LegoMiddleContent {...props}>{children}</LegoMiddleContent>
       </LegoMiddle>
       <LegoRight src={loadLegoImage(color, "R")} alt="" />
     </LegoContainer>

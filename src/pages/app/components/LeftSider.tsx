@@ -3,13 +3,10 @@ import copyImage from "@/assets/copyImage.svg";
 import optimizeImage from "@/assets/optimizeImage.svg";
 import collectImage from "@/assets/collectImage.svg";
 import dropImage from "@/assets/dropImage.svg";
-import { config } from "@/config";
 import styled from "styled-components";
 import TextArea from "@/ui/TextArea";
 import { useAppDispatch, useAppSelector } from "@/contexts/hooks";
 import { dropAll, favorite } from "../ContentSlice";
-
-const YOUR_GENERATED_SECRET = config.jina_key;
 
 interface LeftSiderProps {}
 
@@ -81,7 +78,7 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
       !current.find((category) => category.category === "行动任务") &&
       inputContent
     ) {
-      return output + "# 行动任务: \n" + inputContent;
+      return output + "\n# 行动任务: \n" + inputContent;
     }
     return output;
   }
