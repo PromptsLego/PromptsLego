@@ -6,35 +6,53 @@ interface LegoProps {
 }
 
 const LegoContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 3rem;
+`;
+
+const LegoMiddle = styled.div`
+  position: relative;
+  flex-grow:1;
+  height: "100%";
   display: flex;
 `;
 
-const LegoContent = styled.div<LegoProps>`
-  background-image: url(${(props) => loadLegoImage(props.color, "M")});
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+const LegoMiddleContent = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   text-align: center;
-  white-space: nowrap; /* 禁止文字换行 */
-  overflow: hidden; /* 隐藏溢出部分 */
+  white-space: nowrap;
+  overflow: hidden;
   line-height: 1;
-  padding: 0.7rem 1.5rem 0.7rem 1.3rem;
   font-size: 1.3rem;
   box-sizing: content-box;
+  height: "100%";
+`;
+
+const LegoMiddleBackground = styled.div<LegoProps>`
+  position: absolute;
+  height: 100%;
+  width: 110%;
+  background-image: url(${(props) => loadLegoImage(props.color, "M")});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 `;
 
 const LegoLeft = styled.img`
-  max-height: 3rem;
+  position: relative;
+  height: 100%;
+  width: 1.5rem;
 `;
 
 const LegoRight = styled.img`
-  max-height: 3rem;
-
-  // 为了解决缝隙问题
-  margin-left: -0.1rem;
+  position: relative;
+  height: 100%;
+  width: 1.5rem;
 `;
 
 const Lego: React.FC<React.HTMLAttributes<HTMLDivElement> & LegoProps> = ({
@@ -45,9 +63,11 @@ const Lego: React.FC<React.HTMLAttributes<HTMLDivElement> & LegoProps> = ({
   return (
     <LegoContainer>
       <LegoLeft src={loadLegoImage(color, "L")} alt="" />
-      <LegoContent color={color} {...props}>
-        {children}
-      </LegoContent>
+      <LegoMiddle >
+      
+      <LegoMiddleBackground color={color} {...props}></LegoMiddleBackground>
+      <LegoMiddleContent>{children}</LegoMiddleContent>
+      </LegoMiddle>
       <LegoRight src={loadLegoImage(color, "R")} alt="" />
     </LegoContainer>
   );
