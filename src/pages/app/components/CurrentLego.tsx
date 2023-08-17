@@ -38,6 +38,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
     contentRef.current.length == 1 ? "normal" : "var",
   );
 
+
   const clickHandler = () => {
     switch (state) {
       case "fill":
@@ -69,6 +70,8 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
     </>
   );
 
+  const currentColor = state==="var"? "white" : color
+
   return (
     <>
       <Popover content={<p style={{maxWidth: "40vw"}}>{detail}</p>}>
@@ -76,7 +79,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
           style={{ width: state === "edit" ? "100%" : "auto", display: "flex" }}
         >
           <Lego
-            color={color}
+            color={currentColor}
             onClick={handleClick}
             onDoubleClick={handleDoubleClick}
           >
