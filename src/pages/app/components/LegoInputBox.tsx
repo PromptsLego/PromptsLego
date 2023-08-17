@@ -110,43 +110,99 @@ interface LegoInputBoxProps {
   useTime: number;
   color: string;
   varNum: number;
-  contentRef:React.MutableRefObject<string[]>;
+  contentRef: React.MutableRefObject<string[]>;
+  varibleRef: React.MutableRefObject<string[]>;
+  enterEvent: () => void;
 }
 
-export const extractContents = (detail:string)=>{
-  var content:string[] = []
-  while(true){
+export const extractContents = (detail: string) => {
+  var content: string[] = []
+  var varible: string[] = []
+  while (true) {
     const begin = detail.indexOf("{")
-    if(begin==-1){
+    if (begin == -1) {
       break
-    }else{
-      content.push(detail.substring(0,begin + 1))
+    } else {
+      content.push(detail.substring(0, begin + 1))
+      detail = detail.substring(begin + 1)
       const end = detail.indexOf("}")
-      if(end==-1 || end < begin){
-        return content
-      }else{
+      if (end == -1) {
+        return { content, varible }
+      } else {
+        varible.push(detail.substring(0, end))
         detail = detail.substring(end)
       }
     }
   }
-  if(detail!=null && detail!=undefined && detail.length>0){
+  if (detail != null && detail != undefined && detail.length > 0) {
     content.push(detail)
   }
-  return content
+  return { content, varible }
 }
 
-const verifyDetail = (text:string,content:string[])=>{
-  
-  for(let i = 0;i<content.length;i++){
+const verifyDetail = (text: string, content: string[]) => {
+  for (let i = 0; i < content.length - 1; i++) {
     const element = content[i]
     var index = text.indexOf(element)
-    if(index==-1){
+    if (index == -1) {
       return false
-    }else{
+    } else {
       text = text.substring(index + element.length)
     }
   }
-  return true
+  return text.endsWith(content[content.length - 1])
+}
+
+const eraseEmptyVaribles = (
+  text: string,
+  content: string[],
+  varible: string[]) => {
+  var newText = ""
+  for (let i = 0; i < varible.length; i++) {
+    const begin = text.indexOf(content[i])
+    text = text.substring(begin + content[i].length)
+    const end = text.indexOf(content[i + 1])
+    var currentVarible = text.substring(0, end)
+    if (currentVarible == varible[i]) {
+      currentVarible = ""
+    }
+    newText = newText + content[i] + currentVarible
+  }
+  newText = newText + content[varible.length]
+  return newText
+}
+
+const fillEmptyVaribles = (
+  text: string,
+  content: string[],
+  varible: string[]) => {
+  var newText = ""
+  for (let i = 0; i < varible.length; i++) {
+    const begin = text.indexOf(content[i])
+    text = text.substring(begin + content[i].length)
+    const end = text.indexOf(content[i + 1])
+    var currentVarible = text.substring(0, end)
+    if (currentVarible == "") {
+      currentVarible = varible[i]
+    }
+    newText = newText + content[i] + currentVarible
+  }
+  newText = newText + content[varible.length]
+  return newText
+}
+
+export const countEmptyVaribles = (text: string, content: string[], varible: string[]) => {
+  var count = 0
+  for (let i = 0; i < varible.length; i++) {
+    const begin = text.indexOf(content[i])
+    text = text.substring(begin + content[i].length)
+    const end = text.indexOf(content[i + 1])
+    var currentVarible = text.substring(0, end)
+    if (currentVarible == "" || currentVarible == varible[i]) {
+      count = count + 1
+    }
+  }
+  return count
 }
 
 export const LegoInputBox: React.FC<LegoInputBoxProps> = ({
@@ -155,12 +211,14 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({
   useTime,
   color,
   varNum,
-  contentRef
+  contentRef,
+  varibleRef,
+  enterEvent
 }) => {
   const dispatch = useAppDispatch();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [content, setContent] = useImmer(detail);
-  
+  const [focus, setFocus] = useImmer(false)
   const onChange = (text: string) => {
     if (contentRef.current && verifyDetail(text, contentRef.current)) {
       setContent(text);
@@ -176,6 +234,34 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({
     }
   };
 
+  const onFocus = (text: string) => {
+    setFocus(true)
+    if (contentRef.current && varibleRef.current && textareaRef.current) {
+      text = eraseEmptyVaribles(text, contentRef.current, varibleRef.current)
+      setContent(text);
+    }
+  }
+
+  const onBlur = (text: string) => {
+    setFocus(false)
+    if (contentRef.current && varibleRef.current && textareaRef.current) {
+      text = fillEmptyVaribles(text, contentRef.current, varibleRef.current)
+      setContent(text);
+    }
+  }
+
+  const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.code == "Enter") {
+      if (event.shiftKey === true) {
+        return true
+      }else{
+        event.preventDefault()
+        enterEvent()
+        return false
+      }
+    }
+  }
+
   const detailTextarea = (
     <textarea
       style={{
@@ -184,9 +270,14 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({
         border: "0",
         height: "100%",
         fontSize: "1.3rem",
+        color: focus ? "black" : "gray"
       }}
       value={content}
+      ref={textareaRef}
       onChange={(event) => onChange(event.target.value)}
+      onFocus={(event) => onFocus(event.target.value)}
+      onBlur={(event) => onBlur(event.target.value)}
+      onKeyDown={onKeyDown}
     ></textarea>
   );
   return (

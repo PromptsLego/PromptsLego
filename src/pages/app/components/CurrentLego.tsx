@@ -5,7 +5,7 @@ import Lego from "@/ui/Lego";
 import { useAppDispatch } from "@/contexts/hooks";
 import { drop, edit } from "../ContentSlice";
 import { useClickPreventionOnDoubleClick } from "../hooks/useClickPreventionOnDoubleClick";
-import { extractContents,LegoInputBox } from "@/pages/app/components/LegoInputBox";
+import { countEmptyVaribles,extractContents,LegoInputBox } from "@/pages/app/components/LegoInputBox";
 import styled from "styled-components";
 import TextWithInput from "./TextWithInput";
 import { useImmer } from "use-immer";
@@ -32,12 +32,12 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
-  const content = extractContents(detail)
+  const {content,varible} = extractContents(detail)
   const contentRef = useRef(content)
+  const varibleRef = useRef(varible)
   const [state, SetState] = useImmer<LegoState>(
     contentRef.current.length == 1 ? "normal" : "var",
   );
-
 
   const clickHandler = () => {
     switch (state) {
@@ -50,13 +50,20 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
         break;
     }
   };
+
   const doubleClickHandler = () => {
     dispatch(drop({ keyWord, detail, useTime, color, varNum }));
   };
+
   const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
     clickHandler,
     doubleClickHandler,
   );
+
+  const inputBoxEnterEvent = ()=>{
+    SetState("fill");
+  }
+
   useEffect(() => {
     if (state === "var") {
       inputRef.current?.focus();
@@ -65,12 +72,17 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
 
   const LegoContent = (
     <>
-      <CaretRightOutlined />
+      {state === "normal"?<></>:<CaretRightOutlined />}
       <span>{keyWord}</span>
     </>
   );
 
-  const currentColor = state==="var"? "white" : color
+  const currentColor = state==="var" 
+  || (state==="fill" 
+  &&contentRef.current
+  &&varibleRef.current
+  && countEmptyVaribles(detail,contentRef.current,varibleRef.current)>0)
+  ? "white" : color
 
   return (
     <>
@@ -95,6 +107,8 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
           color={color}
           varNum={varNum}
           contentRef={contentRef}
+          varibleRef={varibleRef}
+          enterEvent={inputBoxEnterEvent}
         />
       ) : (
         <></>
