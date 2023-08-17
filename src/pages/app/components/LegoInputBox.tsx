@@ -110,6 +110,43 @@ interface LegoInputBoxProps {
   useTime: number;
   color: string;
   varNum: number;
+  contentRef:React.MutableRefObject<string[]>;
+}
+
+export const extractContents = (detail:string)=>{
+  var content:string[] = []
+  while(true){
+    const begin = detail.indexOf("{")
+    if(begin==-1){
+      break
+    }else{
+      content.push(detail.substring(0,begin + 1))
+      const end = detail.indexOf("}")
+      if(end==-1 || end < begin){
+        return content
+      }else{
+        detail = detail.substring(end)
+      }
+    }
+  }
+  if(detail!=null && detail!=undefined && detail.length>0){
+    content.push(detail)
+  }
+  return content
+}
+
+const verifyDetail = (text:string,content:string[])=>{
+  
+  for(let i = 0;i<content.length;i++){
+    const element = content[i]
+    var index = text.indexOf(element)
+    if(index==-1){
+      return false
+    }else{
+      text = text.substring(index + element.length)
+    }
+  }
+  return true
 }
 
 export const LegoInputBox: React.FC<LegoInputBoxProps> = ({
@@ -118,35 +155,14 @@ export const LegoInputBox: React.FC<LegoInputBoxProps> = ({
   useTime,
   color,
   varNum,
+  contentRef
 }) => {
-  const verifyDetail = (oriDetail: string, newDetail: string) => {
-    while (true) {
-      var oriStart = oriDetail.indexOf("{");
-      var newStart = newDetail.indexOf("{");
-      var oriEnd = oriDetail.indexOf("}");
-      var newEnd = newDetail.indexOf("}");
-      if (oriStart == -1 && newStart == -1) {
-        var oriPostfix = oriDetail.substring(oriEnd);
-        var newPostfix = newDetail.substring(newEnd);
-        return oriPostfix == newPostfix;
-      } else if (oriStart == newStart && oriEnd != -1 && newEnd != -1) {
-        var oriPrefix = oriDetail.substring(0, oriStart);
-        var newPrefix = newDetail.substring(0, newStart);
-        if (oriPrefix != newPrefix) {
-          return false;
-        }
-      } else {
-        return false;
-      }
-      oriDetail = oriDetail.substring(oriEnd + 1);
-      newDetail = newDetail.substring(newEnd + 1);
-    }
-  };
   const dispatch = useAppDispatch();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [content, setContent] = useImmer(detail);
+  
   const onChange = (text: string) => {
-    if (verifyDetail(text, content)) {
+    if (contentRef.current && verifyDetail(text, contentRef.current)) {
       setContent(text);
       dispatch(
         edit({

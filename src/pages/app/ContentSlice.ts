@@ -93,6 +93,7 @@ export const contentSlice = createSlice({
         if (target_lego) {
           target_lego.detail = action.payload.detail;
         }
+        console.log(action.payload.detail)
       });
     },
     input: (state, action: PayloadAction<string>) => {

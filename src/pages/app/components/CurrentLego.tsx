@@ -5,7 +5,7 @@ import Lego from "@/ui/Lego";
 import { useAppDispatch } from "@/contexts/hooks";
 import { drop, edit } from "../ContentSlice";
 import { useClickPreventionOnDoubleClick } from "../hooks/useClickPreventionOnDoubleClick";
-import { LegoInputBox } from "@/pages/app/components/LegoInputBox";
+import { extractContents,LegoInputBox } from "@/pages/app/components/LegoInputBox";
 import styled from "styled-components";
 import TextWithInput from "./TextWithInput";
 import { useImmer } from "use-immer";
@@ -31,11 +31,13 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   ...props
 }) => {
   const dispatch = useAppDispatch();
-
   const inputRef = useRef<HTMLInputElement>(null);
+  const content = extractContents(detail)
+  const contentRef = useRef(content)
   const [state, SetState] = useImmer<LegoState>(
-    detail.indexOf("{") == -1 ? "normal" : "var",
+    contentRef.current.length == 1 ? "normal" : "var",
   );
+
   const clickHandler = () => {
     switch (state) {
       case "fill":
@@ -89,6 +91,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
           useTime={useTime}
           color={color}
           varNum={varNum}
+          contentRef={contentRef}
         />
       ) : (
         <></>

@@ -12,7 +12,8 @@ import { store } from "@/contexts/store";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: hasToken() ? <App /> : <Waitlist />,
+    element: <App />,
+    //element: hasToken() ? <App /> : <Waitlist />,
   },
 ]);
 
