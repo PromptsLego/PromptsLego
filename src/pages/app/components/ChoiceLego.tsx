@@ -4,15 +4,6 @@ import { Popover } from "antd";
 import { useAppDispatch } from "@/contexts/hooks";
 import { choose } from "../ContentSlice";
 
-const categories = [
-  "收藏",
-  "背景",
-  "角色设定",
-  "行动任务",
-  "输出要求",
-  "其他要求",
-];
-
 interface ChoiceLegoProps {
   keyWord: string;
   detail: string;

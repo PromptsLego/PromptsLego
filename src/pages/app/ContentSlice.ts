@@ -3,6 +3,14 @@ import type { RootState } from "@/contexts/store";
 import { DataType } from "@/data/DataType";
 import { data } from "@/data/data";
 
+const categories = [
+  "背景",
+  "角色设定",
+  "行动任务",
+  "输出要求",
+  "其他要求",
+];
+
 export type LegoType = {
   keyWord: string;
   detail: string;
@@ -23,7 +31,12 @@ interface ContentState {
 const initialState: ContentState = {
   inputContent: "",
   selectCategory: "",
-  current: [],
+  current: categories.map((category) => {
+    return {
+      category: category,
+      children: [],
+    };
+  }),
   globalData: data,
 };
 
@@ -36,8 +49,8 @@ export const contentSlice = createSlice({
       state.selectCategory = action.payload;
     },
     dropAll: (state) => {
-      state.inputContent = "";
-      state.current = [];
+      state.inputContent = initialState.inputContent;
+      state.current = initialState.current;
     },
     favorite: (state) => {
       // 如果当前没有选中任何内容，直接返回
@@ -59,36 +72,30 @@ export const contentSlice = createSlice({
     choose: (state, action: PayloadAction<LegoType>) => {
       // 查看目前选中的类型是否有对应的 category
       const targetCategory = state.current.find(
-        (item) => item.category === state.selectCategory,
+        (item) => item.category === state.selectCategory
       );
       if (targetCategory) {
         // 如果有，将当前选中的内容添加到该 category 中
         // 查看该 category 中是否有相同的内容
         const sameLego = targetCategory.children.find(
-          (item) => item.keyWord === action.payload.keyWord,
+          (item) => item.keyWord === action.payload.keyWord
         );
         if (sameLego) return;
         // 如果没有，将当前选中的内容添加到该 category 中
         targetCategory.children.push(action.payload);
-      } else {
-        // 如果没有，新建一个 category，将当前选中的内容添加到该 category 中
-        state.current.push({
-          category: state.selectCategory,
-          children: [action.payload],
-        });
       }
     },
     drop: (state, action: PayloadAction<LegoType>) => {
       state.current.map((category) => {
         category.children = category.children.filter(
-          (lego) => lego.keyWord !== action.payload.keyWord,
+          (lego) => lego.keyWord !== action.payload.keyWord
         );
       });
     },
     edit: (state, action: PayloadAction<LegoType>) => {
       state.current.map((category) => {
         const target_lego = category.children.find(
-          (lego) => lego.keyWord === action.payload.keyWord,
+          (lego) => lego.keyWord === action.payload.keyWord
         );
         if (target_lego) {
           target_lego.detail = action.payload.detail;

@@ -12,15 +12,14 @@ const Container = styled.div`
   justify-content: space-between;
   gap: 2rem;
   overflow-y: auto;
-  padding: 0rem 2rem;
+  padding: 0rem 3rem;
 `;
 
 const ContentContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0rem 3rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const LegoContainer = styled.div`
