@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const LegoInputContainer = styled.div`
   position: relative;
-  height: 18rem;
+  height: 10rem;
   width: 100%;
   display: flex;
   justify-content: space-between;

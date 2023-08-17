@@ -18,6 +18,20 @@ export const data: DataType = {
       category: "背景",
       minorCategories: [
         {
+          name: "自定义",
+          number: 1,
+          legos: [
+            {
+              keyWord: "自定义",
+              detail: "{文本}",
+              useTime: 33,
+              color: "cyan",
+              varNum: 1,
+            },
+          ],
+        },
+        {
+
           name: "关于我",
           number: 6,
           legos: [
@@ -84,6 +98,19 @@ export const data: DataType = {
     {
       category: "角色设定",
       minorCategories: [
+        {
+          name: "自定义",
+          number: 1,
+          legos: [
+            {
+              keyWord: "自定义",
+              detail: "{文本}",
+              useTime: 33,
+              color: "cyan",
+              varNum: 1,
+            },
+          ],
+        },
         {
           name: "技能",
           number: 3,
@@ -405,6 +432,19 @@ export const data: DataType = {
       category: "输出要求",
       minorCategories: [
         {
+          name: "自定义",
+          number: 1,
+          legos: [
+            {
+              keyWord: "自定义",
+              detail: "{文本}",
+              useTime: 33,
+              color: "cyan",
+              varNum: 1,
+            },
+          ],
+        },
+        {
           name: "字数",
           number: 3,
           legos: [
@@ -682,6 +722,19 @@ export const data: DataType = {
     {
       category: "其他要求",
       minorCategories: [
+        {
+          name: "自定义",
+          number: 1,
+          legos: [
+            {
+              keyWord: "自定义",
+              detail: "{文本}",
+              useTime: 33,
+              color: "cyan",
+              varNum: 1,
+            },
+          ],
+        },
         {
           name: "例子",
           number: 2,

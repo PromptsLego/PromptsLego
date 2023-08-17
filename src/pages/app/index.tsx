@@ -3,7 +3,7 @@ import LeftSider from "./components/LeftSider";
 import RightSider from "./components/RightSider";
 import styled from "styled-components";
 import logo from "@/assets/Logo.svg";
-import bottomLogo from "@/assets/button.svg";
+import bottomLogo from "@/assets/version.svg";
 
 const AppLayout = styled.div`
   display: grid;

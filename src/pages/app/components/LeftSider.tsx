@@ -70,16 +70,10 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
           })
           .join("");
         if (category.category === "行动任务") detail += inputContent;
-        if (detail) return "# " + category.category + ": \n" + detail;
+        if (detail) return "# " + category.category + ": \n" + detail + "\n";
         else return "";
       })
-      .join("\n");
-    if (
-      !current.find((category) => category.category === "行动任务") &&
-      inputContent
-    ) {
-      return output + "\n# 行动任务: \n" + inputContent;
-    }
+      .join("");
     return output;
   }
 
