@@ -1,10 +1,65 @@
 import React, { FC, createContext } from "react";
 import banner from "./static/banner.svg";
 import description from "./static/description.svg";
-import "./index.css";
 import EmailForm from "./components/EmailForm";
 import low_gray from "./static/low-gray.svg";
 import low_color from "./static/low-color.svg";
+import styled from "styled-components";
+
+const App = styled.div`
+  text-align: center;
+  overflow-x: hidden;
+`;
+
+const AppLogo = styled.img`
+  max-width: none;
+  width: 100rem;
+  pointer-events: none;
+  margin-bottom: 3rem;
+
+  @media (max-width: 62.5rem) {
+    width: 80vw;
+  }
+`;
+
+const AppDescription = styled.img`
+  max-width: none;
+
+  width: 80rem;
+  pointer-events: none;
+  margin-bottom: 3rem;
+
+  @media (max-width: 62.5rem) {
+    width: 70vw;
+  }
+`;
+
+const AppHeader = styled.header`
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black;
+`;
+
+const AppBottom = styled.div`
+  position: absolute;
+  top: 100vh;
+  right: 0vh;
+  left: 0vh;
+  color: gray;
+`;
+
+const Img = styled.img`
+  max-width: none;
+
+  position: absolute;
+  width: 100vw;
+  left: 0;
+  bottom: 0;
+`;
 
 export const GlobalContext = createContext({
   submitSuccess: false,
@@ -31,29 +86,18 @@ const Waitlist: FC = () => {
         setRegistered,
       }}
     >
-      <div className="App">
-        <header className="App-header">
-          <img src={banner} className="App-logo" alt="banner" />
-          <img src={description} className="App-description" alt="banner" />
+      <App>
+        <AppHeader>
+          <AppLogo src={banner} alt="banner" />
+          <AppDescription src={description} alt="banner" />
           <EmailForm />
-        </header>
-        <img
-          src={submitSuccess ? low_color : low_gray}
-          className="App-description"
-          alt="banner"
-          style={{
-            position: "absolute",
-            width: "115vw",
-            height: "25vh",
-            left: "-6vw",
-            top: "82vh",
-          }}
-        />
-        <div className="App-bottom">
+        </AppHeader>
+        <Img src={submitSuccess ? low_color : low_gray} alt="banner" />
+        <AppBottom>
           <div>©2023 PromptsLego. All rights reserved.</div>
           <a href="http://beian.miit.gov.cn/">浙ICP备2023014261</a>
-        </div>
-      </div>
+        </AppBottom>
+      </App>
     </GlobalContext.Provider>
   );
 };

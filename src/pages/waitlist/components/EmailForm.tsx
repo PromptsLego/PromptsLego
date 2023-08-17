@@ -132,14 +132,15 @@ const EmailForm = () => {
       form={form}
       name="email_form"
       onFinish={onFinish}
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
+      // labelCol={{ span: 8 }}
+      // wrapperCol={{ span: 16 }}
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        maxWidth: "23vw",
+        gap: "1rem",
+        maxWidth: "60vw"
       }}
     >
       <Form.Item
@@ -155,7 +156,7 @@ const EmailForm = () => {
             message: "请输入邮箱",
           },
         ]}
-        style={{ marginBottom: "4vh", width: "23vw" }}
+        // style={{ width: "23rem" }}
       >
         <Input />
       </Form.Item>
@@ -165,7 +166,7 @@ const EmailForm = () => {
           label="密码"
           name="password"
           rules={[{ required: true, message: "请输入密码!" }]}
-          style={{ marginBottom: "4vh", width: "23vw" }}
+          // style={{ width: "23rem" }}
         >
           <Input.Password />
         </Form.Item>
@@ -176,7 +177,7 @@ const EmailForm = () => {
           label="确认密码"
           name="passwordAgain"
           rules={[{ required: true, message: "请输入密码!" }]}
-          style={{ marginBottom: "4vh", width: "23vw" }}
+          // style={{ width: "23rem" }}
         >
           <Input.Password />
         </Form.Item>
@@ -195,7 +196,7 @@ const EmailForm = () => {
               : applyIcon
           }
           alt="submit"
-          style={{ width: "10vw" }}
+          style={{ maxWidth: "20rem" }}
         ></input>
       </Form.Item>
     </Form>
