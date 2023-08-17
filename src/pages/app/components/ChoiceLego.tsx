@@ -29,7 +29,7 @@ const ChoiceLego: React.FC<ChoiceLegoProps> = ({
   varNum,
 }) => {
   const dispatch = useAppDispatch();
-  const popContent = <p>{detail}</p>;
+  const popContent = <p style={{zIndex: 99, maxWidth: "40vw"}}>{detail}</p>;
 
   const clickHandler = () => {
     dispatch(choose({ keyWord, detail, useTime, color, varNum }));

@@ -69,7 +69,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
 
   return (
     <>
-      <Popover content={<p>{detail}</p>}>
+      <Popover content={<p style={{maxWidth: "40vw"}}>{detail}</p>}>
         <div
           style={{ width: state === "edit" ? "100%" : "auto", display: "flex" }}
         >
