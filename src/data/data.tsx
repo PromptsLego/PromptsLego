@@ -23,7 +23,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "自定义",
-              detail: "{文本}",
+              detail: "{自定义}",
               useTime: 33,
               color: "yellow",
               varNum: 1,
@@ -37,35 +37,35 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "我是谁",
-              detail: "我是一名{文本}。",
+              detail: "我是一名{性别、年龄、职业、教育程度等}。",
               useTime: 22,
               color: "yellow",
               varNum: 1,
             },
             {
               keyWord: "我在哪",
-              detail: "我现在在{文本}。",
+              detail: "我现在在{地区、场景等}。",
               useTime: 22,
               color: "yellow",
               varNum: 1,
             },
             {
               keyWord: "我的专业",
-              detail: "我是一名{文本}专业的大学生。",
+              detail: "我是一名{描述你的专业}专业的大学生。",
               useTime: 22,
               color: "yellow",
               varNum: 1,
             },
             {
               keyWord: "我在做什么",
-              detail: "我现在在做{文本}。",
+              detail: "我现在在做{描述你在做的事情}。",
               useTime: 22,
               color: "yellow",
               varNum: 1,
             },
             {
               keyWord: "我的电脑",
-              detail: "我的电脑是{文本}。",
+              detail: "我的电脑是{型号、硬件、操作系统}。",
               useTime: 22,
               color: "yellow",
               varNum: 1,
@@ -104,7 +104,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "自定义",
-              detail: "{文本}",
+              detail: "{自定义}",
               useTime: 33,
               color: "green",
               varNum: 1,
@@ -117,7 +117,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "通用技能",
-              detail: "你熟练掌握{文本}。",
+              detail: "你熟练掌握{技能、专业等}。",
               useTime: 32,
               color: "green",
               varNum: 1,
@@ -144,7 +144,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "精通",
-              detail: "假设你是一个精通{文本}的专家。",
+              detail: "假设你是一个精通{技能、专业等}的专家。",
               useTime: 22,
               color: "green",
               varNum: 1,
@@ -152,7 +152,7 @@ export const data: DataType = {
 
             {
               keyWord: "世界一流",
-              detail: "假设你是一个世界一流的{文本}专家。",
+              detail: "假设你是一个世界一流的{技能、专业等}专家。",
               useTime: 22,
               color: "green",
               varNum: 1,
@@ -219,7 +219,7 @@ export const data: DataType = {
             },
             {
               keyWord: "MBTI",
-              detail: "你的MBTI是{文本}。",
+              detail: "你的MBTI是{ENTJ、ENFP等}。",
               useTime: 22,
               color: "green",
               varNum: 1,
@@ -237,7 +237,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "自定义",
-              detail: "{文本}",
+              detail: "{自定义}",
               useTime: 33,
               color: "cyan",
               varNum: 1,
@@ -437,7 +437,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "自定义",
-              detail: "{文本}",
+              detail: "{自定义}",
               useTime: 33,
               color: "blue",
               varNum: 1,
@@ -513,7 +513,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "第一人称语气",
-              detail: "请使用第一人称，并尽可能地使用{文本)的语言和口吻。",
+              detail: "请使用第一人称，并尽可能地使用{人名、形容词)的语言和口吻。",
               useTime: 22,
               color: "blue",
               varNum: 1,
@@ -563,7 +563,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "文风",
-              detail: "在回复的时候，请使用{文本}的写作风格。",
+              detail: "在回复的时候，请使用{人名、文风名字}的写作风格。",
               useTime: 22,
               color: "blue",
               varNum: 1,
@@ -653,7 +653,7 @@ export const data: DataType = {
             },
             {
               keyWord: "_个例子",
-              detail: "请你给我{文本}个不同的例子。",
+              detail: "请你给我{数量}个不同的例子。",
               useTime: 22,
               color: "blue",
               varNum: 1,
@@ -661,7 +661,7 @@ export const data: DataType = {
 
             {
               keyWord: "_个答案",
-              detail: "请你给我{文本}个不同的答案。",
+              detail: "请你给我{数量}个不同的答案。",
               useTime: 22,
               color: "blue",
               varNum: 1,
@@ -669,7 +669,7 @@ export const data: DataType = {
             {
               keyWord: "_个解决方案",
               detail:
-                "要求给出一个问题的{文本}个解决方案，最后综合考虑几个方案，得出最终的答案。",
+                "要求给出一个问题的{数量}个解决方案，最后综合考虑几个方案，得出最终的答案。",
               useTime: 22,
               color: "blue",
               varNum: 1,
@@ -690,7 +690,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "关键词",
-              detail: "请你包含以下关键词：{文本}。",
+              detail: "请你包含以下关键词：{关键词1；关键词2}。",
               useTime: 22,
               color: "blue",
               varNum: 1,
@@ -728,7 +728,7 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "自定义",
-              detail: "{文本}",
+              detail: "{自定义}",
               useTime: 33,
               color: "purple",
               varNum: 1,
@@ -742,14 +742,14 @@ export const data: DataType = {
             {
               keyWord: "格式模仿",
               detail:
-                "请你模仿我给出的例子来输出正确的回复。例子1:{文本}例子2:{文本}。",
+                "请你模仿我给出的例子来输出正确的回复。{例子1:文本；例子2:文本}",
               useTime: 77,
               color: "purple",
               varNum: 2,
             },
             {
               keyWord: "小样本提示",
-              detail: "参考以下格式，但不要照抄。例子1:{文本}例子2:{文本}。",
+              detail: "参考以下格式，但不要照抄。{例子1:文本；例子2:文本}",
               useTime: 342,
               color: "purple",
               varNum: 2,
