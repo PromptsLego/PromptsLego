@@ -31,7 +31,6 @@ export const data: DataType = {
           ],
         },
         {
-
           name: "关于我",
           number: 6,
           legos: [
@@ -513,7 +512,8 @@ export const data: DataType = {
           legos: [
             {
               keyWord: "第一人称语气",
-              detail: "请使用第一人称，并尽可能地使用{人名、形容词)的语言和口吻。",
+              detail:
+                "请使用第一人称，并尽可能地使用{人名、形容词)的语言和口吻。",
               useTime: 22,
               color: "blue",
               varNum: 1,

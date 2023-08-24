@@ -1,7 +1,6 @@
 import Navigator from "./Navigator";
 import Choices from "./Choices";
 import RightBox from "@/assets/RightBox.svg";
-import Cancel from "@/assets/cancel.svg";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -22,11 +21,6 @@ const Header = styled.div`
 const Logo = styled.img`
   width: 13.5rem;
   height: 2.8rem;
-`;
-
-const CancelButton = styled.img`
-  width: 5rem;
-  height: 2rem;
 `;
 
 const ChoiceDiv = styled.div`

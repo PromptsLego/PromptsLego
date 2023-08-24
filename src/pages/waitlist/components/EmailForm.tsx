@@ -140,7 +140,7 @@ const EmailForm = () => {
         alignItems: "center",
         justifyContent: "center",
         gap: "1rem",
-        maxWidth: "60vw"
+        maxWidth: "60vw",
       }}
     >
       <Form.Item
