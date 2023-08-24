@@ -12,7 +12,7 @@ import {
 } from "@/pages/app/components/LegoInputBox";
 import { useImmer } from "use-immer";
 
-type LegoState = "normal" | "var" | "edit" | "fill";
+type LegoState = "normal" | "var" | "edit" | "fill"; // 目前不会使用 var
 
 interface CurrentLegoProps {
   keyWord: string;
@@ -38,7 +38,7 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   const contentRef = useRef(content);
   const varibleRef = useRef(varible);
   const [state, SetState] = useImmer<LegoState>(
-    contentRef.current.length == 1 ? "normal" : "var",
+    contentRef.current.length == 1 ? "normal" : "edit",
   );
 
   const clickHandler = () => {
@@ -65,12 +65,6 @@ const CurrentLego: React.FC<CurrentLegoProps> = ({
   const inputBoxEnterEvent = () => {
     SetState("fill");
   };
-
-  useEffect(() => {
-    if (state === "var") {
-      inputRef.current?.focus();
-    }
-  }, [state]);
 
   const LegoContent = (
     <>
