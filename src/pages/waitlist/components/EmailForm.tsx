@@ -6,8 +6,9 @@ import appliedIcon from "../static/applied.svg";
 import loginIcon from "../static/login.svg";
 import registerIcon from "../static/register.svg";
 import { GlobalContext } from "..";
-import { setToken } from "@/utils/token";
+import { setEmail, setToken } from "@/utils/token";
 import CryptoJS from "crypto-js";
+import { login, register, registerWaitlist } from "@/services/auth";
 
 interface FormData {
   email: string;
@@ -29,18 +30,7 @@ const EmailForm = () => {
           message.error("请输入邮箱");
           return;
         }
-        const res = await fetch(
-          "https://www.copilot-m.top/auth/waitlist/register",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          },
-        );
-        const response = await res.json();
-        console.log(response);
+        const response = await registerWaitlist(values.email);
         if (response["message"] == "REGISTRATION.USER_ALREADY_PASS_WAITLIST") {
           setPassWaitlist(true);
         } else if (
@@ -72,22 +62,9 @@ const EmailForm = () => {
               message.error("密码与确认密码不同");
               return;
             }
-            console.log("hello");
             values.password = CryptoJS.SHA256(values.password).toString();
-            console.log("hello");
             values.passwordAgain = undefined;
-            console.log(values.password);
-            const res = await fetch(
-              "https://www.copilot-m.top/auth/email/register",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
-              },
-            );
-            const response = await res.json();
+            const response = await register(values.email, values.password);
             if (response.success) {
               setRegistered(true);
             }
@@ -102,21 +79,10 @@ const EmailForm = () => {
               return;
             }
             values.password = CryptoJS.SHA256(values.password).toString();
-            console.log(values.password);
-            const res = await fetch(
-              "https://www.copilot-m.top/auth/email/login",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
-              },
-            );
-            const response = await res.json();
-            console.log(response);
+            const response = await login(values.email, values.password);
             if (response.success) {
               setToken(response.data.token);
+              setEmail(values.email);
               window.location.reload();
             }
           }
@@ -132,8 +98,6 @@ const EmailForm = () => {
       form={form}
       name="email_form"
       onFinish={onFinish}
-      // labelCol={{ span: 8 }}
-      // wrapperCol={{ span: 16 }}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -156,7 +120,6 @@ const EmailForm = () => {
             message: "请输入邮箱",
           },
         ]}
-        // style={{ width: "23rem" }}
       >
         <Input />
       </Form.Item>
@@ -166,7 +129,6 @@ const EmailForm = () => {
           label="密码"
           name="password"
           rules={[{ required: true, message: "请输入密码!" }]}
-          // style={{ width: "23rem" }}
         >
           <Input.Password />
         </Form.Item>
@@ -177,7 +139,6 @@ const EmailForm = () => {
           label="确认密码"
           name="passwordAgain"
           rules={[{ required: true, message: "请输入密码!" }]}
-          // style={{ width: "23rem" }}
         >
           <Input.Password />
         </Form.Item>

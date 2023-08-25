@@ -4,6 +4,10 @@ import RightSider from "./components/RightSider";
 import styled from "styled-components";
 import logo from "@/assets/Logo.svg";
 import bottomLogo from "@/assets/version.svg";
+import { useRouteLoaderData } from "react-router-dom";
+import { FavoriteType, favoriteInit } from "./ContentSlice";
+import { useAppDispatch } from "@/contexts/hooks";
+import { useEffect } from "react";
 
 const AppLayout = styled.div`
   display: grid;
@@ -36,6 +40,12 @@ const BottomLogo = styled.img`
 `;
 
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const favorites = useRouteLoaderData("app") as FavoriteType[];
+  useEffect(() => {
+    dispatch(favoriteInit(favorites));
+  }, [dispatch, favorites]);
+
   return (
     <AppLayout>
       <Header>

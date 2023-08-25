@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "@/contexts/store";
 import { DataType } from "@/data/DataType";
 import { data } from "@/data/data";
+import { createFavorites } from "@/services/favorite";
+import { getEmail, getToken, hasEmail, hasToken } from "@/utils/token";
 
 const categories = ["背景", "角色设定", "行动任务", "输出要求", "其他要求"];
 
@@ -11,6 +13,12 @@ export type LegoType = {
   useTime: number;
   color: string;
   varNum: number;
+};
+
+export type FavoriteType = {
+  name: string;
+  number: number;
+  legos: Array<LegoType>;
 };
 
 // 为 slice state 定义一个类型
@@ -62,6 +70,18 @@ export const contentSlice = createSlice({
         number: favorites.length,
         legos: favorites,
       });
+      // 如果当前用户已登录，将收藏夹 favorites 添加到数据库中
+      if (hasToken() && hasEmail()) {
+        createFavorites(
+          getEmail()!,
+          getToken()!,
+          state.globalData.tables[0].minorCategories
+        );
+      }
+    },
+    favoriteInit: (state, action: PayloadAction<FavoriteType[]>) => {
+      // 将收藏夹 favorites 添加到全局数据中
+      state.globalData.tables[0].minorCategories = action.payload;
     },
     choose: (state, action: PayloadAction<LegoType>) => {
       // 查看目前选中的类型是否有对应的 category
@@ -104,7 +124,15 @@ export const contentSlice = createSlice({
   },
 });
 
-export const { selectCategory, dropAll, favorite, choose, drop, edit, input } =
-  contentSlice.actions;
+export const {
+  selectCategory,
+  dropAll,
+  favorite,
+  favoriteInit,
+  choose,
+  drop,
+  edit,
+  input,
+} = contentSlice.actions;
 
 export default contentSlice.reducer;
