@@ -110,9 +110,23 @@ export const contentSlice = createSlice({
           favorites.push(lego);
         });
       });
+      var names:boolean[] = new Array(state.globalData.tables[0].minorCategories.length)
+      state.globalData.tables[0].minorCategories.forEach(category => {
+        if(category.name.startsWith("未命名")){
+          const indexString = category.name.substring(3)
+          const index = parseInt(indexString)
+          if(!isNaN(index)&&index<names.length){
+            names[index] = true
+          }
+        }
+      });
+      var startIndex = 0
+      for(startIndex = 0;startIndex<names.length;startIndex++){
+        if(!names[startIndex])break;
+      }
       // 将收藏夹 favorites 添加到全局数据中
       state.globalData.tables[0].minorCategories.push({
-        name: "未命名", /// TODO
+        name: "未命名"+startIndex, /// TODO
         number: favorites.length,
         legos: favorites,
       });

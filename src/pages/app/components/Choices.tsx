@@ -96,8 +96,11 @@ const FavoriteLabel = (props: { favorite: FavoriteType }) => {
     <div style={{ display: "flex", flexDirection: "row" }}>
       <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
         <button
-          onClick={onLoad}
-          style={{ paddingLeft: "10px", paddingRight: "10px",background:"none",fontWeight:"bold" }}
+          onClick={(event)=>{
+            event.stopPropagation()
+            onLoad()
+          }}
+          style={{ paddingLeft: "10px", paddingRight: "10px", background: "none", fontWeight: "bold" }}
         >
           加载
         </button>
@@ -122,7 +125,10 @@ const FavoriteLabel = (props: { favorite: FavoriteType }) => {
           background: "none",
           fontWeight: "bold",
         }}
-        onClick={onRemove}
+        onClick={(event) => {
+          event.stopPropagation()
+          onRemove()
+        }}
       >
         x
       </button>
