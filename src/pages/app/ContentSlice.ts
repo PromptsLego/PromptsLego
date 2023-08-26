@@ -7,6 +7,14 @@ import { getEmail, getToken, hasEmail, hasToken } from "@/utils/token";
 
 const categories = ["背景", "角色设定", "行动任务", "输出要求", "其他要求"];
 
+const correspondCatagory: { [key: string]: string; } = {
+  "yellow":"背景",
+  "green":"角色设定",
+  "cyan":"行动任务",
+  "blue":"输出要求",
+  "purple":"其他要求"
+}
+
 export type LegoType = {
   keyWord: string;
   detail: string;
@@ -121,6 +129,17 @@ export const contentSlice = createSlice({
       // 将收藏夹 favorites 添加到全局数据中
       state.globalData.tables[0].minorCategories = action.payload;
     },
+    favoriteChoose:(state, action: PayloadAction<FavoriteType>)=>{
+      const favorite = action.payload
+      favorite.legos.forEach((lego)=>{
+        const targetCategory = state.current.find(
+          (item) => item.category === correspondCatagory[lego.color],
+        );
+        if (targetCategory) {
+          targetCategory.children.push(lego);
+        }
+      })
+    },
     choose: (state, action: PayloadAction<LegoType>) => {
       // 查看目前选中的类型是否有对应的 category
       const targetCategory = state.current.find(
@@ -173,6 +192,7 @@ export const {
   edit,
   input,
   favoriteRemove,
+  favoriteChoose,
 } = contentSlice.actions;
 
 export default contentSlice.reducer;

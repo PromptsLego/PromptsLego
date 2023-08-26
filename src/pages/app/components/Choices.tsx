@@ -11,6 +11,8 @@ import {
   favorite,
   favoriteEdit,
   favoriteRemove,
+  favoriteChoose,
+  dropAll
 } from "../ContentSlice";
 const ChoiceContainer = styled.div`
   display: flex;
@@ -78,11 +80,28 @@ const FavoriteLabel = (props: { favorite: FavoriteType }) => {
     };
     dispatch(favoriteRemove(oldFavorite));
   };
+  const onLoad = () => {
+    const nowFavorite: FavoriteType = {
+      name: props.favorite.name,
+      number: props.favorite.number,
+      legos: props.favorite.legos,
+    };
+    dispatch(dropAll())
+    dispatch(favoriteChoose(nowFavorite))
+  }
   const defaultText =
     props.favorite.name + " " + props.favorite.number?.toString();
   const text = <div>{defaultText}</div>;
   const edit = (
     <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+        <button
+          onClick={onLoad}
+          style={{ paddingLeft: "10px", paddingRight: "10px",background:"none",fontWeight:"bold" }}
+        >
+          加载
+        </button>
+      </div>
       <input
         ref={inputRef}
         value={state == "edit" ? name : defaultText}
@@ -112,8 +131,8 @@ const FavoriteLabel = (props: { favorite: FavoriteType }) => {
   return <div>{selectCategory == "收藏" ? edit : text}</div>;
 };
 
-interface ChoicesProp {}
-const Choices: React.FC<ChoicesProp> = ({}) => {
+interface ChoicesProp { }
+const Choices: React.FC<ChoicesProp> = ({ }) => {
   const { selectCategory, globalData } = useAppSelector(
     (state) => state.content
   );
