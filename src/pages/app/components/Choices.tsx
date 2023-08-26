@@ -1,19 +1,105 @@
 import type { CollapseProps } from "antd";
 import { Collapse } from "antd";
-import React from "react";
+import React, { useRef } from "react";
 import { CaretRightOutlined } from "@ant-design/icons";
 import ChoiceLego from "./ChoiceLego";
 import { styled } from "styled-components";
-import { useAppSelector } from "@/contexts/hooks";
-
+import { useAppSelector, useAppDispatch } from "@/contexts/hooks";
+import { useImmer } from "use-immer";
+import { FavoriteType, favorite, favoriteEdit,favoriteRemove } from "../ContentSlice"
 const ChoiceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 `;
 
-interface ChoicesProp {}
-const Choices: React.FC<ChoicesProp> = ({}) => {
+type FavoriteLabelState = "normal" | "edit";
+
+const FavoriteLabel = (props: { favorite: FavoriteType }) => {
+  const dispatch = useAppDispatch()
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { selectCategory, globalData } = useAppSelector((state) => state.content);
+  const [state, setState] = useImmer<FavoriteLabelState>("normal")
+  const [name, setName] = useImmer<string>(props.favorite.name)
+  const onFocus = () => {
+    setState("edit")
+  }
+  const onBlur = () => {
+    setState("normal")
+    if (name == "") {
+      setName(props.favorite.name)
+    } else {
+      var count = 0
+      for(let i = 0;i < globalData.tables[0].minorCategories.length;i++){
+        if(globalData.tables[0].minorCategories[i].name==name){
+          count++;
+          break;
+        }
+      }
+      if(count==0){
+        const newFavorite: FavoriteType = {
+          name: name,
+          number: props.favorite.number,
+          legos: props.favorite.legos
+        }
+        const oldFavorite: FavoriteType = {
+          name: props.favorite.name,
+          number: props.favorite.number,
+          legos: props.favorite.legos
+        }
+        dispatch(favoriteEdit({ oldFavorite, newFavorite }))
+      }else{
+        setName(props.favorite.name)
+      }
+    }
+  }
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+  }
+  const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.code == "Enter") {
+      if (inputRef.current) {
+        inputRef.current.blur()
+      }
+    }
+  };
+  const onRemove = ()=>{
+    const oldFavorite: FavoriteType = {
+      name: props.favorite.name,
+      number: props.favorite.number,
+      legos: props.favorite.legos
+    }
+    dispatch(favoriteRemove(oldFavorite))
+  }
+  const defaultText = props.favorite.name + " " + props.favorite.number?.toString()
+  const text =
+    <div>
+      {defaultText}
+    </div>
+  const edit =
+    <div style={{display:"flex",flexDirection:"row"}}>
+      <input
+        ref={inputRef}
+        value={state == "edit" ? name : defaultText}
+        onChange={onChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+        style={{ border: state == "edit" ? "1px solid black" : "none" }}>
+      </input>
+      <div style={{flexGrow:"1"}}></div>
+      <button 
+      style={{paddingLeft:"10px",border:"none",background:"none",fontWeight:"bold"}}
+      onClick={onRemove}
+      >x</button>
+    </div>
+  return <div>
+    {selectCategory == "收藏" ? edit : text}
+  </div>
+}
+
+interface ChoicesProp { }
+const Choices: React.FC<ChoicesProp> = ({ }) => {
   const { selectCategory, globalData } = useAppSelector(
     (state) => state.content,
   );
@@ -27,7 +113,7 @@ const Choices: React.FC<ChoicesProp> = ({}) => {
         key: index,
         label: (
           <div>
-            {minorCategory.name + " " + minorCategory.number?.toString()}
+            <FavoriteLabel favorite={minorCategory} />
           </div>
         ),
         children: (

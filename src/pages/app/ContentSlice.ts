@@ -21,6 +21,11 @@ export type FavoriteType = {
   legos: Array<LegoType>;
 };
 
+export type EditFavoriteEventType = {
+  oldFavorite: FavoriteType;
+  newFavorite: FavoriteType;
+};
+
 // 为 slice state 定义一个类型
 interface ContentState {
   inputContent: string;
@@ -53,6 +58,34 @@ export const contentSlice = createSlice({
     dropAll: (state) => {
       state.inputContent = initialState.inputContent;
       state.current = initialState.current;
+    },
+    favoriteRemove: (state, action: PayloadAction<FavoriteType>) => {
+      const favorite = action.payload
+      const index = state.globalData.tables[0].minorCategories.findIndex((category)=>category.name==favorite.name)
+      if(index>=0){
+        state.globalData.tables[0].minorCategories.splice(index,1)
+        if (hasToken() && hasEmail()) {
+          createFavorites(
+            getEmail()!,
+            getToken()!,
+            state.globalData.tables[0].minorCategories
+          );
+        }
+      }
+    },
+    favoriteEdit: (state, action: PayloadAction<EditFavoriteEventType>) => {
+      const editEvent = action.payload
+      const index = state.globalData.tables[0].minorCategories.findIndex((category)=>category.name==editEvent.oldFavorite.name)
+      if(index>=0){
+        state.globalData.tables[0].minorCategories[index] = editEvent.newFavorite
+        if (hasToken() && hasEmail()) {
+          createFavorites(
+            getEmail()!,
+            getToken()!,
+            state.globalData.tables[0].minorCategories
+          );
+        }
+      }
     },
     favorite: (state) => {
       // 如果当前没有选中任何内容，直接返回
@@ -127,12 +160,14 @@ export const contentSlice = createSlice({
 export const {
   selectCategory,
   dropAll,
+  favoriteEdit,
   favorite,
   favoriteInit,
   choose,
   drop,
   edit,
   input,
+  favoriteRemove
 } = contentSlice.actions;
 
 export default contentSlice.reducer;
