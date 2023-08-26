@@ -10,7 +10,7 @@ interface CreateFavoritesRequestBody {
 export async function createFavorites(
   email: string,
   token: string,
-  favorites: FavoriteType[]
+  favorites: FavoriteType[],
 ) {
   const requestBody: CreateFavoritesRequestBody = {
     email: email,
@@ -37,7 +37,7 @@ export async function getFavorites(email: string, token: string) {
         Authorization: `Bearer ${token}`,
       },
       method: "GET",
-    }
+    },
   );
 
   return await response.json();

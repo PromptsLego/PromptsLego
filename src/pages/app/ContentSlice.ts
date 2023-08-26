@@ -60,29 +60,34 @@ export const contentSlice = createSlice({
       state.current = initialState.current;
     },
     favoriteRemove: (state, action: PayloadAction<FavoriteType>) => {
-      const favorite = action.payload
-      const index = state.globalData.tables[0].minorCategories.findIndex((category)=>category.name==favorite.name)
-      if(index>=0){
-        state.globalData.tables[0].minorCategories.splice(index,1)
+      const favorite = action.payload;
+      const index = state.globalData.tables[0].minorCategories.findIndex(
+        (category) => category.name == favorite.name,
+      );
+      if (index >= 0) {
+        state.globalData.tables[0].minorCategories.splice(index, 1);
         if (hasToken() && hasEmail()) {
           createFavorites(
             getEmail()!,
             getToken()!,
-            state.globalData.tables[0].minorCategories
+            state.globalData.tables[0].minorCategories,
           );
         }
       }
     },
     favoriteEdit: (state, action: PayloadAction<EditFavoriteEventType>) => {
-      const editEvent = action.payload
-      const index = state.globalData.tables[0].minorCategories.findIndex((category)=>category.name==editEvent.oldFavorite.name)
-      if(index>=0){
-        state.globalData.tables[0].minorCategories[index] = editEvent.newFavorite
+      const editEvent = action.payload;
+      const index = state.globalData.tables[0].minorCategories.findIndex(
+        (category) => category.name == editEvent.oldFavorite.name,
+      );
+      if (index >= 0) {
+        state.globalData.tables[0].minorCategories[index] =
+          editEvent.newFavorite;
         if (hasToken() && hasEmail()) {
           createFavorites(
             getEmail()!,
             getToken()!,
-            state.globalData.tables[0].minorCategories
+            state.globalData.tables[0].minorCategories,
           );
         }
       }
@@ -108,7 +113,7 @@ export const contentSlice = createSlice({
         createFavorites(
           getEmail()!,
           getToken()!,
-          state.globalData.tables[0].minorCategories
+          state.globalData.tables[0].minorCategories,
         );
       }
     },
@@ -119,13 +124,13 @@ export const contentSlice = createSlice({
     choose: (state, action: PayloadAction<LegoType>) => {
       // 查看目前选中的类型是否有对应的 category
       const targetCategory = state.current.find(
-        (item) => item.category === state.selectCategory
+        (item) => item.category === state.selectCategory,
       );
       if (targetCategory) {
         // 如果有，将当前选中的内容添加到该 category 中
         // 查看该 category 中是否有相同的内容
         const sameLego = targetCategory.children.find(
-          (item) => item.keyWord === action.payload.keyWord
+          (item) => item.keyWord === action.payload.keyWord,
         );
         if (sameLego) return;
         // 如果没有，将当前选中的内容添加到该 category 中
@@ -137,14 +142,14 @@ export const contentSlice = createSlice({
         category.children = category.children.filter(
           (lego) =>
             lego.keyWord !== action.payload.keyWord ||
-            lego.color !== action.payload.color
+            lego.color !== action.payload.color,
         );
       });
     },
     edit: (state, action: PayloadAction<LegoType>) => {
       state.current.map((category) => {
         const target_lego = category.children.find(
-          (lego) => lego.keyWord === action.payload.keyWord
+          (lego) => lego.keyWord === action.payload.keyWord,
         );
         if (target_lego) {
           target_lego.detail = action.payload.detail;
@@ -167,7 +172,7 @@ export const {
   drop,
   edit,
   input,
-  favoriteRemove
+  favoriteRemove,
 } = contentSlice.actions;
 
 export default contentSlice.reducer;
