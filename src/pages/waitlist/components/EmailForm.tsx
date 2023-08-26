@@ -9,6 +9,7 @@ import { GlobalContext } from "..";
 import { setEmail, setToken } from "@/utils/token";
 import CryptoJS from "crypto-js";
 import { login, register, registerWaitlist } from "@/services/auth";
+import { redirect, useNavigate } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -21,6 +22,7 @@ const EmailForm = () => {
   const { submitSuccess, setSubmitSuccess } = useContext(GlobalContext);
   const { passWaitlist, setPassWaitlist } = useContext(GlobalContext);
   const { registered, setRegistered } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
   const onFinish = async (values: FormData) => {
     try {
@@ -83,7 +85,7 @@ const EmailForm = () => {
             if (response.success) {
               setToken(response.data.token);
               setEmail(values.email);
-              window.location.reload();
+              navigate("/app");
             }
           }
         }
