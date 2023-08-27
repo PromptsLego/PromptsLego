@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import PingFingFont from "@/assets/PingFangSC.ttf";
 
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -54,6 +55,8 @@ const GlobalStyles = createGlobalStyle`
   /* For dark mode */
   --image-grayscale: 0;
   --image-opacity: 100%;
+
+  --font-family: "PingFangSC", sans-serif;
 }
 
 *,
@@ -73,8 +76,13 @@ html {
   font-size: 62.5%;
 }
 
+@font-face {
+  font-family: "PingFangSC";
+  src: url(${PingFingFont});
+}
+
 body {
-  /* font-family: "Poppins", sans-serif; */
+  font-family: var(--font-family);
   color: var(--color-grey-700);
 
   transition: color 0.3s, background-color 0.3s;

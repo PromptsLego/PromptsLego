@@ -11,6 +11,7 @@ const LegoContainer = styled.div`
   justify-content: space-between;
   height: 3rem;
   z-index: 10;
+  font-family: var(--font-family);
 `;
 
 const LegoMiddle = styled.div`
@@ -33,6 +34,7 @@ const LegoMiddleContent = styled.div`
   font-size: 1.3rem;
   box-sizing: content-box;
   height: "100%";
+  padding-right: 0.2rem;
 `;
 
 const LegoMiddleBackground = styled.div<LegoProps>`
