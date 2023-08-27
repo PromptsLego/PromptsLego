@@ -12,12 +12,49 @@ import {
   favoriteEdit,
   favoriteRemove,
   favoriteChoose,
-  dropAll
+  dropAll,
 } from "../ContentSlice";
+import UseButtonImg from "@/assets/favorite_use.svg";
+import UseButtonClickImg from "@/assets/favorite_use_click.svg";
+import RemoveButtonImg from "@/assets/favorite_remove.svg";
+import RemoveButtonClickImg from "@/assets/favorite_remove_click.svg";
+
 const ChoiceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+`;
+
+const FavoriteContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Button = styled.button`
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  width: 1.6rem;
+  height: 2rem;
+
+  &:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+`;
+
+const UseButton = styled(Button)`
+  background-image: url(${UseButtonImg});
+  &:hover {
+    background-image: url(${UseButtonClickImg});
+  }
+`;
+
+const RemoveButton = styled(Button)`
+  background-image: url(${RemoveButtonImg});
+  &:hover {
+    background-image: url(${RemoveButtonClickImg});
+  }
 `;
 
 type FavoriteLabelState = "normal" | "edit";
@@ -86,25 +123,14 @@ const FavoriteLabel = (props: { favorite: FavoriteType }) => {
       number: props.favorite.number,
       legos: props.favorite.legos,
     };
-    dispatch(dropAll())
-    dispatch(favoriteChoose(nowFavorite))
-  }
+    dispatch(dropAll());
+    dispatch(favoriteChoose(nowFavorite));
+  };
   const defaultText =
     props.favorite.name + " " + props.favorite.number?.toString();
   const text = <div>{defaultText}</div>;
   const edit = (
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-        <button
-          onClick={(event)=>{
-            event.stopPropagation()
-            onLoad()
-          }}
-          style={{ paddingLeft: "10px", paddingRight: "10px", background: "none", fontWeight: "bold" }}
-        >
-          加载
-        </button>
-      </div>
+    <FavoriteContainer>
       <input
         ref={inputRef}
         value={state == "edit" ? name : defaultText}
@@ -118,27 +144,25 @@ const FavoriteLabel = (props: { favorite: FavoriteType }) => {
         style={{ border: state == "edit" ? "1px solid black" : "none" }}
       ></input>
       <div style={{ flexGrow: "1" }}></div>
-      <button
-        style={{
-          paddingLeft: "10px",
-          border: "none",
-          background: "none",
-          fontWeight: "bold",
-        }}
+      <UseButton
         onClick={(event) => {
-          event.stopPropagation()
-          onRemove()
+          event.stopPropagation();
+          onLoad();
         }}
-      >
-        x
-      </button>
-    </div>
+      />
+      <RemoveButton
+        onClick={(event) => {
+          event.stopPropagation();
+          onRemove();
+        }}
+      />
+    </FavoriteContainer>
   );
-  return <div>{selectCategory == "收藏" ? edit : text}</div>;
+  return <>{selectCategory == "收藏" ? edit : text}</>;
 };
 
-interface ChoicesProp { }
-const Choices: React.FC<ChoicesProp> = ({ }) => {
+interface ChoicesProp {}
+const Choices: React.FC<ChoicesProp> = ({}) => {
   const { selectCategory, globalData } = useAppSelector(
     (state) => state.content
   );
