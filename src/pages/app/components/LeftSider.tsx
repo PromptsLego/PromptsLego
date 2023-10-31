@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { message } from "antd";
 import copyImage from "@/assets/copyImage.svg";
 import optimizeImage from "@/assets/optimizeImage.svg";
 import collectImage from "@/assets/collectImage.svg";
@@ -58,6 +59,7 @@ const DropButton = styled(Button)`
 `;
 
 const LeftSider: React.FC<LeftSiderProps> = ({}) => {
+  const [ messageApi, contextHolder ] = message.useMessage();
   const { current, inputContent } = useAppSelector((state) => state.content);
   const dispatch = useAppDispatch();
 
@@ -86,6 +88,7 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
+    messageApi.success('Copy Success');
   };
   const handleCopy = () => {
     copyToClipboard();
@@ -102,7 +105,7 @@ const LeftSider: React.FC<LeftSiderProps> = ({}) => {
     <Container>
       <TextArea value={output} readOnly placeholder="PromptsLego" />
       <ButtonContainer>
-        <CopyButton onClick={handleCopy}></CopyButton>
+        <CopyButton onClick={handleCopy}>{contextHolder}</CopyButton>
         <FavoriteButton onClick={handleFavorite}></FavoriteButton>
         <DropButton onClick={handleDrop}></DropButton>
       </ButtonContainer>
